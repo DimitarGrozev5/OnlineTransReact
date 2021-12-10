@@ -1,4 +1,32 @@
-.App {
+/*
+Color profile
+*/
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  --app-color-base: #1679ca;
+  --app-color-background: #daebfb;
+  --app-color-base-background: #7ebdf1;
+  --app-color-base-background: #ffffff;
+
+  --bgs-color-base: #e0a800;
+  --bgs-color-background: #fffaeb;
+
+  --old-color-base: #a800e0;
+  --old-color-background: #faebff;
+
+  --geo-color-base: #00a300;
+  --geo-color-background: #ebffeb;
+}
+
+body {
+  background-color: var(--app-color-base-background);
+}
+
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +63,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

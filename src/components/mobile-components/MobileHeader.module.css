@@ -1,0 +1,28 @@
+.header {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: var(--app-color-base);
+  color: var(--app-color-background);
+}
+
+.header h1 {
+  padding: 0.7em;
+  margin: 0px;
+}
+
+.header button {
+  padding: 0.7em;
+  padding-top: 1.2em;
+  padding-right: 1.2em;
+  border: none;
+
+  background-color: var(--app-color-base);
+  color: var(--app-color-background);
+}
