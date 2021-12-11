@@ -7,22 +7,33 @@ Color profile
   box-sizing: border-box;
 
   --app-color-base: #1679ca;
-  --app-color-background: #daebfb;
-  --app-color-base-background: #7ebdf1;
-  --app-color-base-background: #ffffff;
+  --app-color-background: #edf5fd;
+  --app-color-background-accent: #b6d6f7;
 
   --bgs-color-base: #e0a800;
   --bgs-color-background: #fffaeb;
+  --bgs-color-background-accent: #ffebad;
 
-  --old-color-base: #a800e0;
-  --old-color-background: #faebff;
+  --cs70-color-base: #a800e0;
+  --cs70-color-background: #faebff;
+  --cs70-color-background-accent: #ebadff;
+
+  
+  --evrs-color-base: #e0a800;
+  --evrs-color-background: #fffaeb;
+  --evrs-color-background-accent: #ffebad;
+
+  --balt-color-base: #a800e0;
+  --balt-color-background: #faebff;
+  --balt-color-background-accent: #ebadff;
 
   --geo-color-base: #00a300;
   --geo-color-background: #ebffeb;
+  --geo-color-background-accent: #adffad;
 }
 
 body {
-  background-color: var(--app-color-base-background);
+  background-color: var(--app-color-background);
 }
 
 

@@ -1,3 +1,13 @@
 .widget-container {
-  
+  margin-left: 1em;
+  margin-right: 1em;
+
+  border: 1px solid var(--app-color-base);
+  background-color: var(--app-color-background-accent);
+}
+
+.widget-container legend {
+  text-align: left;
+  color: var(--app-color-base);
+  background-image: linear-gradient(var(--app-color-background), var(--app-color-background-accent));
 }

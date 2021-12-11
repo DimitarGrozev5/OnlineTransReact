@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import MobilePortraitApp from "./app-layouts/MobilePortraitApp";
+import SystemsContext, {
+  buildHardCodedContextData,
+} from "./components/store/systems-context";
 
 function App() {
   const [windowSize, setWindowSize] = useState(getDeviceTypeObject());
@@ -41,10 +44,28 @@ function App() {
     };
   }, []);
 
+  const [selectedInputCS, setSelectedInputCS] = useState("bgs");
+  const [selectedInputVariantCS, setSelectedVariantInputCS] = useState(null);
+  const [selectedInputHS, setSelectedInputHS] = useState("geo");
+
   //Mobile portrait app
   let content = <MobilePortraitApp />;
 
-  return content;
+  return (
+    <SystemsContext.Provider
+      value={{
+        ...buildHardCodedContextData(),
+        selectedInputCS: selectedInputCS,
+        changeInputCS: setSelectedInputCS,
+        selectedInputVariantCS: selectedInputVariantCS,
+        changeInputVariantCS: setSelectedVariantInputCS,
+        selectedInputHS: selectedInputHS,
+        changeInputHS: setSelectedInputHS
+      }}
+    >
+      {content}
+    </SystemsContext.Provider>
+  );
 }
 
 export default App;

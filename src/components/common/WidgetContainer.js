@@ -2,8 +2,13 @@ import React from "react";
 
 import classes from "./WidgetContainer.module.css";
 
-const WidgetContainer = props => {
-  return <section className={classes["widget-container"]}>{props.children}</section>;
-}
+const WidgetContainer = (props) => {
+  return (
+    <fieldset className={classes["widget-container"]}>
+      <legend>{props.title}</legend>
+      {props.children}
+    </fieldset>
+  );
+};
 
 export default WidgetContainer;
