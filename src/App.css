@@ -6,6 +6,7 @@ Color profile
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 
+  --app-color-base: #e04609;
   --app-color-base: #1679ca;
   --app-color-background: #edf5fd;
   --app-color-background-accent: #b6d6f7;
@@ -18,7 +19,6 @@ Color profile
   --cs70-color-background: #faebff;
   --cs70-color-background-accent: #ebadff;
 
-  
   --evrs-color-base: #e0a800;
   --evrs-color-background: #fffaeb;
   --evrs-color-background-accent: #ffebad;
@@ -33,9 +33,11 @@ Color profile
 }
 
 body {
+  font-family: "Arial", "Arial", Arial, sans-serif;
+  font-style: italic;
+
   background-color: var(--app-color-background);
 }
-
 
 /* .App {
   text-align: center;

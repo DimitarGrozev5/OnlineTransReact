@@ -43,6 +43,10 @@
   border-right: none;
 }
 
+.select-box.close-down > div.eye-candy {
+  border-bottom: 2px solid var(--selected-color-base);
+}
+
 .eye-candy div {
   position: absolute;
   top: 0px;
@@ -92,11 +96,21 @@ ul.categories > li:first-child {
   padding-top: 4px;
 }
 
+.select-box.close-down > ul > li:last-child {
+  padding-bottom: 4px;
+  border-bottom: none;
+}
+
 ul.categories > li.selected-category {
   padding-top: 0px;
   padding-right: 0px;
   border-left: none;
   background-color: var(--selected-color-background);
+}
+
+.select-box.close-down > ul > li.selected-category:last-child {
+  padding-bottom: 0px;
+  border-bottom: none;
 }
 
 ul.categories > li > button {
@@ -108,6 +122,10 @@ ul.categories > li > button {
   border: none;
   border-top: 1px solid var(--selected-color-base);
   border-right: 1px solid var(--selected-color-base);
+}
+
+.select-box.close-down > ul > li:last-child > button {
+  border-bottom: 1px solid var(--selected-color-base);
 }
 
 ul.categories > li.selected-category > button {

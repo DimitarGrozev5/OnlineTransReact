@@ -60,7 +60,17 @@ export const buildHardCodedContextData = () => {
     selectedInputVariantCS: null,
     changeInputVarinatCS: () => {},
     selectedInputHS: "geo",
-    changeInputHS: () => {}
+    changeInputHS: () => {},
+
+    selectedOutputCS: "bgs",
+    changeOutputCS: () => {},
+    selectedOutputVariantCS: null,
+    changeOutputVarinatCS: () => {},
+    selectedOutputHS: "geo",
+    changeOutputHS: () => {},
+
+    inputData: null,
+    outputData: null
   };
 };
 const SystemsContext = React.createContext(buildHardCodedContextData());

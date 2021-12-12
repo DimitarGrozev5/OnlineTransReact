@@ -51,7 +51,9 @@ const PickSystem = (props) => {
 
   return (
     <div
-      className={`${classes["select-box"]} ${classes[props.selectedCategory]}`}
+      className={`${classes["select-box"]} ${classes[props.selectedCategory]} ${
+        !props.showVariants ? classes["close-down"] : ""
+      }`}
     >
       <div className={classes["eye-candy"]}>
         <div

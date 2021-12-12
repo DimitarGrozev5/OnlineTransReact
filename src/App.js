@@ -1,52 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer } from "react";
 
-import logo from "./logo.svg";
 import "./App.css";
 import MobilePortraitApp from "./app-layouts/MobilePortraitApp";
 import SystemsContext, {
   buildHardCodedContextData,
-} from "./components/store/systems-context";
+} from "./store/systems-context";
+import useWindowSize from "./hooks/use-window-size";
+import appStateReducer from "./reducers/app-state-reducer";
 
 function App() {
-  const [windowSize, setWindowSize] = useState(getDeviceTypeObject());
+  const windowSize = useWindowSize();
 
-  function getDeviceTypeObject() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const orientation =
-      window.innerHeight > window.innerWidth ? "portrait" : "landscape";
-    const minDimention = Math.min(width, height);
-    const deviceType = "mobile";
-    if (minDimention > 767) {
-      deviceType = "tablet";
-    }
-    if (width > 1024) {
-      deviceType = "desktop";
-    }
-
-    return {
-      isMobile: deviceType === "mobile",
-      isTablet: deviceType === "tablet",
-      isDesktop: deviceType === "desktop",
-      isInPortrait: orientation === "portrait",
-      isInLandscape: deviceType === "landscape",
-    };
-  }
-  function handleWindowSizeChange() {
-    return setWindowSize(getDeviceTypeObject());
-  }
-
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  const [selectedInputCS, setSelectedInputCS] = useState("bgs");
-  const [selectedInputVariantCS, setSelectedVariantInputCS] = useState(null);
-  const [selectedInputHS, setSelectedInputHS] = useState("geo");
+  const [appState, dispatch] = useReducer(appStateReducer, {
+    selectedInputCS: "bgs",
+    selectedInputVariantCS: "cad",
+    selectedInputHS: "geo",
+    selectedOutputCS: "cs70",
+    selectedOutputVariantCS: null,
+    selectedOutputHS: "balt",
+    inputData: null,
+    outputData: null,
+  });
 
   //Mobile portrait app
   let content = <MobilePortraitApp />;
@@ -55,12 +29,27 @@ function App() {
     <SystemsContext.Provider
       value={{
         ...buildHardCodedContextData(),
-        selectedInputCS: selectedInputCS,
-        changeInputCS: setSelectedInputCS,
-        selectedInputVariantCS: selectedInputVariantCS,
-        changeInputVariantCS: setSelectedVariantInputCS,
-        selectedInputHS: selectedInputHS,
-        changeInputHS: setSelectedInputHS
+        selectedInputCS: appState.selectedInputCS,
+        changeInputCS: (target) =>
+          dispatch({ type: "UPDATE_INPUT_CS", value: target }),
+        selectedInputVariantCS: appState.selectedInputVariantCS,
+        changeInputVariantCS: (target) =>
+          dispatch({ type: "UPDATE_INPUT_VARIANT_CS", value: target }),
+        selectedInputHS: appState.selectedInputHS,
+        changeInputHS: (target) =>
+          dispatch({ type: "UPDATE_INPUT_HS", value: target }),
+
+        selectedOutputCS: appState.selectedOutputCS,
+        changeOutputCS: (target) =>
+          dispatch({ type: "UPDATE_OUTPUT_CS", value: target }),
+        selectedOutputVariantCS: appState.selectedOutputVariantCS,
+        changeOutputVariantCS: (target) =>
+          dispatch({ type: "UPDATE_OUTPUT_VARIANT_CS", value: target }),
+        selectedOutputHS: appState.selectedOutputHS,
+        changeOutputHS: (target) =>
+          dispatch({ type: "UPDATE_OUTPUT_HS", value: target }),
+
+        
       }}
     >
       {content}

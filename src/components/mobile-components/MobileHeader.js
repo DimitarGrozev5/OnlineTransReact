@@ -20,7 +20,7 @@ const MobileHeader = (props) => {
       <h1>OnlineTrans</h1>
       <menu>
         <button onClick={openMenuHandler}>
-          <img src={menu} />
+          <img alt="Menu" src={menu} />
         </button>
         {drawerIsOpen && (
           <Modal onClose={closeMenuHandler}>Modal is open</Modal>
