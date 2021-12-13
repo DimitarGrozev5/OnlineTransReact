@@ -1,3 +1,9 @@
 .row {
   display: flex;
+  padding-bottom: 0.7em;
+  caret-color: black;
+}
+
+.row.wrap {
+  flex-wrap: wrap;
 }

@@ -1,3 +1,83 @@
+.field.bgs {
+  --cs-color-base: var(--bgs-color-base);
+  --cs-color-background: var(--bgs-color-background);
+  --cs-color-background-accent: var(--bgs-color-background-accent);
+}
+.field.cs70 {
+  --cs-color-base: var(--cs70-color-base);
+  --cs-color-background: var(--cs70-color-background);
+  --cs-color-background-accent: var(--cs70-color-background-accent);
+}
+.field.evrs {
+  --hs-color-base: var(--evrs-color-base);
+  --hs-color-background: var(--evrs-color-background);
+  --hs-color-background-accent: var(--evrs-color-background-accent);
+}
+.field.balt {
+  --hs-color-base: var(--balt-color-base);
+  --hs-color-background: var(--balt-color-background);
+  --hs-color-background-accent: var(--balt-color-background-accent);
+}
+.field.geo {
+  --hs-color-base: var(--geo-color-base);
+  --hs-color-background: var(--geo-color-background);
+  --hs-color-background-accent: var(--geo-color-background-accent);
+}
+
 .field {
-  border: 1px solid black;
+  text-align: center;
+  margin-right: 0.2em;
+  margin-bottom: 0.2em;
+  color: #a3a3a3;
+  caret-color: black;
+}
+
+.field.header {
+  font-weight: bold;
+}
+
+.field:nth-child(1) {
+  flex: 0 0 4.31em;
+  flex: 0 0 1.9em;
+  color: var(--app-color-base);
+}
+
+.field.field:nth-child(1).header {
+  border: 1px solid var(--app-color-base);
+}
+
+.field:nth-child(2), .field:nth-child(3) {
+  flex: 0 0 6.61em;
+  flex: 0 0 6em;
+  margin-left: auto;
+  color: var(--cs-color-base);
+}
+
+.field.field:nth-child(2).header, .field.field:nth-child(3).header {
+  border: 1px solid var(--cs-color-base);
+}
+
+.field:nth-child(4) {
+  flex: 0 0 4.31em;
+  margin-left: auto;
+  color: var(--hs-color-base);
+}
+
+.field.field:nth-child(4).header {
+  border: 1px solid var(--hs-color-base);
+}
+
+.field:nth-child(5) {
+  flex: 0 0 4.31em;
+  margin-left: auto;
+  color: #7a7a7a;
+}
+
+.field.field:nth-child(5).header {
+  border: 1px solid #7a7a7a;
+}
+
+.field::after	 {
+  content: "\200b";
+  width: 0px;
 }

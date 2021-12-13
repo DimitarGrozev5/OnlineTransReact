@@ -8,11 +8,14 @@ const TextArea = (props) => {
   const inputData = Array.from(ctx.inputData.entries());
 
   return (
-    <div className={classes["input-area"]}>
-      {inputData.map(([key, row]) => {
-        return <TextAreaRow key={key} fields={row} />;
-      })}
-    </div>
+    <React.Fragment>
+      <TextAreaRow wrap={props.wrap} header />
+      <div className={classes["input-area"]}>
+        {inputData.map(([key, row]) => {
+          return <TextAreaRow wrap={props.wrap} key={key} fields={row} />;
+        })}
+      </div>
+    </React.Fragment>
   );
 };
 

@@ -26,13 +26,12 @@
 
 .text-area {
   position: relative;
-  z-index: 5;
+  z-index: 1;
   flex-grow: 1;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 2em 1fr;
-  gap: 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3em;
 
   border-left: 2px solid var(--cs-color-base);
   border-top: 2px solid var(--cs-color-base);
@@ -69,7 +68,7 @@
   left: 0px;
   bottom: 0px;
   right: 0px;
-  z-index: 4;
+  z-index: -1;
 
   background-image: linear-gradient(
     to right,
