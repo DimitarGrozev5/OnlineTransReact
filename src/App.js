@@ -11,6 +11,26 @@ import appStateReducer from "./reducers/app-state-reducer";
 function App() {
   const windowSize = useWindowSize();
 
+  const rows = new Map();
+  rows.set("1", new Map());
+  rows.set("2", new Map());
+  rows.set("3", new Map());
+  rows.get("1").set("1", 1);
+  rows.get("1").set("2", 2);
+  rows.get("1").set("3", 3);
+  rows.get("1").set("4", 4);
+  rows.get("1").set("5", 5);
+  rows.get("2").set("1", 1);
+  rows.get("2").set("2", 2);
+  rows.get("2").set("3", 3);
+  rows.get("2").set("4", 4);
+  rows.get("2").set("5", 5);
+  rows.get("3").set("1", 1);
+  rows.get("3").set("2", 2);
+  rows.get("3").set("3", 3);
+  rows.get("3").set("4", 4);
+  rows.get("3").set("5", 5);
+
   const [appState, dispatch] = useReducer(appStateReducer, {
     selectedInputCS: "bgs",
     selectedInputVariantCS: "cad",
@@ -18,7 +38,8 @@ function App() {
     selectedOutputCS: "cs70",
     selectedOutputVariantCS: null,
     selectedOutputHS: "balt",
-    inputData: null,
+    // inputData: new Map(),
+    inputData: rows,
     outputData: null,
   });
 
@@ -49,7 +70,8 @@ function App() {
         changeOutputHS: (target) =>
           dispatch({ type: "UPDATE_OUTPUT_HS", value: target }),
 
-        
+        inputData: rows,
+        outputData: null,
       }}
     >
       {content}

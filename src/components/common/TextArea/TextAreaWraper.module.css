@@ -1,0 +1,79 @@
+.text-area.bgs {
+  --cs-color-base: var(--bgs-color-base);
+  --cs-color-background: var(--bgs-color-background);
+  --cs-color-background-accent: var(--bgs-color-background-accent);
+}
+.text-area.cs70 {
+  --cs-color-base: var(--cs70-color-base);
+  --cs-color-background: var(--cs70-color-background);
+  --cs-color-background-accent: var(--cs70-color-background-accent);
+}
+.text-area.evrs {
+  --hs-color-base: var(--evrs-color-base);
+  --hs-color-background: var(--evrs-color-background);
+  --hs-color-background-accent: var(--evrs-color-background-accent);
+}
+.text-area.balt {
+  --hs-color-base: var(--balt-color-base);
+  --hs-color-background: var(--balt-color-background);
+  --hs-color-background-accent: var(--balt-color-background-accent);
+}
+.text-area.geo {
+  --hs-color-base: var(--geo-color-base);
+  --hs-color-background: var(--geo-color-background);
+  --hs-color-background-accent: var(--geo-color-background-accent);
+}
+
+.text-area {
+  position: relative;
+  z-index: 5;
+  flex-grow: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2em 1fr;
+  gap: 0px;
+
+  border-left: 2px solid var(--cs-color-base);
+  border-top: 2px solid var(--cs-color-base);
+  border-bottom: 2px solid var(--cs-color-base);
+  background-image: linear-gradient(
+    to right,
+    var(--cs-color-background),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.text-area:focus {
+  outline: none !important;
+}
+
+.text-area::before {
+  content: " ";
+  position: absolute;
+  top: -2px;
+  left: 66%;
+  bottom: -2px;
+  right: -2px;
+  z-index: 1;
+
+  border-right: 2px solid var(--hs-color-base);
+  border-top: 2px solid var(--hs-color-base);
+  border-bottom: 2px solid var(--hs-color-base);
+}
+
+.text-area::after {
+  content: " ";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 4;
+
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    var(--hs-color-background)
+  );
+}

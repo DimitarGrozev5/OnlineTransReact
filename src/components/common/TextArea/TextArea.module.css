@@ -1,0 +1,4 @@
+.input-area {
+  display: flex;
+  flex-direction: column;
+}

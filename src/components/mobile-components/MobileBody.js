@@ -4,6 +4,7 @@ import WidgetContainer from "../common/WidgetContainer";
 import SystemsContext from "../../store/systems-context";
 
 import classes from "./MobileBody.module.css";
+import DataInput from "../common/TextArea/DataInput";
 
 const MobileBody = (props) => {
   const ctx = useContext(SystemsContext);
@@ -61,9 +62,9 @@ const MobileBody = (props) => {
       )}
       {props.activePage === "2" && (
         <React.Fragment>
-          <WidgetContainer title="Иходна Координатна Система">
+          <WidgetContainer title="Изходна Координатна Система">
             <PickSystem
-              title="Иходна КС"
+              title="Изходна КС"
               categories={ctx.coordinateSystems}
               selectedCategory={ctx.selectedOutputCS}
               selectedVariant={ctx.selectedOutputVariantCS}
@@ -74,9 +75,9 @@ const MobileBody = (props) => {
             />
           </WidgetContainer>
 
-          <WidgetContainer title="Иходна Височинна Система">
+          <WidgetContainer title="Изходна Височинна Система">
             <PickSystem
-              title="Иходна КС"
+              title="Изходна КС"
               categories={ctx.heightSystems}
               selectedCategory={ctx.selectedOutputHS}
               onChangeSystem={changeOutputHSHandler}
@@ -86,8 +87,8 @@ const MobileBody = (props) => {
       )}
       {props.activePage === "3" && (
         <React.Fragment>
-          <WidgetContainer title="Входни координати">
-            
+          <WidgetContainer title="Входни координати" expand>
+            <DataInput />
           </WidgetContainer>
         </React.Fragment>
       )}

@@ -1,9 +1,17 @@
 .widget-container {
+  display: flex;
+  flex-direction: column;
+  /* z-index: -5; */
+
   margin-left: 1em;
   margin-right: 1em;
 
   border: 1px solid var(--app-color-base);
   background-color: var(--app-color-background-accent);
+}
+
+.expand {
+  flex-grow: 1;
 }
 
 .widget-container legend {
