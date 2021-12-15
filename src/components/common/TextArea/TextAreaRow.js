@@ -14,12 +14,10 @@ const TextAreaRow = (props) => {
     );
   }
 
-  const fields = Array.from(props.fields.entries());
-
   return (
     <div className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}>
-      {fields.map(([key, field]) => {
-        return <TextAreaField header={props.header} key={key} value={field} />;
+      {props.fields.map(({id, value}) => {
+        return <TextAreaField header={props.header} key={id} value={value} />;
       })}
     </div>
   );

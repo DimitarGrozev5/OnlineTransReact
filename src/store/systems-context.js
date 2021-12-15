@@ -1,4 +1,5 @@
-import React, { useReducer } from "react";
+import React, { useMemo, useReducer } from "react";
+import { nanoid } from "nanoid";
 import appStateReducer from "../reducers/app-state-reducer";
 
 export const buildHardCodedContextData = () => {
@@ -77,25 +78,84 @@ export const buildHardCodedContextData = () => {
 const SystemsContext = React.createContext(buildHardCodedContextData());
 
 export const SystemsContextProvider = (props) => {
-  const rows = new Map();
-  rows.set("1", new Map());
-  rows.set("2", new Map());
-  rows.set("3", new Map());
-  rows.get("1").set("1", "1");
-  rows.get("1").set("2", "4819022.273");
-  rows.get("1").set("3", "653885.519");
-  rows.get("1").set("4", "324.391");
-  rows.get("1").set("5", "ograda");
-  rows.get("2").set("1", "1");
-  rows.get("2").set("2", "4819022.273");
-  rows.get("2").set("3", "653885.519");
-  rows.get("2").set("4", "324.391");
-  rows.get("2").set("5", "ograda");
-  rows.get("3").set("1", "1");
-  rows.get("3").set("2", "4819022.273");
-  rows.get("3").set("3", "653885.519");
-  rows.get("3").set("4", "324.391");
-  rows.get("3").set("5", "ograda");
+  //const rows = useMemo([]);
+  const rows = [
+    {
+      id: nanoid(),
+      fields: [
+        {
+          id: nanoid(),
+          value: "1",
+        },
+        {
+          id: nanoid(),
+          value: "4819022.273",
+        },
+        {
+          id: nanoid(),
+          value: "653885.519",
+        },
+        {
+          id: nanoid(),
+          value: "1324.391",
+        },
+        {
+          id: nanoid(),
+          value: "ograda",
+        },
+      ],
+    },
+    {
+      id: nanoid(),
+      fields: [
+        {
+          id: nanoid(),
+          value: "1",
+        },
+        {
+          id: nanoid(),
+          value: "4819022.273",
+        },
+        {
+          id: nanoid(),
+          value: "653885.519",
+        },
+        {
+          id: nanoid(),
+          value: "1324.391",
+        },
+        {
+          id: nanoid(),
+          value: "ograda",
+        },
+      ],
+    },
+    {
+      id: nanoid(),
+      fields: [
+        {
+          id: nanoid(),
+          value: "1",
+        },
+        {
+          id: nanoid(),
+          value: "4819022.273",
+        },
+        {
+          id: nanoid(),
+          value: "653885.519",
+        },
+        {
+          id: nanoid(),
+          value: "1324.391",
+        },
+        {
+          id: nanoid(),
+          value: "ograda",
+        },
+      ],
+    },
+  ];
 
   const [appState, dispatch] = useReducer(appStateReducer, {
     selectedInputCS: "bgs",

@@ -5,14 +5,13 @@ import TextAreaRow from "./TextAreaRow";
 
 const TextArea = (props) => {
   const ctx = useContext(SystemsContext);
-  const inputData = Array.from(ctx.inputData.entries());
-
+  
   return (
     <React.Fragment>
       <TextAreaRow wrap={props.wrap} header />
       <div className={classes["input-area"]}>
-        {inputData.map(([key, row]) => {
-          return <TextAreaRow wrap={props.wrap} key={key} fields={row} />;
+        {ctx.inputData.map(({id, fields}) => {
+          return <TextAreaRow wrap={props.wrap} key={id} fields={fields} />;
         })}
       </div>
     </React.Fragment>
