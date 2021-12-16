@@ -4,7 +4,11 @@ import classes from "./TextAreaRow.module.css";
 const TextAreaRow = (props) => {
   if (props.header) {
     return (
-      <div className={`${classes.row} ${classes.header} ${props.wrap ? classes.wrap : ""}`}>
+      <div
+        className={`${classes.row} ${classes.header} ${
+          props.wrap ? classes.wrap : ""
+        }`}
+      >
         <TextAreaField header={props.header} value="№" />
         <TextAreaField header={props.header} value="X" />
         <TextAreaField header={props.header} value="Y" />
@@ -15,8 +19,8 @@ const TextAreaRow = (props) => {
   }
 
   return (
-    <div className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}>
-      {props.fields.map(({id, value}) => {
+    <div className={`${classes.row} ${props.wrap ? classes.wrap : ""}`} data-type="row">
+      {props.fields.map(({ id, value }) => {
         return <TextAreaField header={props.header} key={id} value={value} />;
       })}
     </div>
