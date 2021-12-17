@@ -6,19 +6,6 @@ import TextAreaRow from "./TextAreaRow";
 const TextArea = (props) => {
   const ctx = useContext(SystemsContext);
 
-  //A Side Effect that tracks the movement of the caret
-  //const [range, setRange] = useState(null);
-  const getRange = () => {
-    const selection = window.getSelection();
-    return selection && selection.rangeCount && selection.getRangeAt(0);
-  };
-  
-  const range = getRange();
-
-  useEffect(() => {
-    console.log(range.startOffset);
-  }, [range]);
-
   return (
     <React.Fragment>
       <TextAreaRow wrap={props.wrap} header />

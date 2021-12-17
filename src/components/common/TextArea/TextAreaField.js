@@ -24,6 +24,14 @@ const TextAreaField = (props) => {
     setEditable(false);
   };
 
+  const inputHandler = (event) => {
+    console.log(event.nativeEvent.data);
+  }
+
+  const keyDownHandler = (event) => {
+    console.log("keydown")
+  }
+
   //An Effect that brings focus to the current field if it is made editable
   //Without this Side effect the user clicks on the field but the cursor doesn't appear
   useEffect(() => {
@@ -44,6 +52,8 @@ const TextAreaField = (props) => {
       onClick={clickHandler}
       onMouseDown={mouseDownHandler}
       onBlur={blurHandler}
+      onInput={inputHandler}
+      onKeyDown={keyDownHandler}
     >
       {props.value}
     </div>
