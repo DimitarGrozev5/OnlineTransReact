@@ -22,10 +22,19 @@ const TextAreaField = (props) => {
   };
   const blurHandler = (event) => {
     setEditable(false);
+    ctx.updateFieldValue(props.row, props.field, event.target.innerText);
   };
 
   const inputHandler = (event) => {
-    console.log(event.nativeEvent.data);
+    // const inputIsDivider = props.allowedDividers.reduce((result, divider) => {
+    //   return divider.regex.test(event.nativeEvent.data) || result;
+    // }, false);
+    
+    // if (inputIsDivider) {
+    //   const oldFieldValue = event.target.innerText.substring();
+    //   ctx.splitField(props.row, props.field, oldFieldValue, newFieldValue);
+    // }
+    console.log(event.nativeEvent.getTargetRanges())
   }
 
   const keyDownHandler = (event) => {
@@ -55,8 +64,7 @@ const TextAreaField = (props) => {
       onInput={inputHandler}
       onKeyDown={keyDownHandler}
     >
-      {!isInput && props.value}
-      {isInput && <input type="text" ref={inputFieldRef} defaultValue={props.value} />}
+      {props.value}
     </div>
   );
 };

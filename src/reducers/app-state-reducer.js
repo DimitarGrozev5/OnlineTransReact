@@ -38,6 +38,24 @@ const appStateReducer = (prevState, action) => {
       selectedOutputHS: action.value,
     };
   }
+  if (action.type === "UPDATE_INPUT_FIELD") {
+    let newInputData = prevState.inputData.map(row => {
+      if (row.id === action.value.row) {
+        row.fields = row.fields.map(field => {
+          if (field.id === action.value.field) {
+            field.value = action.value.value;
+          }
+          return {...field};
+        })
+      }
+      return row
+    })
+    return {
+      ...prevState,
+      inputData: newInputData
+    }
+  }
+  return prevState;
 };
 
 export default appStateReducer;

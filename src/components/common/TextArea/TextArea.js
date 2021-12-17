@@ -17,7 +17,15 @@ const TextArea = (props) => {
         }
       >
         {ctx.inputData.map(({ id, fields }) => {
-          return <TextAreaRow wrap={props.wrap} key={id} fields={fields} />;
+          return (
+            <TextAreaRow
+              wrap={props.wrap}
+              allowedDividers={props.allowedDividers}
+              key={id}
+              row={id}
+              fields={fields}
+            />
+          );
         })}
       </div>
     </React.Fragment>

@@ -19,9 +19,21 @@ const TextAreaRow = (props) => {
   }
 
   return (
-    <div className={`${classes.row} ${props.wrap ? classes.wrap : ""}`} data-type="row">
+    <div
+      className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}
+      data-type="row"
+    >
       {props.fields.map(({ id, value }) => {
-        return <TextAreaField header={props.header} key={id} value={value} />;
+        return (
+          <TextAreaField
+            allowedDividers={props.allowedDividers}
+            header={props.header}
+            key={id}
+            row={props.row}
+            field={id}
+            value={value}
+          />
+        );
       })}
     </div>
   );

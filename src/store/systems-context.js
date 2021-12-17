@@ -78,84 +78,85 @@ export const buildHardCodedContextData = () => {
 const SystemsContext = React.createContext(buildHardCodedContextData());
 
 export const SystemsContextProvider = (props) => {
-  //const rows = useMemo([]);
-  const rows = [
-    {
-      id: nanoid(),
-      fields: [
-        {
-          id: nanoid(),
-          value: "1",
-        },
-        {
-          id: nanoid(),
-          value: "4819022.273",
-        },
-        {
-          id: nanoid(),
-          value: "653885.519",
-        },
-        {
-          id: nanoid(),
-          value: "1324.391",
-        },
-        {
-          id: nanoid(),
-          value: "ograda",
-        },
-      ],
-    },
-    {
-      id: nanoid(),
-      fields: [
-        {
-          id: nanoid(),
-          value: "1",
-        },
-        {
-          id: nanoid(),
-          value: "4819022.273",
-        },
-        {
-          id: nanoid(),
-          value: "653885.519",
-        },
-        {
-          id: nanoid(),
-          value: "1324.391",
-        },
-        {
-          id: nanoid(),
-          value: "ograda",
-        },
-      ],
-    },
-    {
-      id: nanoid(),
-      fields: [
-        {
-          id: nanoid(),
-          value: "1",
-        },
-        {
-          id: nanoid(),
-          value: "4819022.273",
-        },
-        {
-          id: nanoid(),
-          value: "653885.519",
-        },
-        {
-          id: nanoid(),
-          value: "1324.391",
-        },
-        {
-          id: nanoid(),
-          value: "ograda",
-        },
-      ],
-    },
-  ];
+  const rows = useMemo(() => {
+    return [
+      {
+        id: nanoid(),
+        fields: [
+          {
+            id: nanoid(),
+            value: "1",
+          },
+          {
+            id: nanoid(),
+            value: "4819022.273",
+          },
+          {
+            id: nanoid(),
+            value: "653885.519",
+          },
+          {
+            id: nanoid(),
+            value: "1324.391",
+          },
+          {
+            id: nanoid(),
+            value: "ograda",
+          },
+        ],
+      },
+      {
+        id: nanoid(),
+        fields: [
+          {
+            id: nanoid(),
+            value: "1",
+          },
+          {
+            id: nanoid(),
+            value: "4819022.273",
+          },
+          {
+            id: nanoid(),
+            value: "653885.519",
+          },
+          {
+            id: nanoid(),
+            value: "1324.391",
+          },
+          {
+            id: nanoid(),
+            value: "ograda",
+          },
+        ],
+      },
+      {
+        id: nanoid(),
+        fields: [
+          {
+            id: nanoid(),
+            value: "1",
+          },
+          {
+            id: nanoid(),
+            value: "4819022.273",
+          },
+          {
+            id: nanoid(),
+            value: "653885.519",
+          },
+          {
+            id: nanoid(),
+            value: "1324.391",
+          },
+          {
+            id: nanoid(),
+            value: "ograda",
+          },
+        ],
+      },
+    ];
+  }, []);
 
   const [appState, dispatch] = useReducer(appStateReducer, {
     selectedInputCS: "bgs",
@@ -194,6 +195,13 @@ export const SystemsContextProvider = (props) => {
           dispatch({ type: "UPDATE_OUTPUT_HS", value: target }),
 
         inputData: rows,
+        updateFieldValue: (row, field, value) => {
+          dispatch({
+            type: "UPDATE_INPUT_FIELD",
+            value: { row, field, value },
+          });
+        },
+
         outputData: null,
       }}
     >

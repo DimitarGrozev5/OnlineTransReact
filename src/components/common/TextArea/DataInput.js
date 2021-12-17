@@ -17,21 +17,32 @@ const DataInput = (props) => {
 
   //Allowed dividers setting: The input text area uses different dividers
   const [allowedDividers, setAllowedDividers] = useState([
-    { divider: / /, caption: "Шпация", on: true },
-    { divider: /\|/, caption: "Черта |", on: true },
-    { divider: /,/, caption: "Запетая", on: true },
-    { divider: /\t/, caption: "Таб", on: true },
+    { regex: / /, caption: "Шпация", on: true },
+    { regex: /\|/, caption: "Черта |", on: true },
+    { regex: /,/, caption: "Запетая", on: true },
+    { regex: /\t/, caption: "Таб", on: true },
   ]);
+  const toggleDividerHandler = (index) => {
+    setAllowedDividers((dividers) => {
+      const divs = [...dividers];
+      divs[index] = { ...divs[index], on: !dividers[index].on };
+      return divs;
+    });
+  };
 
   return (
     <React.Fragment>
       <DataInputControls
         wrap={wrap}
-        allowedDividers={allowedDividers}
         onChangeWrap={changeWrapHandler}
+        allowedDividers={allowedDividers}
+        onToggleDivider={toggleDividerHandler}
       />
       <TextAreaWraper cs={ctx.selectedInputCS} hs={ctx.selectedInputHS}>
-        <TextArea wrap={wrap} />
+        <TextArea
+          wrap={wrap}
+          allowedDividers={allowedDividers.filter((div) => div.on)}
+        />
       </TextAreaWraper>
     </React.Fragment>
   );
