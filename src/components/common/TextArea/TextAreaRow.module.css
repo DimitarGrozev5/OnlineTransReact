@@ -2,6 +2,7 @@
   display: flex;
   padding-bottom: 0.7em;
   caret-color: black;
+  border: 1px solid gray;
 }
 
 .row.wrap {

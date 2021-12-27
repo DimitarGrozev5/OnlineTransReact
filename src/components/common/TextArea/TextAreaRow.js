@@ -23,7 +23,7 @@ const TextAreaRow = (props) => {
       className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}
       data-type="row"
     >
-      {props.fields.map(({ id, value }) => {
+      {props.fields.map(({ id, value, editable }) => {
         return (
           <TextAreaField
             allowedDividers={props.allowedDividers}
@@ -31,6 +31,7 @@ const TextAreaRow = (props) => {
             key={id}
             row={props.row}
             field={id}
+            editable={editable}
             value={value}
           />
         );

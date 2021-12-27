@@ -1,10 +1,22 @@
-import React, { useContext, useMemo, useEffect } from "react";
+import React, { useContext, useRef } from "react";
 import classes from "./TextArea.module.css";
 import SystemsContext from "../../../store/systems-context";
 import TextAreaRow from "./TextAreaRow";
+import useDocumentSelection from "../../../hooks/use-document-selection";
 
 const TextArea = (props) => {
   const ctx = useContext(SystemsContext);
+
+  //Hook that changes the ctx.inputData.range when the document selection changes
+  useDocumentSelection();
+
+  //TextArea click handler
+  const textAreaRef = useRef();
+  const clickHandler = (event) => {
+    if (event.target === textAreaRef.current) {
+      console.log("click");
+    }
+  };
 
   return (
     <React.Fragment>
@@ -12,11 +24,10 @@ const TextArea = (props) => {
       <div
         className={classes["input-area"]}
         data-type="area"
-        onClick={(event) =>
-          console.log("clicked text area: " + event.target.dataset.type)
-        }
+        ref={textAreaRef}
+        onClick={clickHandler}
       >
-        {ctx.inputData.map(({ id, fields }) => {
+        {ctx.inputData.rows.map(({ id, fields }) => {
           return (
             <TextAreaRow
               wrap={props.wrap}

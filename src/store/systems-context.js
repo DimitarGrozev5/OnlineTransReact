@@ -1,6 +1,7 @@
-import React, { useMemo, useReducer } from "react";
-import { nanoid } from "nanoid";
+import React, { /*useMemo,*/ useReducer } from "react";
+//import { nanoid } from "nanoid";
 import appStateReducer from "../reducers/app-state-reducer";
+import { getInputData, getRow, getField } from "./input-data";
 
 export const buildHardCodedContextData = () => {
   const coordinateSystemsObj = new Map();
@@ -78,85 +79,88 @@ export const buildHardCodedContextData = () => {
 const SystemsContext = React.createContext(buildHardCodedContextData());
 
 export const SystemsContextProvider = (props) => {
-  const rows = useMemo(() => {
-    return [
-      {
-        id: nanoid(),
-        fields: [
-          {
-            id: nanoid(),
-            value: "1",
-          },
-          {
-            id: nanoid(),
-            value: "4819022.273",
-          },
-          {
-            id: nanoid(),
-            value: "653885.519",
-          },
-          {
-            id: nanoid(),
-            value: "1324.391",
-          },
-          {
-            id: nanoid(),
-            value: "ograda",
-          },
-        ],
-      },
-      {
-        id: nanoid(),
-        fields: [
-          {
-            id: nanoid(),
-            value: "1",
-          },
-          {
-            id: nanoid(),
-            value: "4819022.273",
-          },
-          {
-            id: nanoid(),
-            value: "653885.519",
-          },
-          {
-            id: nanoid(),
-            value: "1324.391",
-          },
-          {
-            id: nanoid(),
-            value: "ograda",
-          },
-        ],
-      },
-      {
-        id: nanoid(),
-        fields: [
-          {
-            id: nanoid(),
-            value: "1",
-          },
-          {
-            id: nanoid(),
-            value: "4819022.273",
-          },
-          {
-            id: nanoid(),
-            value: "653885.519",
-          },
-          {
-            id: nanoid(),
-            value: "1324.391",
-          },
-          {
-            id: nanoid(),
-            value: "ograda",
-          },
-        ],
-      },
-    ];
-  }, []);
+  // const rows = useMemo(() => {
+  //   return [
+  //     {
+  //       id: nanoid(),
+  //       fields: [
+  //         {
+  //           id: nanoid(),
+  //           value: "1",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "4819022.273",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "653885.519",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "1324.391",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "ograda",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       id: nanoid(),
+  //       fields: [
+  //         {
+  //           id: nanoid(),
+  //           value: "1",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "4819022.273",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "653885.519",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "1324.391",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "ograda",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       id: nanoid(),
+  //       fields: [
+  //         {
+  //           id: nanoid(),
+  //           value: "1",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "4819022.273",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "653885.519",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "1324.391",
+  //         },
+  //         {
+  //           id: nanoid(),
+  //           value: "ograda",
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // }, []);
+  const ind = getInputData();
+  ind.rows.push(getRow());
+  ind.rows[0].fields.push(getField());
 
   const [appState, dispatch] = useReducer(appStateReducer, {
     selectedInputCS: "bgs",
@@ -166,7 +170,7 @@ export const SystemsContextProvider = (props) => {
     selectedOutputVariantCS: null,
     selectedOutputHS: "balt",
     // inputData: new Map(),
-    inputData: rows,
+    inputData: getInputData(),
     outputData: null,
   });
 
@@ -194,11 +198,11 @@ export const SystemsContextProvider = (props) => {
         changeOutputHS: (target) =>
           dispatch({ type: "UPDATE_OUTPUT_HS", value: target }),
 
-        inputData: rows,
-        updateFieldValue: (row, field, value) => {
+        inputData: ind,
+        updateRange: (rangeObject) => {
           dispatch({
-            type: "UPDATE_INPUT_FIELD",
-            value: { row, field, value },
+            type: "UPDATE_SELECTION",
+            value: rangeObject,
           });
         },
 

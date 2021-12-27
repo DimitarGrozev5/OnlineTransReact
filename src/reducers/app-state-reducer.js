@@ -38,23 +38,19 @@ const appStateReducer = (prevState, action) => {
       selectedOutputHS: action.value,
     };
   }
-  if (action.type === "UPDATE_INPUT_FIELD") {
-    let newInputData = prevState.inputData.map(row => {
-      if (row.id === action.value.row) {
-        row.fields = row.fields.map(field => {
-          if (field.id === action.value.field) {
-            field.value = action.value.value;
-          }
-          return {...field};
-        })
-      }
-      return row
-    })
+  //Input field actions
+  if (action.type === "UPDATE_SELECTION") {
     return {
       ...prevState,
-      inputData: newInputData
-    }
+      range: {
+        startContainer: action.value.startContainer,
+        startOffset: action.value.startOffset,
+        endContainer: action.value.endContainer,
+        endOffset: action.value.endOffset,
+      },
+    };
   }
+
   return prevState;
 };
 
