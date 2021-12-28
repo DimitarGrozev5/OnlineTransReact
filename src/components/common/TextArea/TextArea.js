@@ -1,11 +1,12 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import classes from "./TextArea.module.css";
-import SystemsContext from "../../../store/systems-context";
 import TextAreaRow from "./TextAreaRow";
 import useDocumentSelection from "../../../hooks/use-document-selection";
+import { useSelector } from "react-redux";
+import { useMouseEvents } from "../../../hooks/use-mouse-events";
 
 const TextArea = (props) => {
-  const ctx = useContext(SystemsContext);
+  const rows = useSelector((state) => state.inputData.rows);
 
   //Hook that changes the ctx.inputData.range when the document selection changes
   useDocumentSelection();
@@ -14,9 +15,12 @@ const TextArea = (props) => {
   const textAreaRef = useRef();
   const clickHandler = (event) => {
     if (event.target === textAreaRef.current) {
-      console.log("click");
+      //console.log("click");
     }
   };
+
+  //Initialize listening for drag events on the text area
+  useMouseEvents(textAreaRef, "inputTextArea");
 
   return (
     <React.Fragment>
@@ -27,7 +31,7 @@ const TextArea = (props) => {
         ref={textAreaRef}
         onClick={clickHandler}
       >
-        {ctx.inputData.rows.map(({ id, fields }) => {
+        {rows.map(({ id, fields }) => {
           return (
             <TextAreaRow
               wrap={props.wrap}

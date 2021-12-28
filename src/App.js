@@ -4,6 +4,8 @@ import "./App.css";
 import MobilePortraitApp from "./app-layouts/MobilePortraitApp";
 import { SystemsContextProvider } from "./store/systems-context";
 import useWindowSize from "./hooks/use-window-size";
+import { Provider } from "react-redux";
+import store from "./store/index";
 
 function App() {
   // eslint-disable-next-line
@@ -12,7 +14,11 @@ function App() {
   //Mobile portrait app
   let content = <MobilePortraitApp />;
 
-  return <SystemsContextProvider>{content}</SystemsContextProvider>;
+  return (
+    <Provider store={store}>
+      <SystemsContextProvider>{content}</SystemsContextProvider>
+    </Provider>
+  );
 }
 
 export default App;

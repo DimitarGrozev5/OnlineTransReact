@@ -22,6 +22,7 @@ const TextAreaRow = (props) => {
     <div
       className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}
       data-type="row"
+      key={props.row}
     >
       {props.fields.map(({ id, value, editable }) => {
         return (
@@ -30,7 +31,7 @@ const TextAreaRow = (props) => {
             header={props.header}
             key={id}
             row={props.row}
-            field={id}
+            fieldId={id}
             editable={editable}
             value={value}
           />

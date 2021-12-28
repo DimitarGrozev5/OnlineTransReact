@@ -1,3 +1,5 @@
+import { editField } from "../store/input-data";
+
 const appStateReducer = (prevState, action) => {
   if (action.type === "UPDATE_INPUT_CS") {
     return {
@@ -49,6 +51,13 @@ const appStateReducer = (prevState, action) => {
         endOffset: action.value.endOffset,
       },
     };
+  }
+  if (action.type === "MAKE_FIELD_EDITABLE") {
+    const inputData =  editField(prevState.inputData, action.value, "editable", true);
+    return {
+      ...prevState,
+      inputData
+    }
   }
 
   return prevState;

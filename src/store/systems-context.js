@@ -205,6 +205,12 @@ export const SystemsContextProvider = (props) => {
             value: rangeObject,
           });
         },
+        makeFieldEditable: (targetFieldId) => {
+          dispatch({
+            type: "MAKE_FIELD_EDITABLE",
+            value: targetFieldId,
+          });
+        },
 
         outputData: null,
       }}
