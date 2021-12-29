@@ -1,6 +1,6 @@
 import { getRow } from "../input-data";
 
-const addRow = (state, atId = null) => {
+const addRow = (state, beforeRowIndex = null) => {
   //Create new row object
   const newRow = getRow();
 
@@ -8,12 +8,12 @@ const addRow = (state, atId = null) => {
   let atIndex = state.rows.length - 1;
 
   //If atIndex is null, the place the row at the end of the state.rows array
-  if (!atIndex) {
-    atIndex = state.rows.length - 1;
+  if (beforeRowIndex === null) {
+    beforeRowIndex = state.rows.length;
   }
 
   //Insert the new row
-  state.rows.splice(atIndex, 0, newRow);
+  state.rows.splice(beforeRowIndex, 0, newRow);
 
   //Return the new row id
   return newRow.id;

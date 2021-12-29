@@ -3,6 +3,8 @@ import { nanoid } from "nanoid";
 import { modifyFieldProp } from "./helpers/field-prop";
 import getFieldSignature from "./helpers/get-field-signature";
 import modifyField from "./commands/modify-field";
+import deleteSelection from "./commands/delete-selection";
+import splitField from "./commands/split-field";
 
 export const getField = () => {
   return {
@@ -102,17 +104,30 @@ const inputDataSlice = createSlice({
       }
 
       //If the Selection range is not collapsed delete the marked text
-      let targetFieldId;
+      let targetFieldId = state.range.startContainer;
       if (!state.range.collapsed) {
-        
+        deleteSelection(state);
       }
-      //Temporary
-      targetFieldId = state.range.startContainer;
 
       //Modify the value of the taret field
       modifyField(state, null, targetFieldId, action.payload.key, state.range.startOffset);
     },
-    newDivider(state, action) {},
+    newDivider(state, action) {
+      //If the Selection range is undefined, exit
+      if (!state.range.startContainer || !state.range.endContainer) {
+        return state;
+      }
+
+      //If the Selection range is not collapsed delete the marked text
+      if (!state.range.collapsed) {
+        deleteSelection(state);
+      }
+
+      const targetFieldId = state.range.startContainer;
+      const targetSplitIndex = state.range.startOffset
+
+      splitField(state, targetFieldId, targetSplitIndex);
+    },
     newEnter(state, action) {},
     newBackspace(state, action) {},
     newDelete(state, action) {},
