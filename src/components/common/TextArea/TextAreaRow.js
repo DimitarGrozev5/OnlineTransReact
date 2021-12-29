@@ -34,6 +34,8 @@ const TextAreaRow = (props) => {
             fieldId={id}
             editable={editable}
             value={value}
+            //Probably useless
+            // onAddCmdToQueue={props.onAddCmdToQueue}
           />
         );
       })}

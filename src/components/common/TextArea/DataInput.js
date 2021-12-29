@@ -20,7 +20,8 @@ const DataInput = (props) => {
     { regex: / /, caption: "Шпация", on: true },
     { regex: /\|/, caption: "Черта |", on: true },
     { regex: /,/, caption: "Запетая", on: true },
-    { regex: /\t/, caption: "Таб", on: true },
+    //{ regex: /\t/, caption: "Таб", on: true },
+    { regex: /Tab/, caption: "Таб", on: true },
   ]);
   const toggleDividerHandler = (index) => {
     setAllowedDividers((dividers) => {

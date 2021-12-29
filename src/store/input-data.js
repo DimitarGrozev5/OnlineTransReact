@@ -1,5 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, original } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
+import { modifyFieldProp } from "./helpers/field-prop";
+import getFieldSignature from "./helpers/get-field-signature";
+import modifyField from "./commands/modify-field";
 
 export const getField = () => {
   return {
@@ -64,6 +67,7 @@ const inputDataSlice = createSlice({
       startOffset: undefined,
       endContainer: undefined,
       endOffset: undefined,
+      collapsed: undefined,
     },
     rows: initialEmptyField,
   },
@@ -74,16 +78,14 @@ const inputDataSlice = createSlice({
         startOffset: action.payload.startOffset,
         endContainer: action.payload.endContainer,
         endOffset: action.payload.endOffset,
+        collapsed:
+          action.payload.startContainer === action.payload.endContainer &&
+          action.payload.startOffset === action.payload.endOffset,
       };
     },
     makeFieldEditable(state, action) {
-      state.rows.forEach((row) => {
-        row.fields.forEach((field) => {
-          if (field.id === action.payload.fieldId) {
-            field.editable = true;
-          }
-        });
-      });
+      const [rowId, rowIndex, fieldIndex] = getFieldSignature(state, action.payload.fieldId);
+      modifyFieldProp(state, rowIndex, fieldIndex, "editable", true);
     },
     makeFieldsUneditable(state) {
       state.rows.forEach((row) => {
@@ -92,6 +94,28 @@ const inputDataSlice = createSlice({
         });
       });
     },
+    //Reducers for handling user input
+    newInput(state, action) {
+      //If the Selection range is undefined, exit
+      if (!state.range.startContainer || !state.range.endContainer) {
+        return state;
+      }
+
+      //If the Selection range is not collapsed delete the marked text
+      let targetFieldId;
+      if (!state.range.collapsed) {
+        
+      }
+      //Temporary
+      targetFieldId = state.range.startContainer;
+
+      //Modify the value of the taret field
+      modifyField(state, null, targetFieldId, action.payload.key, state.range.startOffset);
+    },
+    newDivider(state, action) {},
+    newEnter(state, action) {},
+    newBackspace(state, action) {},
+    newDelete(state, action) {},
   },
 });
 
