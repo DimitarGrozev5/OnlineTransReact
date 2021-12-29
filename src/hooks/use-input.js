@@ -160,7 +160,6 @@ const useManageInput = (target, dividers) => {
     onBeforeInput: (event) => {
       event.preventDefault();
       dispatch(inputDataActions.newInput({ key: event.data }));
-      console.log(event.data);
     },
   };
 

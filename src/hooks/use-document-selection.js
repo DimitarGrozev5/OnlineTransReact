@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { inputDataActions } from "../store/input-data";
 
 const useDocumentSelection = () => {
   // const ctxRange = useSelector((state) => state.inputData.range);
   const dispatch = useDispatch();
+  const range = useSelector((state) => state.inputData.range);
 
   useEffect(() => {
     const selectionChangeHandler = () => {
@@ -46,33 +47,33 @@ const useDocumentSelection = () => {
 
     ////Set window selection
     //Get active range
-    // const selection = window.getSelection();
-    // const activeRange =
-    //   selection && selection.rangeCount && selection.getRangeAt(0);
+    const selection = window.getSelection();
+    const activeRange =
+      selection && selection.rangeCount && selection.getRangeAt(0);
 
-    // const notUndefined =
-    //   ctxRange.startContainer &&
-    //   ctxRange.endContainer &&
-    //   ctxRange.startOffset !== undefined &&
-    //   ctxRange.endOffset !== undefined;
-    // if (activeRange && notUndefined) {
-    //   const startContainer = document.getElementById(ctxRange.startContainer);
-    //   const endContainer = document.getElementById(ctxRange.endContainer);
+    const notUndefined =
+      range.startContainer &&
+      range.endContainer &&
+      range.startOffset !== undefined &&
+      range.endOffset !== undefined;
+    if (activeRange && notUndefined) {
+      const startContainer = document.getElementById(range.startContainer);
+      const endContainer = document.getElementById(range.endContainer);
 
-    //   activeRange.setStart(startContainer, ctxRange.startOffset);
-    //   activeRange.setEnd(endContainer, ctxRange.endOffset);
-    //   selection.removeAllRanges();
-    //   selection.addRange(activeRange);
-    // }
+      activeRange.setStart(startContainer, range.startOffset);
+      activeRange.setEnd(endContainer, range.endOffset);
+      selection.removeAllRanges();
+      selection.addRange(activeRange);
+    }
 
     return () =>
       document.removeEventListener("selectionchange", selectionChangeHandler);
   }, [
-    dispatch//,
-    // ctxRange.startContainer,
-    // ctxRange.endContainer,
-    // ctxRange.startOffset,
-    // ctxRange.endOffset,
+    dispatch,
+    range.startContainer,
+    range.endContainer,
+    range.startOffset,
+    range.endOffset,
   ]);
 };
 

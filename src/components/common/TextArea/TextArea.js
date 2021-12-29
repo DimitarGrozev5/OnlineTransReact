@@ -4,7 +4,6 @@ import TextAreaRow from "./TextAreaRow";
 import useDocumentSelection from "../../../hooks/use-document-selection";
 import { useSelector } from "react-redux";
 import { useMouseEvents } from "../../../hooks/use-mouse-events";
-import useCommandQueue from "../../../hooks/use-command-queue";
 
 const TextArea = (props) => {
   const rows = useSelector((state) => state.inputData.rows);

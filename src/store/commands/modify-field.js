@@ -25,6 +25,10 @@ const modifyField = (
   )}${newText}${fieldValue.substring(positionIndex)}`;
 
   modifyFieldProp(state, rowIndex, fieldIndex, "value", fieldValue);
+
+  //Move carret
+  state.range.startOffset = positionIndex + 1;
+  state.range.endOffset = positionIndex + 1;
 };
 
 export default modifyField;
