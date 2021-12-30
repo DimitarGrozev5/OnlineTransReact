@@ -1,7 +1,6 @@
 import React, { /*useMemo,*/ useReducer } from "react";
 //import { nanoid } from "nanoid";
 import appStateReducer from "../reducers/app-state-reducer";
-import { getInputData, getRow, getField } from "./input-data";
 
 export const buildHardCodedContextData = () => {
   const coordinateSystemsObj = new Map();
@@ -158,9 +157,7 @@ export const SystemsContextProvider = (props) => {
   //     },
   //   ];
   // }, []);
-  const ind = getInputData();
-  ind.rows.push(getRow());
-  ind.rows[0].fields.push(getField());
+  const ind = null;
 
   const [appState, dispatch] = useReducer(appStateReducer, {
     selectedInputCS: "bgs",
@@ -170,7 +167,7 @@ export const SystemsContextProvider = (props) => {
     selectedOutputVariantCS: null,
     selectedOutputHS: "balt",
     // inputData: new Map(),
-    inputData: getInputData(),
+    inputData: null,
     outputData: null,
   });
 

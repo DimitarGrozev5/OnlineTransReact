@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useManageInput from "../../../hooks/use-input";
 import { dragHasHappened } from "../../../hooks/use-mouse-events";
@@ -20,6 +20,11 @@ const TextAreaField = (props) => {
         "editable"
       )
   );
+  // !props.header &&
+  //   console.log(
+  //     constructFieldId(props.rowIndex, props.fieldIndex) + fieldIsEditable
+  //   );
+
   const fieldValue = useSelector(
     (state) =>
       !props.header &&
@@ -37,12 +42,16 @@ const TextAreaField = (props) => {
     !dragHasHappened["inputTextArea"] &&
       dispatch(
         inputDataActions.makeFieldEditable({
-          fieldId: `${props.rowIndex}-${props.fieldIndex}`,
+          fieldId: constructFieldId(props.rowIndex, props.fieldIndex),
         })
       );
   };
   const makeUneditableHandler = (event) => {
-    dispatch(inputDataActions.makeFieldsUneditable());
+    dispatch(
+      inputDataActions.makeFieldsUneditable({
+        fieldId: constructFieldId(props.rowIndex, props.fieldIndex),
+      })
+    );
   };
 
   const eventHandlers = useManageInput(props.allowedDividers);
@@ -81,4 +90,4 @@ const TextAreaField = (props) => {
   );
 };
 
-export default TextAreaField;
+export default React.memo(TextAreaField);

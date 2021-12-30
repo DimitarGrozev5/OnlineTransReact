@@ -31,6 +31,7 @@ const TextArea = (props) => {
         ref={textAreaRef}
         onClick={clickHandler}
       >
+        text
         {rows.map(({ id }, rowIndex) => {
           return (
             <TextAreaRow

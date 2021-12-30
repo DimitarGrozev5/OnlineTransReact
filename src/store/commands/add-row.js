@@ -1,4 +1,4 @@
-import { getRow } from "../input-data";
+import getRow from "../helpers/get-row";
 
 const addRow = (state, beforeRowIndex = null) => {
   //Create new row object

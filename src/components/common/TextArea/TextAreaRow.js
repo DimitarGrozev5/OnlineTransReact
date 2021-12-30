@@ -1,3 +1,4 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import TextAreaField from "./TextAreaField";
 import classes from "./TextAreaRow.module.css";
@@ -43,4 +44,4 @@ const TextAreaRow = (props) => {
   );
 };
 
-export default TextAreaRow;
+export default React.memo(TextAreaRow);

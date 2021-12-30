@@ -6,13 +6,7 @@ import { getFieldProp, modifyFieldProp } from "../helpers/field-prop";
 ////
 ////Actions:
 //field.innerText = field.innerText.substring(0, position start) + new text + field.innerText.substring(position end, string end)
-const modifyField = (
-  state,
-  rowIndex,
-  fieldIndex,
-  newText,
-  positionIndex
-) => {
+const modifyField = (state, rowIndex, fieldIndex, newText, positionIndex) => {
   let fieldValue = getFieldProp(state, rowIndex, fieldIndex, "value");
   fieldValue = `${fieldValue.substring(
     0,
@@ -20,10 +14,6 @@ const modifyField = (
   )}${newText}${fieldValue.substring(positionIndex)}`;
 
   modifyFieldProp(state, rowIndex, fieldIndex, "value", fieldValue);
-
-  //Move carret
-  state.range.startOffset = positionIndex + 1;
-  state.range.endOffset = positionIndex + 1;
 };
 
 export default modifyField;

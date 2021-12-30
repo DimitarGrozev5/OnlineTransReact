@@ -29,7 +29,7 @@ const useDocumentSelection = () => {
       //The container is undefined if nothing is selected
       //or if the target element doesn't have a data-id prop
       //If containers are undefined selection works as normal
-      //If containers are fields in the bos, selection becomes controlled
+      //If containers are fields in the box, selection becomes controlled
       //Hacky as hell
       startContainer = endContainer && startContainer;
       endContainer = startContainer && endContainer;
@@ -43,7 +43,7 @@ const useDocumentSelection = () => {
         })
       );
     };
-    document.addEventListener("selectionchange", selectionChangeHandler);
+    document.addEventListener("mouseup", selectionChangeHandler);
 
     ////Set window selection
     //Get active range
@@ -60,16 +60,24 @@ const useDocumentSelection = () => {
       const startContainer = document.getElementById(range.startContainer);
       const endContainer = document.getElementById(range.endContainer);
 
-      // activeRange.setStart(startContainer.firstChild || startContainer, range.startOffset);
-      // activeRange.setEnd(endContainer.firstChild || endContainer, range.endOffset);
-      // selection.removeAllRanges();
-      // selection.addRange(activeRange);
+      activeRange.setStart(
+        startContainer.firstChild || startContainer,
+        range.startOffset
+      );
+      activeRange.setEnd(
+        endContainer.firstChild || endContainer,
+        range.endOffset
+      );
+
+      selection.removeAllRanges();
+      selection.addRange(activeRange);
     }
 
     return () =>
       document.removeEventListener("selectionchange", selectionChangeHandler);
   }, [
     dispatch,
+    range,
     range.startContainer,
     range.endContainer,
     range.startOffset,
