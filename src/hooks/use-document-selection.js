@@ -60,10 +60,10 @@ const useDocumentSelection = () => {
       const startContainer = document.getElementById(range.startContainer);
       const endContainer = document.getElementById(range.endContainer);
 
-      activeRange.setStart(startContainer.firstChild || startContainer, range.startOffset);
-      activeRange.setEnd(endContainer.firstChild || endContainer, range.endOffset);
-      selection.removeAllRanges();
-      selection.addRange(activeRange);
+      // activeRange.setStart(startContainer.firstChild || startContainer, range.startOffset);
+      // activeRange.setEnd(endContainer.firstChild || endContainer, range.endOffset);
+      // selection.removeAllRanges();
+      // selection.addRange(activeRange);
     }
 
     return () =>

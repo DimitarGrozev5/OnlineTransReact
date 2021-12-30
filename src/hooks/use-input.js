@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
 
-const useManageInput = (target, dividers) => {
+const useManageInput = (dividers) => {
   //useEffect(() => {
   const dispatch = useDispatch();
 

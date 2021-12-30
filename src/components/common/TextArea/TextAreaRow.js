@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import TextAreaField from "./TextAreaField";
 import classes from "./TextAreaRow.module.css";
 
 const TextAreaRow = (props) => {
+  const fields = useSelector((state) => props.header || state.inputData.rows[props.rowIndex].fields);
+
   if (props.header) {
     return (
       <div
@@ -22,20 +25,17 @@ const TextAreaRow = (props) => {
     <div
       className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}
       data-type="row"
-      key={props.row}
     >
-      {props.fields.map(({ id, value, editable }) => {
+      {fields.map(({ id }, fieldIndex) => {
         return (
           <TextAreaField
             allowedDividers={props.allowedDividers}
             header={props.header}
-            key={id}
+            key={`${props.rowIndex}-${fieldIndex}`}
             row={props.row}
+            rowIndex={props.rowIndex}
             fieldId={id}
-            editable={editable}
-            value={value}
-            //Probably useless
-            // onAddCmdToQueue={props.onAddCmdToQueue}
+            fieldIndex={fieldIndex}
           />
         );
       })}

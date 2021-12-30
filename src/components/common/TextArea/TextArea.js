@@ -22,13 +22,6 @@ const TextArea = (props) => {
   //Initialize listening for drag events on the text area
   useMouseEvents(textAreaRef, "inputTextArea");
 
-  //Probably useless--->
-  //Initialize command queue
-  // const selectorFn = (state) => {
-  //   return state.inputData.nextCmdOnQueue;
-  // };
-  // const addCmdToQueue = useCommandQueue(selectorFn);
-
   return (
     <React.Fragment>
       <TextAreaRow wrap={props.wrap} header />
@@ -38,16 +31,14 @@ const TextArea = (props) => {
         ref={textAreaRef}
         onClick={clickHandler}
       >
-        {rows.map(({ id, fields }) => {
+        {rows.map(({ id }, rowIndex) => {
           return (
             <TextAreaRow
               wrap={props.wrap}
               allowedDividers={props.allowedDividers}
-              key={id}
+              key={rowIndex}
               row={id}
-              fields={fields}
-              //Probably useless
-              //onAddCmdToQueue={addCmdToQueue}
+              rowIndex={rowIndex}
             />
           );
         })}

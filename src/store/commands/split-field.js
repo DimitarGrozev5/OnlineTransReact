@@ -12,10 +12,7 @@ import addField from "./add-field";
 //{Add field}{field.parentNode, field.nextSibling}
 //{Modify field}(new field, copied text, 0, 0)
 //Return new field
-const splitField = (state, fieldId, splitIndex, fieldSignature = null) => {
-  const [rowId, rowIndex, fieldIndex] =
-    fieldSignature || getFieldSignature(state, fieldId);
-
+const splitField = (state, rowIndex, fieldIndex, splitIndex) => {
   const fieldValue = getFieldProp(state, rowIndex, fieldIndex, "value");
   const newFieldValue = fieldValue.substring(splitIndex);
 
@@ -29,7 +26,7 @@ const splitField = (state, fieldId, splitIndex, fieldSignature = null) => {
 
   addField(state, rowIndex, fieldIndex + 1);
   modifyFieldProp(state, rowIndex, fieldIndex + 1, "value", newFieldValue);
-  return [rowId, rowIndex, fieldIndex + 1];
+  return [rowIndex, fieldIndex + 1];
 };
 
 export default splitField;
