@@ -45,34 +45,6 @@ const useDocumentSelection = () => {
     };
     document.addEventListener("mouseup", selectionChangeHandler);
 
-    ////Set window selection
-    //Get active range
-    const selection = window.getSelection();
-    const activeRange =
-      selection && selection.rangeCount && selection.getRangeAt(0);
-
-    const notUndefined =
-      range.startContainer &&
-      range.endContainer &&
-      range.startOffset !== undefined &&
-      range.endOffset !== undefined;
-    if (activeRange && notUndefined) {
-      const startContainer = document.getElementById(range.startContainer);
-      const endContainer = document.getElementById(range.endContainer);
-
-      activeRange.setStart(
-        startContainer.firstChild || startContainer,
-        range.startOffset
-      );
-      activeRange.setEnd(
-        endContainer.firstChild || endContainer,
-        range.endOffset
-      );
-
-      selection.removeAllRanges();
-      selection.addRange(activeRange);
-    }
-
     return () =>
       document.removeEventListener("selectionchange", selectionChangeHandler);
   }, [
@@ -81,7 +53,7 @@ const useDocumentSelection = () => {
     range.startContainer,
     range.endContainer,
     range.startOffset,
-    range.endOffset,
+    range.endOffset
   ]);
 };
 

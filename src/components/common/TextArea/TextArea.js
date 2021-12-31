@@ -4,12 +4,14 @@ import TextAreaRow from "./TextAreaRow";
 import useDocumentSelection from "../../../hooks/use-document-selection";
 import { useSelector } from "react-redux";
 import { useMouseEvents } from "../../../hooks/use-mouse-events";
+import useApplySelection from "../../../hooks/use-apply-selection";
 
 const TextArea = (props) => {
   const rows = useSelector((state) => state.inputData.rows);
 
   //Hook that changes the ctx.inputData.range when the document selection changes
   useDocumentSelection();
+  useApplySelection();
 
   //TextArea click handler
   const textAreaRef = useRef();
