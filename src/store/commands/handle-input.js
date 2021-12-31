@@ -1,7 +1,7 @@
 import { deconstructFieldId } from "../helpers/deconstruct-id";
 import modifyField from "./modify-field";
 
-const handleInput = (state, action) => {
+const handleInput = action => state => {
   let targetFieldId = deconstructFieldId(state.range.startContainer);
 
   //If the Selection range is not collapsed delete the marked text

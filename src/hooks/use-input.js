@@ -132,12 +132,12 @@ const useManageInput = (dividers) => {
       }
       //Undo
       if (event.ctrlKey && /^(z|Z|з|З)$/.test(event.key)) {
-        console.log("Undo");
+        dispatch(inputDataActions.undo());
         event.preventDefault();
       }
       //Redo
       if (event.ctrlKey && /^(y|Y|ъ|Ъ)$/.test(event.key)) {
-        console.log("Redo");
+        dispatch(inputDataActions.redo());
         event.preventDefault();
       }
       //Save

@@ -1,6 +1,6 @@
 import { createSlice, original } from "@reduxjs/toolkit";
 import { modifyFieldProp } from "./helpers/field-prop";
-import {  deconstructFieldId } from "./helpers/deconstruct-id";
+import { deconstructFieldId } from "./helpers/deconstruct-id";
 import handleEnter from "./commands/handle-enter";
 import handleDivider from "./commands/handle-divider";
 import handleBackspace from "./commands/handle-backspace";
@@ -8,6 +8,15 @@ import handleDelete from "./commands/handle-delete";
 import handleInput from "./commands/handle-input";
 import getField from "./helpers/get-field";
 import getRow from "./helpers/get-row";
+import produce, {
+  produceWithPatches,
+} from "@reduxjs/toolkit/node_modules/immer";
+import { enablePatches } from "@reduxjs/toolkit/node_modules/immer";
+import applyUndoableCommand, {
+  redoCommand,
+  undoCommand,
+} from "./history-manager/history-manager";
+enablePatches();
 
 //Get a row with an empty field
 const getASingleEmptyField = () => {
@@ -29,6 +38,10 @@ const inputDataSlice = createSlice({
       collapsed: undefined,
     },
     rows: initialEmptyField,
+    undo: {
+      undoStack: [],
+      undoStackPointer: 0,
+    },
   },
   reducers: {
     updateRange(state, action) {
@@ -52,42 +65,53 @@ const inputDataSlice = createSlice({
       modifyFieldProp(state, rowIndex, fieldIndex, "editable", false);
     },
     //////////////////////////////////////////////////////////////////////////////////////////////////////////// Undo/Redo
-
+    undo(state) {
+      return undoCommand(state);
+    },
+    redo(state) {
+      return redoCommand(state);
+    },
     //////////////////////////////////////////////////////////////////////////////////////////////////////////// Reducers for handling user input
     newInput(state, action) {
       //If the Selection range is undefined, exit
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      handleInput(state, action);
+      //handleInput(state, action);
+      const handleInputWithAction = handleInput(action);
+      return applyUndoableCommand(state, handleInputWithAction);
     },
     newDivider(state) {
       //If the Selection range is undefined, exit
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      handleDivider(state);
+      // handleDivider(state);
+      return applyUndoableCommand(state, handleDivider);
     },
     newEnter(state) {
       //If the Selection range is undefined, exit
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      handleEnter(state);
+      // handleEnter(state);
+      return applyUndoableCommand(state, handleEnter);
     },
     newBackspace(state) {
       //If the Selection range is undefined, exit
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      handleBackspace(state);
+      // handleBackspace(state);
+      return applyUndoableCommand(state, handleBackspace);
     },
     newDelete(state) {
       //If the Selection range is undefined, exit
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      handleDelete(state);
+      // handleDelete(state);
+      return applyUndoableCommand(state, handleDelete);
     },
   },
 });
