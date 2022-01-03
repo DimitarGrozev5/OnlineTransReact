@@ -31,7 +31,8 @@ const useApplySelection = () => {
       const fieldIsEditable = document.getElementById(
         range.startContainer
       ).contentEditable;
-      if (range.collapsed && !fieldIsEditable) {
+
+      if (range.collapsed && fieldIsEditable !== "true") {
         dispatch(
           inputDataActions.makeFieldEditable({
             fieldId: range.startContainer,
@@ -51,6 +52,7 @@ const useApplySelection = () => {
         endContainer.firstChild || endContainer,
         range.endOffset
       );
+      //console.log(activeRange)
       selection.removeAllRanges();
       selection.addRange(activeRange);
     }

@@ -26,14 +26,12 @@ const TextArea = (props) => {
 
   return (
     <React.Fragment>
-      <TextAreaRow wrap={props.wrap} header />
       <div
         className={classes["input-area"]}
         data-type="area"
         ref={textAreaRef}
         onClick={clickHandler}
       >
-        text
         {rows.map(({ id }, rowIndex) => {
           return (
             <TextAreaRow

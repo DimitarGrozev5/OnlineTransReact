@@ -5,6 +5,7 @@ import SystemsContext from "../../../store/systems-context";
 import DataInputControls from "./DataInputControls";
 import TextArea from "./TextArea";
 import TextAreaWraper from "./TextAreaWraper";
+import TextAreaRow from "./TextAreaRow";
 
 const DataInput = (props) => {
   const ctx = useContext(SystemsContext);
@@ -40,6 +41,7 @@ const DataInput = (props) => {
         onToggleDivider={toggleDividerHandler}
       />
       <TextAreaWraper cs={ctx.selectedInputCS} hs={ctx.selectedInputHS}>
+        <TextAreaRow wrap={props.wrap} header />
         <TextArea
           wrap={wrap}
           allowedDividers={allowedDividers.filter((div) => div.on)}

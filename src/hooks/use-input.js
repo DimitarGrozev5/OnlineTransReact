@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
+import moveCaretLeft from "../store/thunks/move-caret-left";
 import { rangeControllerThunk } from "../store/thunks/range-controller";
 
 const useManageInput = (dividers) => {
@@ -69,7 +70,7 @@ const useManageInput = (dividers) => {
 
       //ArrowLeft
       if (event.key === "ArrowLeft") {
-        dispatch(rangeControllerThunk(event.target.id))
+        dispatch(moveCaretLeft(event.target.id));
         event.preventDefault();
       }
       //ArrowRight

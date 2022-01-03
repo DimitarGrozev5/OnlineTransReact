@@ -1,3 +1,4 @@
+import { current } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { modifyFieldProp } from "./helpers/field-prop";
 import { deconstructFieldId } from "./helpers/deconstruct-id";
@@ -14,6 +15,7 @@ import applyUndoableCommand, {
   undoCommand,
 } from "./history-manager/history-manager";
 enablePatches();
+
 
 //Get a row with an empty field
 const getASingleEmptyField = () => {
@@ -50,6 +52,7 @@ const inputDataSlice = createSlice({
           action.payload.startContainer === action.payload.endContainer &&
           action.payload.startOffset === action.payload.endOffset,
       };
+      // console.log(current(state))
     },
     makeFieldEditable(state, action) {
       //const [rowId, rowIndex, fieldIndex] = getFieldSignature(state, action.payload.fieldId);
