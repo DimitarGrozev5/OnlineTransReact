@@ -1,6 +1,5 @@
 import { getFieldProp } from "../helpers/field-prop";
 import modifyField from "./modify-field";
-import getFieldSignature from "../helpers/get-field-signature";
 
 //////Merge fields
 ////Inputs: field1, field2

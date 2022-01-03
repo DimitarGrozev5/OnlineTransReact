@@ -1,6 +1,6 @@
-import { nanoid } from "nanoid";
 import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
+import { rangeControllerThunk } from "../store/thunks/range-controller";
 
 const useManageInput = (dividers) => {
   //useEffect(() => {
@@ -69,7 +69,7 @@ const useManageInput = (dividers) => {
 
       //ArrowLeft
       if (event.key === "ArrowLeft") {
-        console.log("ArrowLeft");
+        dispatch(rangeControllerThunk(event.target.id))
         event.preventDefault();
       }
       //ArrowRight

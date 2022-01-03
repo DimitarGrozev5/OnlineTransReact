@@ -1,5 +1,4 @@
 import { getFieldProp, modifyFieldProp } from "../helpers/field-prop";
-import getFieldSignature from "../helpers/get-field-signature";
 import addField from "./add-field";
 
 //////Split field

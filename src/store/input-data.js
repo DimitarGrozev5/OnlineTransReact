@@ -1,4 +1,4 @@
-import { createSlice, original } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { modifyFieldProp } from "./helpers/field-prop";
 import { deconstructFieldId } from "./helpers/deconstruct-id";
 import handleEnter from "./commands/handle-enter";
@@ -8,9 +8,6 @@ import handleDelete from "./commands/handle-delete";
 import handleInput from "./commands/handle-input";
 import getField from "./helpers/get-field";
 import getRow from "./helpers/get-row";
-import produce, {
-  produceWithPatches,
-} from "@reduxjs/toolkit/node_modules/immer";
 import { enablePatches } from "@reduxjs/toolkit/node_modules/immer";
 import applyUndoableCommand, {
   redoCommand,
@@ -31,6 +28,7 @@ const inputDataSlice = createSlice({
   name: "inputData",
   initialState: {
     range: {
+      anchorNode: undefined,
       startContainer: undefined,
       startOffset: undefined,
       endContainer: undefined,
@@ -46,10 +44,8 @@ const inputDataSlice = createSlice({
   reducers: {
     updateRange(state, action) {
       state.range = {
-        startContainer: action.payload.startContainer,
-        startOffset: action.payload.startOffset,
-        endContainer: action.payload.endContainer,
-        endOffset: action.payload.endOffset,
+        ...state.range,
+        ...action.payload,
         collapsed:
           action.payload.startContainer === action.payload.endContainer &&
           action.payload.startOffset === action.payload.endOffset,
@@ -63,6 +59,14 @@ const inputDataSlice = createSlice({
     makeFieldsUneditable(state, action) {
       const [rowIndex, fieldIndex] = deconstructFieldId(action.payload.fieldId);
       modifyFieldProp(state, rowIndex, fieldIndex, "editable", false);
+      // state.range = {
+      //   anchorNode: undefined,
+      //   startContainer: undefined,
+      //   startOffset: undefined,
+      //   endContainer: undefined,
+      //   endOffset: undefined,
+      //   collapsed: undefined,
+      // };
     },
     //////////////////////////////////////////////////////////////////////////////////////////////////////////// Undo/Redo
     undo(state) {

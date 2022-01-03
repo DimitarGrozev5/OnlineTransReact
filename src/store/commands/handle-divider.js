@@ -1,4 +1,4 @@
-import deleteSelection from "./delete-selection";
+//import deleteSelection from "./delete-selection";
 import { deconstructFieldId } from "../helpers/deconstruct-id";
 import splitField from "./split-field";
 import placeCaret from "./place-caret";

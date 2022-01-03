@@ -6,7 +6,7 @@ import { inputDataActions } from "../store/input-data";
 
 const useApplySelection = () => {
   const range = useSelector((state) => state.inputData.range);
-  const inputData = useSelector((state) => state.inputData);
+  //const inputData = useSelector((state) => state.inputData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,11 +23,14 @@ const useApplySelection = () => {
       range.endOffset !== undefined;
     if (activeRange && notUndefined) {
       //If the range is collapsed, the coresponding field should be made editable
-      const fieldIsEditable = getFieldProp(
-        inputData,
-        ...deconstructFieldId(range.startContainer),
-        "editable"
-      );
+      // const fieldIsEditable = getFieldProp(
+      //   inputData,
+      //   ...deconstructFieldId(range.startContainer),
+      //   "editable"
+      // );
+      const fieldIsEditable = document.getElementById(
+        range.startContainer
+      ).contentEditable;
       if (range.collapsed && !fieldIsEditable) {
         dispatch(
           inputDataActions.makeFieldEditable({
@@ -52,12 +55,13 @@ const useApplySelection = () => {
       selection.addRange(activeRange);
     }
   }, [
+    dispatch,
     range,
     range.startContainer,
     range.endContainer,
     range.startOffset,
     range.endOffset,
-    inputData
+    //inputData,
   ]);
 };
 

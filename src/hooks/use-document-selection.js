@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
 
 const useDocumentSelection = () => {
   // const ctxRange = useSelector((state) => state.inputData.range);
   const dispatch = useDispatch();
-  const range = useSelector((state) => state.inputData.range);
 
   useEffect(() => {
     const selectionChangeHandler = () => {
@@ -25,17 +24,25 @@ const useDocumentSelection = () => {
         (endContainer.nodeName === "#text"
           ? endContainer.parentElement.dataset.id
           : endContainer.dataset.id);
+      let anchorNode =
+        selection.anchorNode &&
+        (selection.anchorNode.nodeName === "#text"
+          ? selection.anchorNode.parentElement.dataset.id
+          : selection.anchorNode.dataset.id);
+
       //If one of the containers is undefined, both are stored as undefined
       //The container is undefined if nothing is selected
       //or if the target element doesn't have a data-id prop
       //If containers are undefined selection works as normal
       //If containers are fields in the box, selection becomes controlled
       //Hacky as hell
+      anchorNode = startContainer && anchorNode;
       startContainer = endContainer && startContainer;
       endContainer = startContainer && endContainer;
 
       dispatch(
         inputDataActions.updateRange({
+          anchorNode: anchorNode,
           startContainer: startContainer,
           endContainer: endContainer,
           startOffset,
@@ -45,16 +52,10 @@ const useDocumentSelection = () => {
     };
     document.addEventListener("mouseup", selectionChangeHandler);
 
-    return () =>
+    return () => {
       document.removeEventListener("selectionchange", selectionChangeHandler);
-  }, [
-    dispatch,
-    range,
-    range.startContainer,
-    range.endContainer,
-    range.startOffset,
-    range.endOffset
-  ]);
+    };
+  }, [dispatch]);
 };
 
 export default useDocumentSelection;
