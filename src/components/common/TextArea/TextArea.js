@@ -31,6 +31,8 @@ const TextArea = (props) => {
         data-type="area"
         ref={textAreaRef}
         onClick={clickHandler}
+        contentEditable={true}
+        suppressContentEditableWarning={true}
       >
         {rows.map(({ id }, rowIndex) => {
           return (
