@@ -11,7 +11,7 @@ const TextArea = (props) => {
 
   //Hook that changes the ctx.inputData.range when the document selection changes
   useDocumentSelection();
-  useApplySelection();
+  //useApplySelection();
 
   //TextArea click handler
   const textAreaRef = useRef();
