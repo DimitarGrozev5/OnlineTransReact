@@ -5,16 +5,19 @@ import useDocumentSelection from "../../../hooks/use-document-selection";
 import { useSelector } from "react-redux";
 import { useMouseEvents } from "../../../hooks/use-mouse-events";
 import useApplySelection from "../../../hooks/use-apply-selection";
+import useManageInput from "../../../hooks/use-input";
 
 const TextArea = (props) => {
+  console.log("rebuild")
   const rows = useSelector((state) => state.inputData.rows);
-
-  //Hook that changes the ctx.inputData.range when the document selection changes
-  //useDocumentSelection();
-  //useApplySelection();
-
-  //TextArea click handler
   const textAreaRef = useRef();
+  
+  //Hook that changes the ctx.inputData.range when the document selection changes
+  useDocumentSelection(textAreaRef, "inputTextArea");
+  useApplySelection();
+  const eventHandlers = useManageInput(props.allowedDividers);
+  
+  //TextArea click handler
   const clickHandler = (event) => {
     if (event.target === textAreaRef.current) {
       //console.log("click");
@@ -33,6 +36,7 @@ const TextArea = (props) => {
         onClick={clickHandler}
         contentEditable={true}
         suppressContentEditableWarning={true}
+        {...eventHandlers}
       >
         {rows.map(({ id }, rowIndex) => {
           return (

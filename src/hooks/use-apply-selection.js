@@ -1,20 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deconstructFieldId } from "../store/helpers/deconstruct-id";
-import { getFieldProp } from "../store/helpers/field-prop";
-import { inputDataActions } from "../store/input-data";
 
 const useApplySelection = () => {
   const range = useSelector((state) => state.inputData.range);
-  //const inputData = useSelector((state) => state.inputData);
   const dispatch = useDispatch();
 
   useEffect(() => {
     ////Set window selection
     //Get active range
     const selection = window.getSelection();
-    const activeRange =
-      selection && selection.rangeCount && selection.getRangeAt(0);
+    const activeRange = document.createRange();
 
     const notUndefined =
       range.startContainer &&
@@ -22,25 +17,6 @@ const useApplySelection = () => {
       range.startOffset !== undefined &&
       range.endOffset !== undefined;
     if (activeRange && notUndefined) {
-      //If the range is collapsed, the coresponding field should be made editable
-      // const fieldIsEditable = getFieldProp(
-      //   inputData,
-      //   ...deconstructFieldId(range.startContainer),
-      //   "editable"
-      // );
-      const fieldIsEditable = document.getElementById(
-        range.startContainer
-      ).contentEditable;
-
-      if (range.collapsed && fieldIsEditable !== "true") {
-        dispatch(
-          inputDataActions.makeFieldEditable({
-            fieldId: range.startContainer,
-          })
-        );
-        return;
-      }
-
       const startContainer = document.getElementById(range.startContainer);
       const endContainer = document.getElementById(range.endContainer);
 
@@ -52,7 +28,6 @@ const useApplySelection = () => {
         endContainer.firstChild || endContainer,
         range.endOffset
       );
-      //console.log(activeRange)
       selection.removeAllRanges();
       selection.addRange(activeRange);
     }
@@ -62,8 +37,7 @@ const useApplySelection = () => {
     range.startContainer,
     range.endContainer,
     range.startOffset,
-    range.endOffset,
-    //inputData,
+    range.endOffset
   ]);
 };
 
