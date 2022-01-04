@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { constructFieldId } from "../../../store/helpers/deconstruct-id";
 import TextAreaField from "./TextAreaField";
 import classes from "./TextAreaRow.module.css";
 
@@ -32,7 +33,7 @@ const TextAreaRow = (props) => {
           <TextAreaField
             allowedDividers={props.allowedDividers}
             header={props.header}
-            key={`${props.rowIndex}-${fieldIndex}`}
+            key={constructFieldId(props.rowIndex, fieldIndex)}
             row={props.row}
             rowIndex={props.rowIndex}
             fieldId={id}

@@ -10,7 +10,7 @@ const TextArea = (props) => {
   const rows = useSelector((state) => state.inputData.rows);
 
   //Hook that changes the ctx.inputData.range when the document selection changes
-  useDocumentSelection();
+  //useDocumentSelection();
   //useApplySelection();
 
   //TextArea click handler
