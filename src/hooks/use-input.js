@@ -9,6 +9,7 @@ const useManageInput = (dividers) => {
   //Events are sequenced by the order of their triggering
   const events = {
     onKeyDown: (event) => {
+      //Allow F1 - F12 keys
       if (/^F([1-9]|10|11|12)$/.test(event.key)) {
         return;
       }

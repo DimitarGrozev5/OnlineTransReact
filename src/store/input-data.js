@@ -40,7 +40,7 @@ const inputDataSlice = createSlice({
     rows: initialEmptyField,
     undo: {
       undoStack: [],
-      undoStackPointer: 0,
+      undoStackPointer: -1,
     },
   },
   reducers: {

@@ -9,6 +9,7 @@ const handleBackspace = (state) => {
     state.range.startContainer
   );
   let newCaretPosition = state.range.startOffset;
+
   //If the Selection range is not collapsed delete the marked text
   if (!state.range.collapsed) {
     //deleteSelection(state);
@@ -16,8 +17,12 @@ const handleBackspace = (state) => {
     const [rowIndex, fieldIndex] = [targetRowIndex, targetFieldIndex];
     const caretPosition = newCaretPosition;
 
+    // If the caret position is in the begining of the field
     if (caretPosition === 0) {
+      // And in the begining of the row
       if (fieldIndex === 0) {
+        // And not in the first row
+        // Then move all of the fields to the prevous row and delete the current row
         if (rowIndex !== 0) {
           targetRowIndex--;
           targetFieldIndex = state.rows[rowIndex - 1].fields.length;
@@ -26,8 +31,13 @@ const handleBackspace = (state) => {
           state.rows[rowIndex - 1].fields.push(
             ...state.rows[rowIndex].fields.splice(0)
           );
+          state.rows.splice(rowIndex, 1);
         }
-      } else {
+      }
+      // If the caret position is in the begining of the field
+      // But not in the begining of the row
+      // Then murge the two fields
+      else {
         newCaretPosition = getFieldProp(
           state,
           rowIndex,
@@ -37,7 +47,9 @@ const handleBackspace = (state) => {
         targetFieldIndex--;
         mergeFields(state, rowIndex, fieldIndex - 1);
       }
-    } else {
+    }
+    // If the caret position is not in the begining of the field
+    else {
       const fieldValue = getFieldProp(state, rowIndex, fieldIndex, "value");
       const newFieldValue =
         fieldValue.substring(0, caretPosition - 1) +
