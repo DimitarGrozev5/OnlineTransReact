@@ -52,6 +52,7 @@ const inputDataSlice = createSlice({
           action.payload.startContainer === action.payload.endContainer &&
           action.payload.startOffset === action.payload.endOffset,
       };
+      // console.log(action.payload)
       // console.log(current(state))
     },
     makeFieldEditable(state, action) {

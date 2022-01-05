@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
-import moveCaretLeft from "../store/thunks/move-caret-left";
+import moveCaretDownThunk from "../store/thunks/move-caret-down";
+import moveCaretLeftThunk from "../store/thunks/move-caret-left";
+import moveCaretRightThunk from "../store/thunks/move-caret-right";
 
 const useManageInput = (dividers) => {
   //useEffect(() => {
@@ -70,12 +72,12 @@ const useManageInput = (dividers) => {
 
       //ArrowLeft
       if (event.key === "ArrowLeft") {
-        dispatch(moveCaretLeft(event.target.id));
+        dispatch(moveCaretLeftThunk());
         event.preventDefault();
       }
       //ArrowRight
       if (event.key === "ArrowRight") {
-        console.log("ArrowRight");
+        dispatch(moveCaretRightThunk());
         event.preventDefault();
       }
       //ArrowUp
@@ -86,6 +88,7 @@ const useManageInput = (dividers) => {
       //ArrowDown
       if (event.key === "ArrowDown") {
         console.log("ArrowDown");
+        dispatch(moveCaretDownThunk());
         event.preventDefault();
       }
 

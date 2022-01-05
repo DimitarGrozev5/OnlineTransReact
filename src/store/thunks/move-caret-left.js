@@ -5,9 +5,9 @@ import {
 import { getFieldProp } from "../helpers/field-prop";
 import { inputDataActions } from "../input-data";
 
-const moveCaretLeft = (fieldId) => (dispatch, getState) => {
-  const [rowIndex, fieldIndex] = deconstructFieldId(fieldId);
+const moveCaretLeftThunk = () => (dispatch, getState) => {
   const state = getState().inputData;
+  const [rowIndex, fieldIndex] = deconstructFieldId(state.range.startContainer);
 
   //If the range is not collapsed, the collapse to start and exit
   if (!state.range.collapsed) {
@@ -40,7 +40,7 @@ const moveCaretLeft = (fieldId) => (dispatch, getState) => {
           rowIndex,
           fieldIndex - 1,
           "value"
-        );
+        ).length;
         dispatch(
           inputDataActions.updateRange({
             anchorNode: constructFieldId(rowIndex, fieldIndex - 1),
@@ -62,7 +62,7 @@ const moveCaretLeft = (fieldId) => (dispatch, getState) => {
             rowIndex - 1,
             prevFieldIndex,
             "value"
-          );
+          ).length;
           dispatch(
             inputDataActions.updateRange({
               anchorNode: constructFieldId(rowIndex - 1, prevFieldIndex),
@@ -80,4 +80,4 @@ const moveCaretLeft = (fieldId) => (dispatch, getState) => {
   }
 };
 
-export default moveCaretLeft;
+export default moveCaretLeftThunk;

@@ -8,7 +8,6 @@ import useApplySelection from "../../../hooks/use-apply-selection";
 import useManageInput from "../../../hooks/use-input";
 
 const TextArea = (props) => {
-  console.log("rebuild")
   const rows = useSelector((state) => state.inputData.rows);
   const textAreaRef = useRef();
   
