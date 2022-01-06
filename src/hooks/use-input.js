@@ -4,8 +4,10 @@ import moveCaretDownThunk from "../store/thunks/move-caret-down";
 import moveCaretLeftThunk from "../store/thunks/move-caret-left";
 import moveCaretRightThunk from "../store/thunks/move-caret-right";
 import moveCaretUpThunk from "../store/thunks/move-caret-up";
+import shiftSelectDownThunk from "../store/thunks/shift-select-down";
 import shiftSelectLeftThunk from "../store/thunks/shift-select-left";
 import shiftSelectRightThunk from "../store/thunks/shift-select-right";
+import shiftSelectUpThunk from "../store/thunks/shift-select-up";
 
 const useManageInput = (dividers) => {
   //useEffect(() => {
@@ -24,25 +26,21 @@ const useManageInput = (dividers) => {
         return divider.regex.test(event.key) || result;
       }, false);
       if (inputIsDivider) {
-        console.log("Divider");
         dispatch(inputDataActions.newDivider());
         event.preventDefault();
       }
       //Enter
       if (event.key === "Enter") {
-        console.log("Enter");
         dispatch(inputDataActions.newEnter());
         event.preventDefault();
       }
       //Backspace
       if (event.key === "Backspace") {
-        console.log("Backspace");
         dispatch(inputDataActions.newBackspace());
         event.preventDefault();
       }
       //Delete
       if (event.key === "Delete") {
-        console.log("Delete");
         dispatch(inputDataActions.newDelete());
         event.preventDefault();
       }
@@ -56,20 +54,19 @@ const useManageInput = (dividers) => {
       }
       //Shift + ArrowRight
       if (event.shiftKey && event.key === "ArrowRight") {
-        console.log("Shift + ArrowRight");
         dispatch(shiftSelectRightThunk());
         event.preventDefault();
         return;
       }
       //Shift + ArrowUp
       if (event.shiftKey && event.key === "ArrowUp") {
-        console.log("Shift + ArrowUp");
+        dispatch(shiftSelectUpThunk());
         event.preventDefault();
         return;
       }
       //Shift + ArrowDown
       if (event.shiftKey && event.key === "ArrowDown") {
-        console.log("Shift + ArrowDown");
+        dispatch(shiftSelectDownThunk());
         event.preventDefault();
         return;
       }

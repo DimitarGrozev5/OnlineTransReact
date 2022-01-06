@@ -1,12 +1,13 @@
 import { deconstructFieldId } from "../helpers/deconstruct-id";
 import modifyField from "./modify-field";
+import deleteSelection from "./delete-selection";
 
-const handleInput = action => state => {
+const handleInput = (action) => (state) => {
   let targetFieldId = deconstructFieldId(state.range.startContainer);
 
   //If the Selection range is not collapsed delete the marked text
   if (!state.range.collapsed) {
-    //deleteSelection(state);
+    deleteSelection(state);
   }
 
   //Modify the value of the taret field

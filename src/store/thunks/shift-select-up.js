@@ -1,15 +1,19 @@
+import {
+  constructFieldId,
+  deconstructFieldId,
+} from "../helpers/deconstruct-id";
 import orderStartAndEnd from "./order-start-and-end";
-import moveOffsetRight from "./thunk-helpers/move-offset-right";
+import moveOffsetUp from "./thunk-helpers/move-offset-up";
 import pickFocusContainer from "./thunk-helpers/pick-focus-container";
 
-const shiftSelectRightThunk = () => (dispatch, getState) => {
+const shiftSelectUpThunk = () => (dispatch, getState) => {
   const state = getState().inputData;
 
   // Pick the focus container
   let [focusContainer, focusOffset] = pickFocusContainer(state);
 
   // Get the new focusContainer data
-  const movedCaret = moveOffsetRight(state, focusContainer, focusOffset);
+  const movedCaret = moveOffsetUp(state, focusContainer, focusOffset);
   focusContainer = movedCaret[0];
   focusOffset = movedCaret[1];
 
@@ -24,4 +28,4 @@ const shiftSelectRightThunk = () => (dispatch, getState) => {
   );
 };
 
-export default shiftSelectRightThunk;
+export default shiftSelectUpThunk;

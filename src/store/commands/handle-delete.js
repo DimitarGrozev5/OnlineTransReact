@@ -3,15 +3,17 @@ import placeCaret from "./place-caret";
 import { getFieldProp } from "../helpers/field-prop";
 import mergeFields from "./merge-fields";
 import { modifyFieldProp } from "../helpers/field-prop";
+import deleteSelection from "./delete-selection";
 
 const handleDelete = (state) => {
   let [targetRowIndex, targetFieldIndex] = deconstructFieldId(
     state.range.startContainer
   );
   let newCaretPosition = state.range.startOffset;
+  
   //If the Selection range is not collapsed delete the marked text
   if (!state.range.collapsed) {
-    //deleteSelection(state);
+    deleteSelection(state);
   }
   //If the Selection range is collapsed
   else {

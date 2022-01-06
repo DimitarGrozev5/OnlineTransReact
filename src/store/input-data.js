@@ -56,23 +56,6 @@ const inputDataSlice = createSlice({
       // console.log(action.payload)
       // console.log(current(state))
     },
-    makeFieldEditable(state, action) {
-      //const [rowId, rowIndex, fieldIndex] = getFieldSignature(state, action.payload.fieldId);
-      const [rowIndex, fieldIndex] = deconstructFieldId(action.payload.fieldId);
-      modifyFieldProp(state, rowIndex, fieldIndex, "editable", true);
-    },
-    makeFieldsUneditable(state, action) {
-      const [rowIndex, fieldIndex] = deconstructFieldId(action.payload.fieldId);
-      modifyFieldProp(state, rowIndex, fieldIndex, "editable", false);
-      // state.range = {
-      //   anchorNode: undefined,
-      //   startContainer: undefined,
-      //   startOffset: undefined,
-      //   endContainer: undefined,
-      //   endOffset: undefined,
-      //   collapsed: undefined,
-      // };
-    },
     //////////////////////////////////////////////////////////////////////////////////////////////////////////// Undo/Redo
     undo(state) {
       return undoCommand(state);

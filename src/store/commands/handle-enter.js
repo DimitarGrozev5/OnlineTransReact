@@ -1,13 +1,13 @@
 import { deconstructFieldId } from "../helpers/deconstruct-id";
 import splitField from "./split-field";
-//import deleteSelection from "./delete-selection";
+import deleteSelection from "./delete-selection";
 import addRow from "./add-row";
 import placeCaret from "./place-caret";
 
 const handleEnter = (state) => {
   //If the Selection range is not collapsed delete the marked text
   if (!state.range.collapsed) {
-    //deleteSelection(state);
+    deleteSelection(state);
   }
 
   //Split the current field

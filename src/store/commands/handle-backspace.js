@@ -3,6 +3,7 @@ import placeCaret from "./place-caret";
 import { getFieldProp } from "../helpers/field-prop";
 import mergeFields from "./merge-fields";
 import { modifyFieldProp } from "../helpers/field-prop";
+import deleteSelection from "./delete-selection";
 
 const handleBackspace = (state) => {
   let [targetRowIndex, targetFieldIndex] = deconstructFieldId(
@@ -12,7 +13,7 @@ const handleBackspace = (state) => {
 
   //If the Selection range is not collapsed delete the marked text
   if (!state.range.collapsed) {
-    //deleteSelection(state);
+    deleteSelection(state);
   } else {
     const [rowIndex, fieldIndex] = [targetRowIndex, targetFieldIndex];
     const caretPosition = newCaretPosition;
