@@ -3,6 +3,9 @@ import { inputDataActions } from "../store/input-data";
 import moveCaretDownThunk from "../store/thunks/move-caret-down";
 import moveCaretLeftThunk from "../store/thunks/move-caret-left";
 import moveCaretRightThunk from "../store/thunks/move-caret-right";
+import moveCaretUpThunk from "../store/thunks/move-caret-up";
+import shiftSelectLeftThunk from "../store/thunks/shift-select-left";
+import shiftSelectRightThunk from "../store/thunks/shift-select-right";
 
 const useManageInput = (dividers) => {
   //useEffect(() => {
@@ -47,13 +50,14 @@ const useManageInput = (dividers) => {
       //The KeyDown Event handler catches the following navigation keys
       //Shift + ArrowLeft
       if (event.shiftKey && event.key === "ArrowLeft") {
-        console.log("Shift + ArrowLeft");
+        dispatch(shiftSelectLeftThunk());
         event.preventDefault();
         return;
       }
       //Shift + ArrowRight
       if (event.shiftKey && event.key === "ArrowRight") {
         console.log("Shift + ArrowRight");
+        dispatch(shiftSelectRightThunk());
         event.preventDefault();
         return;
       }
@@ -83,6 +87,7 @@ const useManageInput = (dividers) => {
       //ArrowUp
       if (event.key === "ArrowUp") {
         console.log("ArrowUp");
+        dispatch(moveCaretUpThunk());
         event.preventDefault();
       }
       //ArrowDown

@@ -92,7 +92,7 @@ const moveCaretDownThunk = () => (dispatch, getState) => {
 
       // If the length of the field bellow is abouve zero, test the best fiting caret position
       else {
-        dispatch(findBestFitCaretThunk(rowIndex, fieldIndex, fieldBellowLength));
+        dispatch(findBestFitCaretThunk(rowIndex + 1, rowIndex, fieldIndex, fieldBellowLength));
       }
     }
   }

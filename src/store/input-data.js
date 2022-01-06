@@ -31,6 +31,7 @@ const inputDataSlice = createSlice({
   initialState: {
     range: {
       anchorNode: undefined,
+      anchorOffset: undefined,
       startContainer: undefined,
       startOffset: undefined,
       endContainer: undefined,

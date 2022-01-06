@@ -11,6 +11,7 @@ const useDocumentSelection = (textAreaRef, callerName) => {
       //Get selection and update context
       const selection = window.getSelection();
       let anchorNode = selection && selection.anchorNode;
+      let anchorOffset = selection && selection.anchorOffset;
 
       let { startContainer, endContainer, startOffset, endOffset } =
         selection && selection.rangeCount && selection.getRangeAt(0);
@@ -19,6 +20,7 @@ const useDocumentSelection = (textAreaRef, callerName) => {
         dispatch(
           inputDataActions.updateRange({
             anchorNode: undefined,
+            anchorOffset: undefined,
             startContainer: undefined,
             endContainer: undefined,
             startOffset: undefined,
@@ -36,6 +38,7 @@ const useDocumentSelection = (textAreaRef, callerName) => {
         dispatch(
           inputDataActions.updateRange({
             anchorNode: undefined,
+            anchorOffset: undefined,
             startContainer: undefined,
             endContainer: undefined,
             startOffset: undefined,
@@ -81,6 +84,7 @@ const useDocumentSelection = (textAreaRef, callerName) => {
       dispatch(
         inputDataActions.updateRange({
           anchorNode: anchorNode,
+          anchorOffset,
           startContainer: startContainer,
           endContainer: endContainer,
           startOffset,
