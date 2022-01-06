@@ -1,7 +1,6 @@
 const getField = () => {
   return {
     value: "",
-    editable: false,
   };
 };
 

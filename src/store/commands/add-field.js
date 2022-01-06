@@ -10,7 +10,6 @@ const addField = (state, rowIndex, beforeFieldIndex = null) => {
   }
   const newField = getField();
   state.rows[rowIndex].fields.splice(beforeFieldIndex, 0, newField);
-  return newField.id;
 };
 
 export default addField;

@@ -25,7 +25,6 @@ const splitField = (state, rowIndex, fieldIndex, splitIndex) => {
 
   addField(state, rowIndex, fieldIndex + 1);
   modifyFieldProp(state, rowIndex, fieldIndex + 1, "value", newFieldValue);
-  return [rowIndex, fieldIndex + 1];
 };
 
 export default splitField;

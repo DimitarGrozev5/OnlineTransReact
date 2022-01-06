@@ -37,10 +37,10 @@ const deleteSelection = (state) => {
     state.rows[startRow].fields.splice(startField + 1);
 
     //Append fields from end field to end of row to the start row
-    state.rows[startRow].fields.push(...state.rows[endRow].fields.slice(endField));
+    state.rows[startRow].fields.push(...state.rows[startRow + 1].fields.slice(endField + 1));
 
     //Delete end row
-    state.rows.splice(endRow, 1);
+    state.rows.splice(startRow + 1, 1);
   } else {
     //Delete fields between start field and end field
     state.rows[startRow].fields.splice(
