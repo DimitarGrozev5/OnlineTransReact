@@ -1,7 +1,7 @@
 import { deconstructFieldId } from "../helpers/deconstruct-id";
 import { getFieldProp } from "../helpers/field-prop";
 
-const copySelectionThunk = () => (dispatch, getState) => {
+const copySelectionThunk = (then) => (dispatch, getState) => {
   const state = getState().inputData;
   const range = state.range;
 
@@ -98,6 +98,10 @@ const copySelectionThunk = () => (dispatch, getState) => {
   }
 
   navigator.clipboard.writeText(output);
+
+  if (then) {
+    dispatch(then);
+  }
 };
 
 export default copySelectionThunk;

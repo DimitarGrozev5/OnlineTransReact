@@ -125,12 +125,12 @@ const useManageInput = (dividers) => {
       }
       //Copy
       if (event.ctrlKey && /^(c|C|ц|Ц)$/.test(event.key)) {
-        dispatch(copySelectionThunk());
+        dispatch(copySelectionThunk(null));
         event.preventDefault();
       }
       //Cut
       if (event.ctrlKey && /^(x|X|ь|ѝ)$/.test(event.key)) {
-        console.log("Cut");
+        dispatch(copySelectionThunk(inputDataActions.newDelete()));
         event.preventDefault();
       }
       //Paste
@@ -157,13 +157,15 @@ const useManageInput = (dividers) => {
       //If any other key combination is entered, it will be left to go trough
     },
     onCopy: (event) => {
-      console.log("copy");
+      dispatch(copySelectionThunk(null));
+      event.preventDefault();
     },
     onPaste: (event) => {
       console.log("paste");
     },
     onCut: (event) => {
-      console.log("cut");
+      dispatch(copySelectionThunk(inputDataActions.newDelete()));
+      event.preventDefault();
     },
     onBeforeInput: (event) => {
       event.preventDefault();
