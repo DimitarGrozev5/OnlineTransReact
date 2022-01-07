@@ -1,6 +1,6 @@
-const getField = () => {
+const getField = (val = "") => {
   return {
-    value: "",
+    value: val,
   };
 };
 

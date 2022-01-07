@@ -14,8 +14,8 @@ import applyUndoableCommand, {
   redoCommand,
   undoCommand,
 } from "./history-manager/history-manager";
+import handlePaste from "./commands/handlePaste";
 enablePatches();
-
 
 //Get a row with an empty field
 const getASingleEmptyField = () => {
@@ -104,6 +104,14 @@ const inputDataSlice = createSlice({
       }
       // handleDelete(state);
       return applyUndoableCommand(state, handleDelete);
+    },
+    newPaste(state, action) {
+      //If the Selection range is undefined, exit
+      if (!state.range.startContainer || !state.range.endContainer) {
+        return state;
+      }
+      const handlePasteWithData = handlePaste(action.payload.parsedData);
+      return applyUndoableCommand(state, handlePasteWithData);
     },
   },
 });

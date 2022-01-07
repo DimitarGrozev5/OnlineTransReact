@@ -5,6 +5,7 @@ import moveCaretDownThunk from "../store/thunks/move-caret-down";
 import moveCaretLeftThunk from "../store/thunks/move-caret-left";
 import moveCaretRightThunk from "../store/thunks/move-caret-right";
 import moveCaretUpThunk from "../store/thunks/move-caret-up";
+import pasteThunk from "../store/thunks/paste";
 import selectAllThunk from "../store/thunks/select-all";
 import shiftSelectDownThunk from "../store/thunks/shift-select-down";
 import shiftSelectLeftThunk from "../store/thunks/shift-select-left";
@@ -85,13 +86,11 @@ const useManageInput = (dividers) => {
       }
       //ArrowUp
       if (event.key === "ArrowUp") {
-        console.log("ArrowUp");
         dispatch(moveCaretUpThunk());
         event.preventDefault();
       }
       //ArrowDown
       if (event.key === "ArrowDown") {
-        console.log("ArrowDown");
         dispatch(moveCaretDownThunk());
         event.preventDefault();
       }
@@ -135,7 +134,8 @@ const useManageInput = (dividers) => {
       }
       //Paste
       if (event.ctrlKey && /^(v|V|ж|Ж)$/.test(event.key)) {
-        console.log("Paste");
+        //There shall be a simple paste function just to keep things going
+        dispatch(pasteThunk());
         event.preventDefault();
       }
       //Undo
@@ -161,7 +161,9 @@ const useManageInput = (dividers) => {
       event.preventDefault();
     },
     onPaste: (event) => {
-      console.log("paste");
+      //There shall be a simple paste function just to keep things going
+      dispatch(pasteThunk());
+      event.preventDefault();
     },
     onCut: (event) => {
       dispatch(copySelectionThunk(inputDataActions.newDelete()));
