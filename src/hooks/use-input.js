@@ -1,9 +1,11 @@
 import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
+import copySelectionThunk from "../store/thunks/copy-selection";
 import moveCaretDownThunk from "../store/thunks/move-caret-down";
 import moveCaretLeftThunk from "../store/thunks/move-caret-left";
 import moveCaretRightThunk from "../store/thunks/move-caret-right";
 import moveCaretUpThunk from "../store/thunks/move-caret-up";
+import selectAllThunk from "../store/thunks/select-all";
 import shiftSelectDownThunk from "../store/thunks/shift-select-down";
 import shiftSelectLeftThunk from "../store/thunks/shift-select-left";
 import shiftSelectRightThunk from "../store/thunks/shift-select-right";
@@ -118,12 +120,12 @@ const useManageInput = (dividers) => {
       //The KeyDown Event handler catches the following shortcuts
       //Select All
       if (event.ctrlKey && /^(a|A|а|А)$/.test(event.key)) {
-        console.log("Select All");
+        dispatch(selectAllThunk());
         event.preventDefault();
       }
       //Copy
       if (event.ctrlKey && /^(c|C|ц|Ц)$/.test(event.key)) {
-        console.log("Copy");
+        dispatch(copySelectionThunk());
         event.preventDefault();
       }
       //Cut
