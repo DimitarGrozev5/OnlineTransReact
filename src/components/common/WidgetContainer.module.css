@@ -7,7 +7,38 @@
   margin-right: 1em;
 
   border: 1px solid var(--app-color-base);
-  background-color: var(--app-color-background-accent);
+  border: none;
+  /* background-color: var(--app-color-background-accent); */
+  /* background: radial-gradient(
+      circle 100vw at 10% 20%,
+      var(--bgs-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      circle 130vw at bottom left,
+      var(--bgs-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      circle 80vw at right,
+      var(--geo-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    var(--app-color-background); */
+  background: radial-gradient(
+      circle 70vw at 1.5rem 80%,
+      var(--bgs-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      circle 70vw at calc(100% - 1.5rem) 80%,
+      var(--cs70-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    var(--app-color-background);
+  border-radius: 2rem;
+  padding: 1.5rem;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
 }
 
 .expand {
@@ -17,5 +48,10 @@
 .widget-container legend {
   text-align: left;
   color: var(--app-color-base);
-  background-image: linear-gradient(var(--app-color-background), var(--app-color-background-accent));
+  font-weight: bold;
+  background-image: linear-gradient(
+    to top,
+    var(--bgs-color-background),
+    rgba(255, 255, 255, 0)
+  );
 }

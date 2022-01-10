@@ -11,18 +11,18 @@
 
   background: radial-gradient(
       circle 100vw at 10% 20%,
-      var(--bgs-color-background),
+      var(--bgs-color-background-accent),
       rgba(0, 0, 0, 0)
     ),
     radial-gradient(
       circle 130vw at bottom left,
-      var(--bgs-color-background),
+      var(--bgs-color-background-accent),
       rgba(0, 0, 0, 0)
     ),
     radial-gradient(
       circle 80vw at right,
-      var(--geo-color-background),
+      var(--geo-color-background-accent),
       rgba(0, 0, 0, 0)
     ),
-    var(--app-color-background);
+    var(--app-color-background-accent);
 }

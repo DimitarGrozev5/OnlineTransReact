@@ -6,7 +6,7 @@ import classes from "./MobilePortraitApp.module.css";
 import { useState } from "react";
 
 const MobilePortraitApp = (props) => {
-  const [activePage, setActivePage] = useState("3");
+  const [activePage, setActivePage] = useState("1");
 
   const changeActivePageHandler = (target) => {
     setActivePage(target);

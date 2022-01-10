@@ -8,8 +8,9 @@
   justify-content: space-between;
   align-items: center;
 
-  background-color: var(--app-color-base);
+  /* background-color: var(--app-color-base); */
   color: var(--app-color-background);
+  color: var(--app-color-base);
 }
 
 .header h1 {
@@ -23,6 +24,7 @@
   padding-right: 1.2em;
   border: none;
 
-  background-color: var(--app-color-base);
+  /* background-color: var(--app-color-base); */
+  background-color: rgba(0, 0, 0, 0);
   color: var(--app-color-background);
 }

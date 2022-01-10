@@ -25,30 +25,36 @@
 }
 
 .select-box {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1.5em auto;
   grid-template-rows: auto auto auto;
-  gap: 0px;
+  gap: 0px; */
 
   position: relative;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .eye-candy {
-  grid-column: 1/2;
+  display: none;
+  /* grid-column: 1/2;
   grid-row: 1/2;
 
   background-color: var(--selected-color-background);
   border: 2px solid var(--selected-color-base);
   border-bottom: none;
-  border-right: none;
+  border-right: none; */
 }
 
 .select-box.close-down > div.eye-candy {
-  border-bottom: 2px solid var(--selected-color-base);
+  display: none;
+  /* border-bottom: 2px solid var(--selected-color-base); */
 }
 
 .eye-candy div {
-  position: absolute;
+  display: none;
+  /* position: absolute;
   top: 0px;
   left: 1.5em;
   right: 0px;
@@ -66,12 +72,12 @@
     calc(100% - 2px) calc(100% - 2px),
     calc(100% - 2px) 2px,
     0% 2px
-  );
+  ); */
 }
 
 ul.categories {
-  grid-column: 2/3;
-  grid-row: 1/2;
+  /* grid-column: 2/3;
+  grid-row: 1/2; */
 
   list-style: none;
 
@@ -83,34 +89,37 @@ ul.categories {
 }
 
 ul.categories > li {
-  height: 3em;
+  height: 3rem;
   width: 100%;
   padding: 0px;
   margin: 0px;
-  padding-right: 4px;
+  margin-bottom: 0.5rem;
+  /* border: 1px solid var(--app-color-background-accent); */
+  border-radius: 1rem;
+  /* background-color: var(--app-color-background); */
 
-  border-left: 2px solid var(--selected-color-base);
+  /* padding-right: 4px; */
+
+  /* border-left: 2px solid var(--selected-color-base); */
 }
 
 ul.categories > li:first-child {
-  padding-top: 4px;
+  /* padding-top: 4px; */
 }
 
 .select-box.close-down > ul > li:last-child {
-  padding-bottom: 4px;
-  border-bottom: none;
+  /* padding-bottom: 4px;
+  border-bottom: none; */
 }
 
 ul.categories > li.selected-category {
-  padding-top: 0px;
-  padding-right: 0px;
-  border-left: none;
-  background-color: var(--selected-color-background);
+  background-color: var(--selected-color-background-accent);
+  /* box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3); */
 }
 
 .select-box.close-down > ul > li.selected-category:last-child {
-  padding-bottom: 0px;
-  border-bottom: none;
+  /* padding-bottom: 0px;
+  border-bottom: none; */
 }
 
 ul.categories > li > button {
@@ -118,47 +127,42 @@ ul.categories > li > button {
   height: 100%;
 
   background-color: #ffffff;
+  background-color: inherit;
   color: inherit;
   border: none;
-  border-top: 1px solid var(--selected-color-base);
-  border-right: 1px solid var(--selected-color-base);
-}
-
-.select-box.close-down > ul > li:last-child > button {
-  border-bottom: 1px solid var(--selected-color-base);
-}
-
-ul.categories > li.selected-category > button {
-  background-color: var(--selected-color-background);
-}
-
-ul.categories > li:last-child {
-  border-bottom: 2px solid var(--selected-color-base);
+  border-radius: inherit;
+  /* border-top: 1px solid var(--selected-color-base);
+  border-right: 1px solid var(--selected-color-base); */
 }
 
 li.bgs {
   color: var(--bgs-color-base);
+  /* background-color: var(--bgs-color-background); */
 }
 li.cs70 {
   color: var(--cs70-color-base);
+  /* background-color: var(--cs70-color-background); */
 }
 li.evrs {
   color: var(--evrs-color-base);
+  /* background-color: var(--evrs-color-background); */
 }
 li.balt {
   color: var(--balt-color-base);
+  /* background-color: var(--balt-color-background); */
 }
 li.geo {
   color: var(--geo-color-base);
+  /* background-color: var(--geo-color-background); */
 }
 
 ul.variants {
   list-style: none;
   padding: 0px;
   margin: 0px;
-  
-  grid-column: 1/3;
-  grid-row: 2/3;
+
+  /* grid-column: 1/3;
+  grid-row: 2/3; */
 
   display: flex;
   justify-content: space-evenly;
@@ -169,20 +173,47 @@ ul.variants {
   padding-bottom: 1em;
 
   background-color: var(--selected-color-background);
-  border: 2px solid var(--selected-color-base);
-  border-top: none;
+  /* border: 1px solid var(--selected-color-base); */
+  border-radius: 1rem;
+  /* border-top: none; */
+  /* box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.1); */
+  /* background: radial-gradient(
+      circle 4em at 0% -30%,
+      var(--selected-color-background-accent),
+      rgba(255, 255, 255, 0)
+    ),
+    radial-gradient(
+      circle 4em at 25% 130%,
+      var(--selected-color-background-accent),
+      rgba(255, 255, 255, 0)
+    ),
+    radial-gradient(
+      circle 4em at 50% -30%,
+      var(--selected-color-background-accent),
+      rgba(255, 255, 255, 0)
+    ),
+    radial-gradient(
+      circle 4em at 75% 130%,
+      var(--selected-color-background-accent),
+      rgba(255, 255, 255, 0)
+    ),
+    radial-gradient(
+      circle 4em at 100% -30%,
+      var(--selected-color-background-accent),
+      rgba(255, 255, 255, 0)
+    ),
+    var(--selected-color-background); */
 }
 
 ul.variants > li {
   color: var(--selected-color-base);
-  background-color: var(--selected-color-background);
-  border: 1px solid var(--selected-color-base);
+  /* background-color: var(--selected-color-background); */
+  /* border: 1px solid var(--selected-color-background-accent); */
+  border-radius: 1rem;
 }
 
 ul.variants > li > button {
-  padding: 0.5em;
-  padding-left: 0.7em;
-  padding-right: 0.7em;
+  padding: 0.5rem 1rem;
   width: 100%;
   height: 100%;
   background-color: inherit;
@@ -192,4 +223,6 @@ ul.variants > li > button {
 
 ul.variants > li.selected-variant > button {
   background-color: var(--selected-color-background-accent);
+  /* border: 1px solid var(--selected-color-base); */
+  border-radius: 1rem;
 }

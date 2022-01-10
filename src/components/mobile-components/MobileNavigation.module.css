@@ -4,10 +4,12 @@
   text-align: center;
 }
 
- .nivigation ul {
+.nivigation ul {
   list-style: none;
 
   padding: 0px;
+  margin: 0px;
+  margin-top: 0.5rem;
 
   display: flex;
   align-items: flex-end;
@@ -15,10 +17,10 @@
 
 .nivigation li {
   margin: 0.1em;
-  border: 1px solid var(--app-color-base);
-  background-color: var(--app-color-background);
+  padding: 0.2em;
   color: var(--app-color-base);
-  height: 3.7em;
+  height: 3.5rem;
+  border-radius: 1.75rem;
 }
 
 .nivigation > ul > li > button {
@@ -30,8 +32,34 @@
 }
 
 .nivigation > ul > li.active {
-  height: 4em;
-  background-color: var(--app-color-background-accent);
+  /* border: 1px solid var(--app-color-base); */
+  /* background: linear-gradient(
+    to right,
+    var(--bgs-color-background-accent),
+    var(--geo-color-background-accent)
+  ); */
+  background: radial-gradient(
+    circle 3.5rem at 10% 80%,
+    var(--bgs-color-background),
+    rgba(255, 255, 255, 0)
+  ),
+  radial-gradient(
+    circle 3.5rem at 90% 10%,
+    var(--geo-color-background),
+    rgba(255, 255, 255, 0)
+  ),
+  radial-gradient(
+    circle 2rem at 10% 10%,
+    var(--bgs-color-background-accent),
+    rgba(255, 255, 255, 0)
+  ),
+  radial-gradient(
+    circle 1.5rem at 105% 85%,
+    var(--geo-color-background-accent),
+    rgba(255, 255, 255, 0)
+  );
+  
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, .3);
 }
 
 .nivigation > ul > li.active > button {
@@ -39,15 +67,16 @@
 }
 
 .data-bar {
+  display: inline-block;
   margin: 0px;
   padding: 0px;
+  width: 70%;
 }
 
 .data-bar > div {
   width: 50%;
-  height: 0.3em;
+  height: 0.2rem;
   display: inline-block;
-
 }
 
 .data-bar > div.bgs {
