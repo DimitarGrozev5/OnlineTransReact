@@ -4,12 +4,13 @@
 
 import getField from "../helpers/get-field";
 
-const addField = (state, rowIndex, beforeFieldIndex = null) => {
+const addField = (state, rowIndex, beforeFieldIndex = null, value = "") => {
+  const newField = getField(value);
   if (beforeFieldIndex === null) {
-    beforeFieldIndex = state.rows[rowIndex].length;
+    state.rows[rowIndex].fields.push(newField);
+  } else {
+    state.rows[rowIndex].fields.splice(beforeFieldIndex, 0, newField);
   }
-  const newField = getField();
-  state.rows[rowIndex].fields.splice(beforeFieldIndex, 0, newField);
 };
 
 export default addField;

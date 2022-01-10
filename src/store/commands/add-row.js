@@ -6,12 +6,11 @@ const addRow = (state, beforeRowIndex = null) => {
 
   //If atIndex is null, the place the row at the end of the state.rows array
   if (beforeRowIndex === null) {
-    beforeRowIndex = state.rows.length;
+    state.rows.push(newRow);
+  } else {
+    //Insert the new row
+    state.rows.splice(beforeRowIndex, 0, newRow);
   }
-
-  //Insert the new row
-  state.rows.splice(beforeRowIndex, 0, newRow);
-
   //Return the new row id
   return beforeRowIndex;
 };

@@ -36,11 +36,13 @@
   border-left: 2px solid var(--cs-color-base);
   border-top: 2px solid var(--cs-color-base);
   border-bottom: 2px solid var(--cs-color-base);
+  border-radius: 5px;
   background-image: linear-gradient(
     to right,
     var(--cs-color-background),
     rgba(255, 255, 255, 0)
   );
+  box-shadow: 2px 2px 2px #999;
 }
 
 .text-area:focus {
@@ -59,6 +61,8 @@
   border-right: 2px solid var(--hs-color-base);
   border-top: 2px solid var(--hs-color-base);
   border-bottom: 2px solid var(--hs-color-base);
+  border-radius: 0 5px 5px 0;
+  box-shadow: 2px 2px 2px #999;
 }
 
 .text-area::after {
@@ -75,4 +79,5 @@
     rgba(255, 255, 255, 0),
     var(--hs-color-background)
   );
+  border-radius: 0 5px 5px 0;
 }

@@ -25,60 +25,17 @@
 }
 
 .select-box {
-  /* display: grid;
-  grid-template-columns: 1.5em auto;
-  grid-template-rows: auto auto auto;
-  gap: 0px; */
-
   position: relative;
 
   display: flex;
   flex-direction: column;
 }
 
-.eye-candy {
-  display: none;
-  /* grid-column: 1/2;
-  grid-row: 1/2;
-
-  background-color: var(--selected-color-background);
-  border: 2px solid var(--selected-color-base);
-  border-bottom: none;
-  border-right: none; */
-}
-
 .select-box.close-down > div.eye-candy {
   display: none;
-  /* border-bottom: 2px solid var(--selected-color-base); */
-}
-
-.eye-candy div {
-  display: none;
-  /* position: absolute;
-  top: 0px;
-  left: 1.5em;
-  right: 0px;
-  height: calc(3em + 1px);
-  
-  border: 2px solid var(--selected-color-base);
-  border-left: none;
-  
-  clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% 100%,
-    0% 100%,
-    0% calc(100% - 2px),
-    calc(100% - 2px) calc(100% - 2px),
-    calc(100% - 2px) 2px,
-    0% 2px
-  ); */
 }
 
 ul.categories {
-  /* grid-column: 2/3;
-  grid-row: 1/2; */
-
   list-style: none;
 
   padding: 0px;
@@ -94,32 +51,11 @@ ul.categories > li {
   padding: 0px;
   margin: 0px;
   margin-bottom: 0.5rem;
-  /* border: 1px solid var(--app-color-background-accent); */
   border-radius: 1rem;
-  /* background-color: var(--app-color-background); */
-
-  /* padding-right: 4px; */
-
-  /* border-left: 2px solid var(--selected-color-base); */
-}
-
-ul.categories > li:first-child {
-  /* padding-top: 4px; */
-}
-
-.select-box.close-down > ul > li:last-child {
-  /* padding-bottom: 4px;
-  border-bottom: none; */
 }
 
 ul.categories > li.selected-category {
   background-color: var(--selected-color-background-accent);
-  /* box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3); */
-}
-
-.select-box.close-down > ul > li.selected-category:last-child {
-  /* padding-bottom: 0px;
-  border-bottom: none; */
 }
 
 ul.categories > li > button {
@@ -131,38 +67,53 @@ ul.categories > li > button {
   color: inherit;
   border: none;
   border-radius: inherit;
-  /* border-top: 1px solid var(--selected-color-base);
-  border-right: 1px solid var(--selected-color-base); */
 }
 
 li.bgs {
   color: var(--bgs-color-base);
-  /* background-color: var(--bgs-color-background); */
 }
 li.cs70 {
   color: var(--cs70-color-base);
-  /* background-color: var(--cs70-color-background); */
 }
 li.evrs {
   color: var(--evrs-color-base);
-  /* background-color: var(--evrs-color-background); */
 }
 li.balt {
   color: var(--balt-color-base);
-  /* background-color: var(--balt-color-background); */
 }
 li.geo {
   color: var(--geo-color-base);
-  /* background-color: var(--geo-color-background); */
+}
+
+fieldset.variants {
+  padding: 0;
+  margin-top: 0.8rem;
+  border: none;
+  position: relative;
+}
+
+fieldset.variants legend {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  z-index: 5;
+  top: -0.6rem;
+  left: 0.2rem;
+  color: var(--selected-color-background-accent);
+  background-image: linear-gradient(to top right, var(--selected-color-background), var(--bgs-color-background));
+}
+
+.select-box.bgs > fieldset.variants > legend {
+  text-align: right;
+  right: 0.2rem;
+  left: unset;
+  background-image: linear-gradient(to top, var(--selected-color-background) 50%, var(--cs70-color-background));
 }
 
 ul.variants {
   list-style: none;
   padding: 0px;
   margin: 0px;
-
-  /* grid-column: 1/3;
-  grid-row: 2/3; */
 
   display: flex;
   justify-content: space-evenly;
@@ -173,42 +124,11 @@ ul.variants {
   padding-bottom: 1em;
 
   background-color: var(--selected-color-background);
-  /* border: 1px solid var(--selected-color-base); */
   border-radius: 1rem;
-  /* border-top: none; */
-  /* box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.1); */
-  /* background: radial-gradient(
-      circle 4em at 0% -30%,
-      var(--selected-color-background-accent),
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      circle 4em at 25% 130%,
-      var(--selected-color-background-accent),
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      circle 4em at 50% -30%,
-      var(--selected-color-background-accent),
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      circle 4em at 75% 130%,
-      var(--selected-color-background-accent),
-      rgba(255, 255, 255, 0)
-    ),
-    radial-gradient(
-      circle 4em at 100% -30%,
-      var(--selected-color-background-accent),
-      rgba(255, 255, 255, 0)
-    ),
-    var(--selected-color-background); */
 }
 
 ul.variants > li {
   color: var(--selected-color-base);
-  /* background-color: var(--selected-color-background); */
-  /* border: 1px solid var(--selected-color-background-accent); */
   border-radius: 1rem;
 }
 
@@ -223,6 +143,5 @@ ul.variants > li > button {
 
 ul.variants > li.selected-variant > button {
   background-color: var(--selected-color-background-accent);
-  /* border: 1px solid var(--selected-color-base); */
   border-radius: 1rem;
 }
