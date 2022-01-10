@@ -36,7 +36,7 @@ body {
   font-family: "Arial", "Arial", Arial, sans-serif;
   font-style: italic;
 
-  background-color: var(--app-color-background);
+  /* background-color: var(--app-color-background); */
 }
 
 /* .App {

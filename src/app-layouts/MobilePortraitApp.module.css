@@ -8,4 +8,21 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  background: radial-gradient(
+      circle 100vw at 10% 20%,
+      var(--bgs-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      circle 130vw at bottom left,
+      var(--bgs-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(
+      circle 80vw at right,
+      var(--geo-color-background),
+      rgba(0, 0, 0, 0)
+    ),
+    var(--app-color-background);
 }
