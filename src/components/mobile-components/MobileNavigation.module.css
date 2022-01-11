@@ -38,7 +38,7 @@
     var(--bgs-color-background-accent),
     var(--geo-color-background-accent)
   ); */
-  background: radial-gradient(
+  /* background: radial-gradient(
     circle 3.5rem at 10% 80%,
     var(--bgs-color-background),
     rgba(255, 255, 255, 0)
@@ -57,8 +57,7 @@
     circle 1.5rem at 105% 85%,
     var(--geo-color-background-accent),
     rgba(255, 255, 255, 0)
-  );
-  
+  ); */
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, .3);
 }
 

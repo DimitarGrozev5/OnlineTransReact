@@ -2,7 +2,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   /* z-index: -5; */
 
   margin-left: 1rem;
@@ -11,7 +11,7 @@
 
   border: 1px solid var(--app-color-base);
   border: none;
-  background: radial-gradient(
+  /* background: radial-gradient(
       circle 70vw at 1.5rem 80%,
       var(--bgs-color-background),
       rgba(0, 0, 0, 0)
@@ -21,7 +21,7 @@
       var(--cs70-color-background),
       rgba(0, 0, 0, 0)
     ),
-    var(--app-color-background);
+    var(--app-color-background); */
   background: var(--app-color-background);
   border-radius: 2rem;
   padding: 1.5rem;
@@ -30,4 +30,9 @@
 
 .expand {
   flex-grow: 1;
+}
+
+.widget-container > h2 {
+  font-size: 1rem;
+  color: var(--app-color-base);
 }

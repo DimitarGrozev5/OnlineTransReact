@@ -1,27 +1,27 @@
 .select-box.bgs {
   --selected-color-base: var(--bgs-color-base);
   --selected-color-background: var(--bgs-color-background);
-  --selected-color-background-accent: var(--bgs-color-background-accent);
+  --selected-color-background-accent: var(--bgs-color-background);
 }
 .select-box.cs70 {
   --selected-color-base: var(--cs70-color-base);
   --selected-color-background: var(--cs70-color-background);
-  --selected-color-background-accent: var(--cs70-color-background-accent);
+  --selected-color-background-accent: var(--cs70-color-background);
 }
 .select-box.evrs {
   --selected-color-base: var(--evrs-color-base);
   --selected-color-background: var(--evrs-color-background);
-  --selected-color-background-accent: var(--evrs-color-background-accent);
+  --selected-color-background-accent: var(--evrs-color-background);
 }
 .select-box.balt {
   --selected-color-base: var(--balt-color-base);
   --selected-color-background: var(--balt-color-background);
-  --selected-color-background-accent: var(--balt-color-background-accent);
+  --selected-color-background-accent: var(--balt-color-background);
 }
 .select-box.geo {
   --selected-color-base: var(--geo-color-base);
   --selected-color-background: var(--geo-color-background);
-  --selected-color-background-accent: var(--geo-color-background-accent);
+  --selected-color-background-accent: var(--geo-color-background);
 }
 
 .select-box {
@@ -46,16 +46,19 @@ ul.categories {
 }
 
 ul.categories > li {
+  color: var(--app-color-base);
   height: 3rem;
   width: 100%;
   padding: 0px;
   margin: 0px;
   margin-bottom: 0.5rem;
   border-radius: 1rem;
+  /* text-decoration: underline var(--selected-color-base); */
 }
 
 ul.categories > li.selected-category {
   background-color: var(--selected-color-background-accent);
+  background-color: var(--app-color-background-accent);
 }
 
 ul.categories > li > button {
@@ -85,30 +88,25 @@ li.geo {
   color: var(--geo-color-base);
 }
 
-fieldset.variants {
-  padding: 0;
-  margin-top: 0.8rem;
-  border: none;
-  position: relative;
+
+div.variants {
+  padding-top: 0.2rem;
+  padding-bottom: 1rem;
+
+  background-color: var(--selected-color-background);
+  background-color: var(--app-color-background);
+  border: 1px solid var(--app-color-base);
+  border-radius: 1rem;
 }
 
-fieldset.variants legend {
-  padding: 0;
+div.variants h3 {
+  font-size: 0.8rem;
   margin: 0;
-  position: absolute;
-  z-index: 5;
-  top: -0.6rem;
-  left: 0.2rem;
-  color: var(--selected-color-background-accent);
-  background-image: linear-gradient(to top right, var(--selected-color-background), var(--bgs-color-background));
+  margin-bottom: 1rem;
+  padding: 0;
+  color: var(--app-color-base);
 }
 
-.select-box.bgs > fieldset.variants > legend {
-  text-align: right;
-  right: 0.2rem;
-  left: unset;
-  background-image: linear-gradient(to top, var(--selected-color-background) 50%, var(--cs70-color-background));
-}
 
 ul.variants {
   list-style: none;
@@ -119,16 +117,10 @@ ul.variants {
   justify-content: space-evenly;
 
   position: relative;
-
-  padding-top: 1em;
-  padding-bottom: 1em;
-
-  background-color: var(--selected-color-background);
-  border-radius: 1rem;
 }
 
 ul.variants > li {
-  color: var(--selected-color-base);
+  color: var(--app-color-base);
   border-radius: 1rem;
 }
 
@@ -137,11 +129,12 @@ ul.variants > li > button {
   width: 100%;
   height: 100%;
   background-color: inherit;
-  color: var(--selected-color-base);
+  color: inherit;
   border: none;
 }
 
 ul.variants > li.selected-variant > button {
   background-color: var(--selected-color-background-accent);
+  background-color: var(--app-color-background-accent);
   border-radius: 1rem;
 }

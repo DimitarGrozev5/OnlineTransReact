@@ -161,7 +161,7 @@ export const SystemsContextProvider = (props) => {
 
   const [appState, dispatch] = useReducer(appStateReducer, {
     selectedInputCS: "bgs",
-    selectedInputVariantCS: "cad",
+    selectedInputVariantCS: null,
     selectedInputHS: "geo",
     selectedOutputCS: "cs70",
     selectedOutputVariantCS: null,

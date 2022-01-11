@@ -62,10 +62,10 @@ const PickSystem = (props) => {
       </div>
       <ul className={classes.categories}>{categories}</ul>
       {props.showVariants && (
-        <fieldset className={classes.variants}>
-          <legend>Зона/вариация</legend>
+        <div className={classes.variants}>
+          <h3>Избор на вариант/зона</h3>
           <ul className={classes.variants}>{variants}</ul>
-        </fieldset>
+        </div>
       )}
       {props.showImage && <div className={classes.image}>Image</div>}
     </div>
