@@ -1,30 +1,16 @@
 .widget-container {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   /* z-index: -5; */
 
-  margin-left: 1em;
-  margin-right: 1em;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 
   border: 1px solid var(--app-color-base);
   border: none;
-  /* background-color: var(--app-color-background-accent); */
-  /* background: radial-gradient(
-      circle 100vw at 10% 20%,
-      var(--bgs-color-background),
-      rgba(0, 0, 0, 0)
-    ),
-    radial-gradient(
-      circle 130vw at bottom left,
-      var(--bgs-color-background),
-      rgba(0, 0, 0, 0)
-    ),
-    radial-gradient(
-      circle 80vw at right,
-      var(--geo-color-background),
-      rgba(0, 0, 0, 0)
-    ),
-    var(--app-color-background); */
   background: radial-gradient(
       circle 70vw at 1.5rem 80%,
       var(--bgs-color-background),
@@ -36,6 +22,7 @@
       rgba(0, 0, 0, 0)
     ),
     var(--app-color-background);
+  background: var(--app-color-background);
   border-radius: 2rem;
   padding: 1.5rem;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
@@ -43,15 +30,4 @@
 
 .expand {
   flex-grow: 1;
-}
-
-.widget-container legend {
-  text-align: left;
-  color: var(--app-color-base);
-  font-weight: bold;
-  background-image: linear-gradient(
-    to top,
-    var(--app-color-background),
-    rgba(255, 255, 255, 0)
-  );
 }

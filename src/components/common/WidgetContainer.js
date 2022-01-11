@@ -4,14 +4,13 @@ import classes from "./WidgetContainer.module.css";
 
 const WidgetContainer = (props) => {
   return (
-    <fieldset
+    <div
       className={`${classes["widget-container"]} ${
         props.expand ? classes.expand : ""
       }`}
     >
-      <legend>{props.title}</legend>
       {props.children}
-    </fieldset>
+    </div>
   );
 };
 

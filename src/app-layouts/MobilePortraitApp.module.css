@@ -1,3 +1,61 @@
+.app.page-1.i-bgs,
+.app.page-3.i-bgs {
+  --cs-background-color: var(--bgs-color-background);
+  --cs-background-position-1: circle 120vw at 30% 20%; 
+  --cs-background-position-2: circle 130vw at 0% 83%;
+}
+
+.app.page-1.i-cs70,
+.app.page-3.i-cs70 {
+  --cs-background-color: var(--cs70-color-background);
+  --cs-background-position-1: circle 100vw at 0% 0%; 
+  --cs-background-position-2: circle 100vw at 40% 85%;
+}
+
+.app.page-1.i-geo,
+.app.page-3.i-geo {
+  --hs-background-color: var(--geo-color-background);
+}
+
+.app.page-1.i-evrs,
+.app.page-3.i-evrs {
+  --hs-background-color: var(--evrs-color-background);
+}
+
+.app.page-1.i-balt,
+.app.page-3.i-balt {
+  --hs-background-color: var(--balt-color-background);
+}
+
+.app.page-2.o-bgs,
+.app.page-4.o-bgs {
+  --cs-background-color: var(--bgs-color-background);
+  --cs-background-position-1: circle 120vw at 0% 0%; 
+  --cs-background-position-2: circle 130vw at 50% 95%;
+}
+
+.app.page-2.o-cs70,
+.app.page-4.o-cs70 {
+  --cs-background-color: var(--cs70-color-background);
+  --cs-background-position-1: circle 100vw at 0% 20%; 
+  --cs-background-position-2: circle 100vw at 30% 80%;
+}
+
+.app.page-2.o-geo,
+.app.page-4.o-geo {
+  --hs-background-color: var(--geo-color-background);
+}
+
+.app.page-2.o-evrs,
+.app.page-4.o-evrs {
+  --hs-background-color: var(--evrs-color-background);
+}
+
+.app.page-2.o-balt,
+.app.page-4.o-balt {
+  --hs-background-color: var(--balt-color-background);
+}
+
 .app {
   position: absolute;
   top: 0px;
@@ -10,18 +68,18 @@
   justify-content: space-between;
 
   background: radial-gradient(
-      circle 100vw at 10% 20%,
-      var(--bgs-color-background-accent),
+      var(--cs-background-position-1),
+      var(--cs-background-color),
       rgba(0, 0, 0, 0)
     ),
     radial-gradient(
-      circle 130vw at bottom left,
-      var(--bgs-color-background-accent),
+      var(--cs-background-position-2),
+      var(--cs-background-color),
       rgba(0, 0, 0, 0)
     ),
     radial-gradient(
       circle 80vw at right,
-      var(--geo-color-background-accent),
+      var(--hs-background-color),
       rgba(0, 0, 0, 0)
     ),
     var(--app-color-background-accent);
