@@ -10,12 +10,12 @@ import useManageInput from "../../../hooks/use-input";
 const TextArea = (props) => {
   const rows = useSelector((state) => state.inputData.rows);
   const textAreaRef = useRef();
-  
+
   //Hook that changes the ctx.inputData.range when the document selection changes
-  useDocumentSelection(textAreaRef, "inputTextArea");
+  //useDocumentSelection(textAreaRef, "inputTextArea");
   useApplySelection();
-  const eventHandlers = useManageInput(props.allowedDividers);
-  
+  const eventHandlers = useManageInput(props.allowedDividers, textAreaRef);
+
   //TextArea click handler
   const clickHandler = (event) => {
     if (event.target === textAreaRef.current) {

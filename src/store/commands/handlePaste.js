@@ -59,8 +59,8 @@ const handlePaste = (parsedData) => (state) => {
   mergeFields(state, startRow, startField);
 
   // Merge last field
-  console.log(startRow)
-  console.log(endRow)
+  // console.log(startRow)
+  // console.log(endRow)
   if (endRow === startRow) {
     endField--;
   }

@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
 import copySelectionThunk from "../store/thunks/copy-selection";
+import getSelectionThunk from "../store/thunks/get-selection";
 import moveCaretDownThunk from "../store/thunks/move-caret-down";
 import moveCaretLeftThunk from "../store/thunks/move-caret-left";
 import moveCaretRightThunk from "../store/thunks/move-caret-right";
@@ -12,7 +13,7 @@ import shiftSelectLeftThunk from "../store/thunks/shift-select-left";
 import shiftSelectRightThunk from "../store/thunks/shift-select-right";
 import shiftSelectUpThunk from "../store/thunks/shift-select-up";
 
-const useManageInput = (dividers) => {
+const useManageInput = (dividers, textAreaRef) => {
   //useEffect(() => {
   const dispatch = useDispatch();
 
@@ -29,22 +30,22 @@ const useManageInput = (dividers) => {
         return divider.regex.test(event.key) || result;
       }, false);
       if (inputIsDivider) {
-        dispatch(inputDataActions.newDivider());
+        dispatch(getSelectionThunk(textAreaRef, inputDataActions.newDivider));
         event.preventDefault();
       }
       //Enter
       if (event.key === "Enter") {
-        dispatch(inputDataActions.newEnter());
+        dispatch(getSelectionThunk(textAreaRef, inputDataActions.newEnter));
         event.preventDefault();
       }
       //Backspace
       if (event.key === "Backspace") {
-        dispatch(inputDataActions.newBackspace());
+        dispatch(getSelectionThunk(textAreaRef, inputDataActions.newBackspace));
         event.preventDefault();
       }
       //Delete
       if (event.key === "Delete") {
-        dispatch(inputDataActions.newDelete());
+        dispatch(getSelectionThunk(textAreaRef, inputDataActions.newDelete));
         event.preventDefault();
       }
 
@@ -124,18 +125,25 @@ const useManageInput = (dividers) => {
       }
       //Copy
       if (event.ctrlKey && /^(c|C|ц|Ц)$/.test(event.key)) {
-        dispatch(copySelectionThunk(null));
+        dispatch(
+          getSelectionThunk(textAreaRef, copySelectionThunk.bind(null, null))
+        );
         event.preventDefault();
       }
       //Cut
       if (event.ctrlKey && /^(x|X|ь|ѝ)$/.test(event.key)) {
-        dispatch(copySelectionThunk(inputDataActions.newDelete()));
+        dispatch(
+          getSelectionThunk(
+            textAreaRef,
+            copySelectionThunk.bind(null, inputDataActions.newDelete())
+          )
+        );
         event.preventDefault();
       }
       //Paste
       if (event.ctrlKey && /^(v|V|ж|Ж)$/.test(event.key)) {
         //There shall be a simple paste function just to keep things going
-        dispatch(pasteThunk());
+        dispatch(getSelectionThunk(textAreaRef, pasteThunk));
         event.preventDefault();
       }
       //Undo
@@ -157,21 +165,44 @@ const useManageInput = (dividers) => {
       //If any other key combination is entered, it will be left to go trough
     },
     onCopy: (event) => {
-      dispatch(copySelectionThunk(null));
+      dispatch(
+        getSelectionThunk(textAreaRef, copySelectionThunk.bind(null, null))
+      );
       event.preventDefault();
     },
     onPaste: (event) => {
       //There shall be a simple paste function just to keep things going
-      dispatch(pasteThunk());
+      dispatch(getSelectionThunk(textAreaRef, pasteThunk));
       event.preventDefault();
     },
     onCut: (event) => {
-      dispatch(copySelectionThunk(inputDataActions.newDelete()));
+      dispatch(
+        getSelectionThunk(
+          textAreaRef,
+          copySelectionThunk.bind(null, inputDataActions.newDelete())
+        )
+      );
       event.preventDefault();
     },
     onBeforeInput: (event) => {
       event.preventDefault();
-      dispatch(inputDataActions.newInput({ key: event.data }));
+
+      const inputIsDivider = dividers.reduce((result, divider) => {
+        return divider.regex.test(event.data) || result;
+      }, false);
+      if (inputIsDivider) {
+        dispatch(getSelectionThunk(textAreaRef, inputDataActions.newDivider));
+      } else {
+        //dispatch(inputDataActions.newInput({ key: event.data }));
+        dispatch(
+          getSelectionThunk(
+            textAreaRef,
+            inputDataActions.newInput.bind(null, {
+              key: event.data,
+            })
+          )
+        );
+      }
     },
   };
 
