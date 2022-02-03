@@ -143,7 +143,7 @@ const useManageInput = (dividers, textAreaRef) => {
       //Paste
       if (event.ctrlKey && /^(v|V|ж|Ж)$/.test(event.key)) {
         //There shall be a simple paste function just to keep things going
-        dispatch(getSelectionThunk(textAreaRef, pasteThunk));
+        dispatch(getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers)));
         event.preventDefault();
       }
       //Undo
@@ -172,7 +172,7 @@ const useManageInput = (dividers, textAreaRef) => {
     },
     onPaste: (event) => {
       //There shall be a simple paste function just to keep things going
-      dispatch(getSelectionThunk(textAreaRef, pasteThunk));
+      dispatch(getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers)));
       event.preventDefault();
     },
     onCut: (event) => {

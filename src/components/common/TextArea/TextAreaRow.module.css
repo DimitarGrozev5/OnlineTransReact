@@ -1,6 +1,6 @@
 .row {
   display: flex;
-  padding-bottom: 0.7em;
+  align-items: flex-start;
   caret-color: black;
   border: 1px solid gray;
 }

@@ -11,21 +11,17 @@ const PickSystem = (props) => {
     props.onChangeVariant(event.target.id);
   };
 
-  let transformEyeCandy = 0;
   const categories = props.categories.map((category, i) => {
-    if (category.name === props.selectedCategory) {
-      transformEyeCandy = i;
-    }
     const categoryIsSelected =
-      category.name === props.selectedCategory
+      category.handle === props.selectedCategory
         ? classes["selected-category"]
         : "";
     return (
       <li
-        key={category.name}
-        className={`${classes[category.name]} ${categoryIsSelected}`}
+        key={category.handle}
+        className={`${classes[category.handle]} ${categoryIsSelected}`}
       >
-        <button id={category.name} onClick={changeCategoryHandler}>
+        <button id={category.handle} onClick={changeCategoryHandler}>
           {category.caption}
         </button>
       </li>
@@ -36,12 +32,12 @@ const PickSystem = (props) => {
   if (props.showVariants) {
     variants = props.activeCategoryVariants.map((variant) => {
       const variantIsSelected =
-        variant.name === props.selectedVariant
+        variant.handle === props.selectedVariant
           ? classes["selected-variant"]
           : "";
       return (
-        <li key={variant.name} className={variantIsSelected}>
-          <button id={variant.name} onClick={changeVariantHandler}>
+        <li key={variant.handle} className={variantIsSelected}>
+          <button id={variant.handle} onClick={changeVariantHandler}>
             {variant.caption}
           </button>
         </li>
@@ -55,11 +51,6 @@ const PickSystem = (props) => {
         !props.showVariants ? classes["close-down"] : ""
       }`}
     >
-      <div className={classes["eye-candy"]}>
-        <div
-          style={{ transform: `translate(0em, ${transformEyeCandy * 3}em)` }}
-        ></div>
-      </div>
       <ul className={classes.categories}>{categories}</ul>
       {props.showVariants && (
         <div className={classes.variants}>

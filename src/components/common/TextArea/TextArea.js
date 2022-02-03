@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import classes from "./TextArea.module.css";
 import TextAreaRow from "./TextAreaRow";
-import useDocumentSelection from "../../../hooks/use-document-selection";
 import { useSelector } from "react-redux";
 import { useMouseEvents } from "../../../hooks/use-mouse-events";
 import useApplySelection from "../../../hooks/use-apply-selection";
@@ -12,7 +11,6 @@ const TextArea = (props) => {
   const textAreaRef = useRef();
 
   //Hook that changes the ctx.inputData.range when the document selection changes
-  //useDocumentSelection(textAreaRef, "inputTextArea");
   useApplySelection();
   const eventHandlers = useManageInput(props.allowedDividers, textAreaRef);
 

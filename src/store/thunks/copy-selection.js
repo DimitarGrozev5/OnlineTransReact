@@ -96,7 +96,7 @@ const copySelectionThunk = (then) => (dispatch, getState) => {
       output = outputArray.join("\n");
     }
   }
-
+  console.log(navigator.clipboard)
   navigator.clipboard.writeText(output);
 
   if (then) {

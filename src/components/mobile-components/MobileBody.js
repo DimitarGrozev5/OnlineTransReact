@@ -1,36 +1,88 @@
-import React, { useContext } from "react";
+import React from "react";
 import PickSystem from "../common/PickSystem";
 import WidgetContainer from "../common/WidgetContainer";
-import SystemsContext from "../../store/systems-context";
 
 import classes from "./MobileBody.module.css";
 import DataInput from "../common/TextArea/DataInput";
+import { useDispatch, useSelector } from "react-redux";
+import { systemsActions } from "../../store/input-systems";
 
 const MobileBody = (props) => {
-  const ctx = useContext(SystemsContext);
+  const dispatch = useDispatch();
+
+  const systems = useSelector((state) => state.systems.allSystems);
+  const selected = useSelector((state) => state.systems.selectedSystems);
+  const selectedInputSystemVariants = useSelector(
+    (state) =>
+      state.systems.allSystems.allXYSystems.find(
+        (system) => system.handle === state.systems.selectedSystems.input.xy
+      ).variants
+  );
+  const selectedOutputSystemVariants = useSelector(
+    (state) =>
+      state.systems.allSystems.allXYSystems.find(
+        (system) => system.handle === state.systems.selectedSystems.output.xy
+      ).variants
+  );
 
   const changeInputCSHandler = (targetCS) => {
-    ctx.changeInputCS(targetCS);
+    dispatch(
+      systemsActions.setSystem({
+        inputOrOutput: "input",
+        system: "xy",
+        newValue: targetCS,
+      })
+    );
   };
 
   const changeInputVariantHandler = (targetCS) => {
-    ctx.changeInputVariantCS(targetCS);
+    dispatch(
+      systemsActions.setSystem({
+        inputOrOutput: "input",
+        system: "variant",
+        newValue: targetCS,
+      })
+    );
   };
 
   const changeInputHSHandler = (targetCS) => {
-    ctx.changeInputHS(targetCS);
+    dispatch(
+      systemsActions.setSystem({
+        inputOrOutput: "input",
+        system: "h",
+        newValue: targetCS,
+      })
+    );
   };
 
   const changeOutputCSHandler = (targetCS) => {
-    ctx.changeOutputCS(targetCS);
+    dispatch(
+      systemsActions.setSystem({
+        inputOrOutput: "output",
+        system: "xy",
+        newValue: targetCS,
+      })
+    );
   };
 
   const changeOutputVariantHandler = (targetCS) => {
-    ctx.changeOutputVariantCS(targetCS);
+    dispatch(
+      systemsActions.setSystem({
+        inputOrOutput: "output",
+        system: "variant",
+        newValue: targetCS,
+      })
+    );
   };
 
   const changeOutputHSHandler = (targetCS) => {
-    ctx.changeOutputHS(targetCS);
+    dispatch(
+      systemsActions.setSystem({
+        inputOrOutput: "output",
+        system: "h",
+        newValue: targetCS,
+      })
+    );
   };
 
   return (
@@ -40,11 +92,11 @@ const MobileBody = (props) => {
           <WidgetContainer title="Входна Координатна Система">
             <PickSystem
               title="Входна КС"
-              categories={ctx.coordinateSystems}
-              selectedCategory={ctx.selectedInputCS}
-              selectedVariant={ctx.selectedInputVariantCS}
+              categories={systems.allXYSystems}
+              selectedCategory={selected.input.xy}
+              selectedVariant={selected.input.variant}
               showVariants
-              activeCategoryVariants={ctx.getVariants(ctx.selectedInputCS)}
+              activeCategoryVariants={selectedInputSystemVariants}
               onChangeSystem={changeInputCSHandler}
               onChangeVariant={changeInputVariantHandler}
             />
@@ -53,8 +105,8 @@ const MobileBody = (props) => {
           <WidgetContainer title="Входна Височинна Система">
             <PickSystem
               title="Входна КС"
-              categories={ctx.heightSystems}
-              selectedCategory={ctx.selectedInputHS}
+              categories={systems.allHSystems}
+              selectedCategory={selected.input.h}
               onChangeSystem={changeInputHSHandler}
             />
           </WidgetContainer>
@@ -65,11 +117,11 @@ const MobileBody = (props) => {
           <WidgetContainer title="Изходна Координатна Система">
             <PickSystem
               title="Изходна КС"
-              categories={ctx.coordinateSystems}
-              selectedCategory={ctx.selectedOutputCS}
-              selectedVariant={ctx.selectedOutputVariantCS}
+              categories={systems.allXYSystems}
+              selectedCategory={selected.output.xy}
+              selectedVariant={selected.output.variant}
               showVariants
-              activeCategoryVariants={ctx.getVariants(ctx.selectedOutputCS)}
+              activeCategoryVariants={selectedOutputSystemVariants}
               onChangeSystem={changeOutputCSHandler}
               onChangeVariant={changeOutputVariantHandler}
             />
@@ -78,8 +130,8 @@ const MobileBody = (props) => {
           <WidgetContainer title="Изходна Височинна Система">
             <PickSystem
               title="Изходна КС"
-              categories={ctx.heightSystems}
-              selectedCategory={ctx.selectedOutputHS}
+              categories={systems.allHSystems}
+              selectedCategory={selected.output.h}
               onChangeSystem={changeOutputHSHandler}
             />
           </WidgetContainer>

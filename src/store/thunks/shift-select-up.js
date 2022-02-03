@@ -1,7 +1,3 @@
-import {
-  constructFieldId,
-  deconstructFieldId,
-} from "../helpers/deconstruct-id";
 import orderStartAndEnd from "./order-start-and-end";
 import moveOffsetUp from "./thunk-helpers/move-offset-up";
 import pickFocusContainer from "./thunk-helpers/pick-focus-container";

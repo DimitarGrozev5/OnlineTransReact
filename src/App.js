@@ -2,7 +2,6 @@ import React from "react";
 
 import "./App.css";
 import MobilePortraitApp from "./app-layouts/MobilePortraitApp";
-import { SystemsContextProvider } from "./store/systems-context";
 import useWindowSize from "./hooks/use-window-size";
 import { Provider } from "react-redux";
 import store from "./store/index";
@@ -16,7 +15,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <SystemsContextProvider>{content}</SystemsContextProvider>
+      {content}
     </Provider>
   );
 }

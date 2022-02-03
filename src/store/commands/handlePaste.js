@@ -1,6 +1,8 @@
-import { deconstructFieldId } from "../helpers/deconstruct-id";
-import { getFieldProp, modifyFieldProp } from "../helpers/field-prop";
-import getField from "../helpers/get-field";
+import {
+  constructFieldId,
+  deconstructFieldId,
+} from "../helpers/deconstruct-id";
+import { getFieldProp } from "../helpers/field-prop";
 import addField from "./add-field";
 import addRow from "./add-row";
 import deleteSelection from "./delete-selection";
@@ -17,7 +19,7 @@ const handlePaste = (parsedData) => (state) => {
   const [startRow, startField] = deconstructFieldId(state.range.startContainer);
   const startOffset = state.range.startOffset;
   let [endRow, endField] = [startRow, startField];
-  const endOffset = startOffset;
+  //const endOffset = startOffset;
 
   //
   if (startRow === state.rows.length - 1) {
@@ -64,17 +66,18 @@ const handlePaste = (parsedData) => (state) => {
   if (endRow === startRow) {
     endField--;
   }
-  //mergeFields(state, endRow, endField);
+  const offset = getFieldProp(state, endRow, endField, "value").length;
+  mergeFields(state, endRow, endField);
 
   // Set range
   state.range = {
-    anchorNode: undefined,
-    anchorOffset: undefined,
-    startContainer: undefined,
-    startOffset: undefined,
-    endContainer: undefined,
-    endOffset: undefined,
-    collapsed: undefined,
+    anchorNode: constructFieldId(endRow, endField),
+    anchorOffset: offset,
+    startContainer: constructFieldId(endRow, endField),
+    startOffset: offset,
+    endContainer: constructFieldId(endRow, endField),
+    endOffset: offset,
+    collapsed: true,
   };
 };
 

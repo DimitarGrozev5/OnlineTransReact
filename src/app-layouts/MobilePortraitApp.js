@@ -3,8 +3,8 @@ import MobileBody from "../components/mobile-components/MobileBody";
 import MobileNavigation from "../components/mobile-components/MobileNavigation";
 
 import classes from "./MobilePortraitApp.module.css";
-import { useContext, useState } from "react";
-import SystemsContext from "../store/systems-context";
+import {  useState } from "react";
+import { useSelector } from "react-redux";
 
 const MobilePortraitApp = (props) => {
   const [activePage, setActivePage] = useState("1");
@@ -13,12 +13,12 @@ const MobilePortraitApp = (props) => {
     setActivePage(target);
   };
 
-  const ctx = useContext(SystemsContext);
+  const selected = useSelector((state) => state.systems.selectedSystems);
 
-  const inputCs = classes[`i-${ctx.selectedInputCS}`];
-  const outputCs = classes[`o-${ctx.selectedOutputCS}`];
-  const inputHs = classes[`i-${ctx.selectedInputHS}`];
-  const outputHs = classes[`o-${ctx.selectedOutputHS}`];
+  const inputCs = classes[`i-${selected.input.xy}`];
+  const outputCs = classes[`o-${selected.output.xy}`];
+  const inputHs = classes[`i-${selected.input.h}`];
+  const outputHs = classes[`o-${selected.output.h}`];
   const page = classes[`page-${activePage}`]
 
   return (
