@@ -1,9 +1,9 @@
 //Helper that modifies a field proeprty
-export const modifyFieldProp = (state, rowIndex, fieldIndex, prop, value) => {
-  state.rows[rowIndex].fields[fieldIndex][prop] = value;
+export const modifyFieldProp = (state, rowIndex, fieldIndex, value) => {
+  state.data[rowIndex][fieldIndex] = value;
 };
 
 //Helper that gets a field proeprty
-export const getFieldProp = (state, rowIndex, fieldIndex, prop) => {
-  return state.rows[rowIndex].fields[fieldIndex][prop];
+export const getFieldProp = (state, rowIndex, fieldIndex) => {
+  return state.data[rowIndex][fieldIndex];
 };

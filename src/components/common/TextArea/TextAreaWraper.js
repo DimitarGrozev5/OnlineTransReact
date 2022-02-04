@@ -6,7 +6,7 @@ const TextAreaWraper = (props) => {
         classes[props.hs]
       }`}
     >
-      {props.children}
+      <div className={classes.table}>{props.children}</div>
     </div>
   );
 };

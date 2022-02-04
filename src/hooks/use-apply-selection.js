@@ -5,6 +5,8 @@ const useApplySelection = () => {
   const range = useSelector((state) => state.inputData.range);
   const dispatch = useDispatch();
 
+  // console.log(range)
+
   useEffect(() => {
     ////Set window selection
     //Get active range

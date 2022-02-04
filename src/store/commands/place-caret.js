@@ -3,7 +3,6 @@ import { constructFieldId } from "../helpers/deconstruct-id";
 
 //Move caret
 const placeCaret = (state, rowIndex, fieldIndex, offset) => {
-  modifyFieldProp(state, rowIndex, fieldIndex, "editable", true);
   state.range = {
     ...state.range,
     anchorNode: constructFieldId(rowIndex, fieldIndex),

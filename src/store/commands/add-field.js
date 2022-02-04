@@ -2,14 +2,11 @@
 ////Inputs: row, before=null
 ////Outputs: field
 
-import getField from "../helpers/get-field";
-
 const addField = (state, rowIndex, beforeFieldIndex = null, value = "") => {
-  const newField = getField(value);
   if (beforeFieldIndex === null) {
-    state.rows[rowIndex].fields.push(newField);
+    state.data[rowIndex].push(value);
   } else {
-    state.rows[rowIndex].fields.splice(beforeFieldIndex, 0, newField);
+    state.data[rowIndex].splice(beforeFieldIndex, 0, value);
   }
 };
 

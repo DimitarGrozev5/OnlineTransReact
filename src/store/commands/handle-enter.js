@@ -17,7 +17,7 @@ const handleEnter = (state) => {
 
   //Add a new row and move all fields to it
   addRow(state, rowIndex + 1);
-  state.rows[rowIndex + 1].fields = state.rows[rowIndex].fields.splice(
+  state.data[rowIndex + 1] = state.data[rowIndex].splice(
     fieldIndex + 1
   );
 

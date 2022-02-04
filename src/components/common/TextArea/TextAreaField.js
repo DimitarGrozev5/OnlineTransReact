@@ -10,7 +10,7 @@ const TextAreaField = (props) => {
   const fieldValue = useSelector(
     (state) =>
       !props.header &&
-      getFieldProp(state.inputData, props.rowIndex, props.fieldIndex, "value")
+      getFieldProp(state.inputData, props.rowIndex, props.fieldIndex)
   );
 
   return (

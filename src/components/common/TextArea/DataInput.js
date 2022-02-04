@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import classes from "./DataInput.module.css";
+// import classes from "./DataInput.module.css";
 import DataInputControls from "./DataInputControls";
 import TextArea from "./TextArea";
 import TextAreaWraper from "./TextAreaWraper";
@@ -40,17 +40,15 @@ const DataInput = (props) => {
         onToggleDivider={toggleDividerHandler}
       />
       <TextAreaWraper cs={selected.xy} hs={selected.h}>
-        <div className={classes.table}>
-          <table>
-            <thead>
-              <TextAreaRow wrap={wrap} header />
-            </thead>
-            <TextArea
-              wrap={wrap}
-              allowedDividers={allowedDividers.filter((div) => div.on)}
-            />
-          </table>
-        </div>
+        <table>
+          <thead>
+            <TextAreaRow wrap={wrap} header />
+          </thead>
+          <TextArea
+            wrap={wrap}
+            allowedDividers={allowedDividers.filter((div) => div.on)}
+          />
+        </table>
       </TextAreaWraper>
     </React.Fragment>
   );

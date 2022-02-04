@@ -7,7 +7,7 @@ import useApplySelection from "../../../hooks/use-apply-selection";
 import useManageInput from "../../../hooks/use-input";
 
 const TextArea = (props) => {
-  const rows = useSelector((state) => state.inputData.rows);
+  const rows = useSelector((state) => state.inputData.data);
   const textAreaRef = useRef();
 
   //Hook that changes the ctx.inputData.range when the document selection changes
@@ -35,13 +35,12 @@ const TextArea = (props) => {
         suppressContentEditableWarning={true}
         {...eventHandlers}
       >
-        {rows.map(({ id }, rowIndex) => {
+        {rows.map((row, rowIndex) => {
           return (
             <TextAreaRow
               wrap={props.wrap}
               allowedDividers={props.allowedDividers}
               key={rowIndex}
-              row={id}
               rowIndex={rowIndex}
             />
           );

@@ -86,7 +86,29 @@ const systemsSlice = createSlice({
       };
     },
     setTransformedData(state, action) {
-      state.transformedData = action.payload;
+      const transformedData = action.payload.map((row) => {
+        const fields = [];
+        if (row["#"]) {
+          fields.push(row["#"]);
+        }
+        if (row["X"]) {
+          fields.push(+row["X"]);
+        }
+        if (row["Y"]) {
+          fields.push(+row["Y"]);
+        }
+        if (row["H"]) {
+          fields.push(+row["H"]);
+        }
+        if (row["Code"]) {
+          fields.push(row["Code"]);
+        }
+        if (row["var"]) {
+          fields.push(...row["var"]);
+        }
+        return fields;
+      });
+      state.transformedData = transformedData;
     },
   },
 });

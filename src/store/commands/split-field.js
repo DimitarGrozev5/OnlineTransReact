@@ -12,19 +12,18 @@ import addField from "./add-field";
 //{Modify field}(new field, copied text, 0, 0)
 //Return new field
 const splitField = (state, rowIndex, fieldIndex, splitIndex) => {
-  const fieldValue = getFieldProp(state, rowIndex, fieldIndex, "value");
+  const fieldValue = getFieldProp(state, rowIndex, fieldIndex);
   const newFieldValue = fieldValue.substring(splitIndex);
 
   modifyFieldProp(
     state,
     rowIndex,
     fieldIndex,
-    "value",
     fieldValue.substring(0, splitIndex)
   );
 
   addField(state, rowIndex, fieldIndex + 1);
-  modifyFieldProp(state, rowIndex, fieldIndex + 1, "value", newFieldValue);
+  modifyFieldProp(state, rowIndex, fieldIndex + 1, newFieldValue);
 };
 
 export default splitField;

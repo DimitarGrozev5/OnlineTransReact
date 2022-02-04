@@ -1,4 +1,4 @@
-import { deconstructFieldId } from "../helpers/deconstruct-id";
+import { deconstructFieldId, constructFieldId } from "../helpers/deconstruct-id";
 import splitField from "./split-field";
 import placeCaret from "./place-caret";
 import deleteSelection from "./delete-selection";
@@ -15,7 +15,15 @@ const handleDivider = (state) => {
   splitField(state, rowIndex, fieldIndex, targetSplitIndex);
 
   //Move caret
-  placeCaret(state, rowIndex, fieldIndex + 1, 0);
+  state.range = {
+    ...state.range,
+    anchorNode: constructFieldId(rowIndex, fieldIndex + 1),
+    startContainer: constructFieldId(rowIndex, fieldIndex + 1),
+    endContainer: constructFieldId(rowIndex, fieldIndex + 1),
+    startOffset: 0,
+    endOffset: 0,
+    collapsed: true,
+  };
 };
 
 export default handleDivider;

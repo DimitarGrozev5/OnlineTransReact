@@ -13,16 +13,14 @@ const mergeFields = (state, rowIndex, startFieldIndex) => {
   const startFieldValue = getFieldProp(
     state,
     rowIndex,
-    startFieldIndex,
-    "value"
+    startFieldIndex
   );
   const endFieldValue = getFieldProp(
     state,
     rowIndex,
-    startFieldIndex + 1,
-    "value"
+    startFieldIndex + 1
   );
-  state.rows[rowIndex].fields.splice(startFieldIndex + 1, 1);
+  state.data[rowIndex].splice(startFieldIndex + 1, 1);
   modifyField(
     state,
     rowIndex,

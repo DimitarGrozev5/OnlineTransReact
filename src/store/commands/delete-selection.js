@@ -31,26 +31,26 @@ const deleteSelection = (state) => {
 
   if (startRow !== endRow) {
     //Delete rows between start row and end row
-    state.rows.splice(startRow + 1, endRow - startRow - 1);
+    state.data.splice(startRow + 1, endRow - startRow - 1);
 
     //Delete fields from start field to end of row
-    state.rows[startRow].fields.splice(startField + 1);
+    state.data[startRow].splice(startField + 1);
 
     //Append fields from end field to end of row to the start row
-    state.rows[startRow].fields.push(...state.rows[startRow + 1].fields.slice(endField + 1));
+    state.data[startRow].push(...state.data[startRow + 1].slice(endField + 1));
 
     //Delete end row
-    state.rows.splice(startRow + 1, 1);
+    state.data.splice(startRow + 1, 1);
   } else {
     //Delete fields between start field and end field
-    state.rows[startRow].fields.splice(
+    state.data[startRow].splice(
       startField + 1,
       endField - startField + 1
     );
   }
 
   //Save data for selection
-  const position = getFieldProp(state, startRow, startField, "value").length;
+  const position = getFieldProp(state, startRow, startField).length;
 
   //Merge fields
   mergeFields(state, startRow, startField);

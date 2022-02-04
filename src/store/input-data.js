@@ -1,4 +1,4 @@
-// import { current } from "@reduxjs/toolkit";
+import { current } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 // import { modifyFieldProp } from "./helpers/field-prop";
 // import { deconstructFieldId } from "./helpers/deconstruct-id";
@@ -7,8 +7,6 @@ import handleDivider from "./commands/handle-divider";
 import handleBackspace from "./commands/handle-backspace";
 import handleDelete from "./commands/handle-delete";
 import handleInput from "./commands/handle-input";
-import getField from "./helpers/get-field";
-import getRow from "./helpers/get-row";
 import { enablePatches } from "@reduxjs/toolkit/node_modules/immer";
 import applyUndoableCommand, {
   redoCommand,
@@ -16,15 +14,6 @@ import applyUndoableCommand, {
 } from "./history-manager/history-manager";
 import handlePaste from "./commands/handlePaste";
 enablePatches();
-
-//Get a row with an empty field
-const getASingleEmptyField = () => {
-  const rows = [getRow()];
-  rows[0].fields.push(getField());
-  return rows;
-};
-
-const initialEmptyField = getASingleEmptyField();
 
 const inputDataSlice = createSlice({
   name: "inputData",
@@ -38,7 +27,7 @@ const inputDataSlice = createSlice({
       endOffset: undefined,
       collapsed: undefined,
     },
-    rows: initialEmptyField,
+    data: [['']],
     undo: {
       undoStack: [],
       undoStackPointer: -1,

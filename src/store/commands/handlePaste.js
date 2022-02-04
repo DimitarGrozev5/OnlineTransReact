@@ -21,7 +21,7 @@ const handlePaste = (parsedData) => (state) => {
   let [endRow, endField] = [startRow, startField];
   //const endOffset = startOffset;
 
-  if (startRow === state.rows.length - 1) {
+  if (startRow === state.data.length - 1) {
     endRow = null;
   }
 
@@ -29,7 +29,7 @@ const handlePaste = (parsedData) => (state) => {
   splitField(state, startRow, startField, startOffset);
 
   // Save fields from startField to end of row
-  const tailFields = state.rows[startRow].fields.splice(startField + 1);
+  const tailFields = state.data[startRow].splice(startField + 1);
 
   // Insert first row of paste data
   parsedData
@@ -40,7 +40,7 @@ const handlePaste = (parsedData) => (state) => {
   parsedData.forEach((parsedRow) => {
     addRow(state, endRow);
     parsedRow.forEach((fieldValue) => {
-      const targetRow = endRow ? endRow + 1 : state.rows.length - 1
+      const targetRow = endRow ? endRow + 1 : state.data.length - 1
       addField(state, targetRow, null, fieldValue);
     });
     endRow && endRow++;
@@ -49,13 +49,13 @@ const handlePaste = (parsedData) => (state) => {
   // Subtract one from endRow so as to point to the last inserted row
   endRow--;
   endRow = endRow < startRow ? startRow : endRow;
-  endRow = endRow || state.rows.length - 1;
+  endRow = endRow || state.data.length - 1;
 
   // Get the index of the last field of the inserted data
-  endField = state.rows[endRow].fields.length - 1;
+  endField = state.data[endRow].length - 1;
 
   // Append the tail Fields
-  state.rows[endRow].fields.push(...tailFields);
+  state.data[endRow].push(...tailFields);
 
   // Merge first field
   mergeFields(state, startRow, startField);
@@ -67,7 +67,7 @@ const handlePaste = (parsedData) => (state) => {
     endField--;
   }
   // endField = Math.max(endField, 0);
-  const offset = getFieldProp(state, endRow, endField, "value").length;
+  const offset = getFieldProp(state, endRow, endField).length;
   mergeFields(state, endRow, endField);
 
   // Set range

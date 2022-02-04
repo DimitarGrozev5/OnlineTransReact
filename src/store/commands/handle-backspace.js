@@ -26,36 +26,29 @@ const handleBackspace = (state) => {
         // Then move all of the fields to the prevous row and delete the current row
         if (rowIndex !== 0) {
           targetRowIndex--;
-          targetFieldIndex = state.rows[rowIndex - 1].fields.length;
+          targetFieldIndex = state.data[rowIndex - 1].length;
           newCaretPosition = 0;
 
-          state.rows[rowIndex - 1].fields.push(
-            ...state.rows[rowIndex].fields.splice(0)
-          );
-          state.rows.splice(rowIndex, 1);
+          state.data[rowIndex - 1].push(...state.data[rowIndex].splice(0));
+          state.data.splice(rowIndex, 1);
         }
       }
       // If the caret position is in the begining of the field
       // But not in the begining of the row
       // Then murge the two fields
       else {
-        newCaretPosition = getFieldProp(
-          state,
-          rowIndex,
-          fieldIndex - 1,
-          "value"
-        ).length;
+        newCaretPosition = getFieldProp(state, rowIndex, fieldIndex - 1).length;
         targetFieldIndex--;
         mergeFields(state, rowIndex, fieldIndex - 1);
       }
     }
     // If the caret position is not in the begining of the field
     else {
-      const fieldValue = getFieldProp(state, rowIndex, fieldIndex, "value");
+      const fieldValue = getFieldProp(state, rowIndex, fieldIndex);
       const newFieldValue =
         fieldValue.substring(0, caretPosition - 1) +
         fieldValue.substring(caretPosition);
-      modifyFieldProp(state, rowIndex, fieldIndex, "value", newFieldValue);
+      modifyFieldProp(state, rowIndex, fieldIndex, newFieldValue);
 
       //Configure caret
       newCaretPosition--;
