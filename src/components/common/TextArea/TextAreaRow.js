@@ -9,7 +9,7 @@ const TextAreaRow = (props) => {
 
   if (props.header) {
     return (
-      <div
+      <tr
         className={`${classes.row} ${classes.header} ${
           props.wrap ? classes.wrap : ""
         }`}
@@ -19,12 +19,12 @@ const TextAreaRow = (props) => {
         <TextAreaField header={props.header} value="Y" />
         <TextAreaField header={props.header} value="H" />
         <TextAreaField header={props.header} value="Code" />
-      </div>
+      </tr>
     );
   }
 
   return (
-    <div
+    <tr
       className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}
       data-type="row"
     >
@@ -41,7 +41,7 @@ const TextAreaRow = (props) => {
           />
         );
       })}
-    </div>
+    </tr>
   );
 };
 

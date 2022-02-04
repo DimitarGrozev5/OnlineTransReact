@@ -1,0 +1,22 @@
+.table {
+  position: absolute;
+  top: 0.3em;
+  bottom: 0.3em;
+  left: 0.3em;
+  right: 0.3em;
+  
+  /* border: 1px solid red; */
+  overflow: auto;
+}
+
+.table table {
+  width: 100%;
+
+  border: 1px solid red;
+  
+  position: absolute;
+  top: 0em;
+  bottom: 0em;
+  left: 0em;
+  right: 0em;
+}

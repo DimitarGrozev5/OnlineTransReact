@@ -50,7 +50,7 @@
 .field:nth-child(2), .field:nth-child(3) {
   flex: 0 0 6.61em;
   flex: 0 0 6em;
-  margin-left: auto;
+  /* margin-left: auto; */
   color: var(--cs-color-base);
 }
 
@@ -60,7 +60,7 @@
 
 .field:nth-child(4) {
   flex: 0 0 4.31em;
-  margin-left: auto;
+  /* margin-left: auto; */
   color: var(--hs-color-base);
 }
 
@@ -70,7 +70,7 @@
 
 .field:nth-child(5) {
   flex: 0 0 4.31em;
-  margin-left: auto;
+  /* margin-left: auto; */
   color: #7a7a7a;
 }
 

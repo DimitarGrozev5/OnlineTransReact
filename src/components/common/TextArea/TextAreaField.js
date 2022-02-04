@@ -1,5 +1,5 @@
 import React from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { constructFieldId } from "../../../store/helpers/deconstruct-id";
 import { getFieldProp } from "../../../store/helpers/field-prop";
 import classes from "./TextAreaField.module.css";
@@ -14,16 +14,28 @@ const TextAreaField = (props) => {
   );
 
   return (
-    <div
-      className={`${classes.field} ${props.header ? classes.header : ""} ${
-        classes[selected.xy]
-      } ${classes[selected.h]}`}
-      id={constructFieldId(props.rowIndex, props.fieldIndex)}
-      data-id={!props.header && constructFieldId(props.rowIndex, props.fieldIndex)}
-    >
-      {props.header && props.value}
-      {!props.header && fieldValue}
-    </div>
+    <React.Fragment>
+      {props.header && (
+        <th
+          className={`${classes.field} ${classes.header} ${
+            classes[selected.xy]
+          } ${classes[selected.h]}`}
+        >
+          {props.value}
+        </th>
+      )}
+      {!props.header && (
+        <td
+          className={`${classes.field} ${classes[selected.xy]} ${
+            classes[selected.h]
+          }`}
+          id={constructFieldId(props.rowIndex, props.fieldIndex)}
+          data-id={constructFieldId(props.rowIndex, props.fieldIndex)}
+        >
+          {fieldValue}
+        </td>
+      )}
+    </React.Fragment>
   );
 };
 

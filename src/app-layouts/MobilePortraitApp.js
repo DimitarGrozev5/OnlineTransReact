@@ -3,13 +3,19 @@ import MobileBody from "../components/mobile-components/MobileBody";
 import MobileNavigation from "../components/mobile-components/MobileNavigation";
 
 import classes from "./MobilePortraitApp.module.css";
-import {  useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import transformInputDataThunk from "../store/thunks/transform-input-data";
 
 const MobilePortraitApp = (props) => {
+  const dispatch = useDispatch();
+
   const [activePage, setActivePage] = useState("1");
 
   const changeActivePageHandler = (target) => {
+    if (target === "4") {
+      dispatch(transformInputDataThunk());
+    }
     setActivePage(target);
   };
 
@@ -19,7 +25,7 @@ const MobilePortraitApp = (props) => {
   const outputCs = classes[`o-${selected.output.xy}`];
   const inputHs = classes[`i-${selected.input.h}`];
   const outputHs = classes[`o-${selected.output.h}`];
-  const page = classes[`page-${activePage}`]
+  const page = classes[`page-${activePage}`];
 
   return (
     <div

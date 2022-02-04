@@ -21,7 +21,6 @@ const handlePaste = (parsedData) => (state) => {
   let [endRow, endField] = [startRow, startField];
   //const endOffset = startOffset;
 
-  //
   if (startRow === state.rows.length - 1) {
     endRow = null;
   }
@@ -40,10 +39,11 @@ const handlePaste = (parsedData) => (state) => {
   // Insert rows of parsed data
   parsedData.forEach((parsedRow) => {
     addRow(state, endRow);
-    parsedRow.forEach((fieldValue) =>
-      addField(state, endRow + 1 || state.rows.length - 1, null, fieldValue)
-    );
-    endRow++;
+    parsedRow.forEach((fieldValue) => {
+      const targetRow = endRow ? endRow + 1 : state.rows.length - 1
+      addField(state, targetRow, null, fieldValue);
+    });
+    endRow && endRow++;
   });
 
   // Subtract one from endRow so as to point to the last inserted row
@@ -66,6 +66,7 @@ const handlePaste = (parsedData) => (state) => {
   if (endRow === startRow) {
     endField--;
   }
+  // endField = Math.max(endField, 0);
   const offset = getFieldProp(state, endRow, endField, "value").length;
   mergeFields(state, endRow, endField);
 

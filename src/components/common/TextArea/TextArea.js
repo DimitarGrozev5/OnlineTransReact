@@ -26,7 +26,7 @@ const TextArea = (props) => {
 
   return (
     <React.Fragment>
-      <div
+      <tbody
         className={classes["input-area"]}
         data-type="area"
         ref={textAreaRef}
@@ -46,7 +46,7 @@ const TextArea = (props) => {
             />
           );
         })}
-      </div>
+      </tbody>
     </React.Fragment>
   );
 };

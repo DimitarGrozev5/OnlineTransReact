@@ -6,6 +6,7 @@ import classes from "./MobileBody.module.css";
 import DataInput from "../common/TextArea/DataInput";
 import { useDispatch, useSelector } from "react-redux";
 import { systemsActions } from "../../store/input-systems";
+import DataOutput from "../common/TextArea/DataOutput";
 
 const MobileBody = (props) => {
   const dispatch = useDispatch();
@@ -146,7 +147,9 @@ const MobileBody = (props) => {
       )}
       {props.activePage === "4" && (
         <React.Fragment>
-          <section>Изходни Координати</section>
+         <WidgetContainer title="Трансформирани координати" expand>
+           <DataOutput />
+          </WidgetContainer>
         </React.Fragment>
       )}
     </main>
