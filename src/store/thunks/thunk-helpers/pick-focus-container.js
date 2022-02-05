@@ -8,8 +8,7 @@ const pickFocusContainer = (state) => {
     focusContainer = state.range.endContainer;
     focusOffset = state.range.endOffset;
   }
-
   return [focusContainer, focusOffset];
-}
+};
 
 export default pickFocusContainer;

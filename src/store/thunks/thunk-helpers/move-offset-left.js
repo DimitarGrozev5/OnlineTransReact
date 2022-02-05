@@ -18,8 +18,7 @@ const moveOffsetLeft = (state, container, offset) => {
       const prevFieldLength = getFieldProp(
         state,
         rowIndex,
-        fieldIndex - 1,
-        "value"
+        fieldIndex - 1
       ).length;
       return [constructFieldId(rowIndex, fieldIndex - 1), prevFieldLength];
     }
@@ -27,12 +26,11 @@ const moveOffsetLeft = (state, container, offset) => {
     else {
       //If there is a previous row, move the caret to there
       if (rowIndex > 0) {
-        const prevFieldIndex = state.rows[rowIndex - 1].fields.length - 1;
+        const prevFieldIndex = state.data[rowIndex - 1].length - 1;
         const prevFieldLength = getFieldProp(
           state,
           rowIndex - 1,
-          prevFieldIndex,
-          "value"
+          prevFieldIndex
         ).length;
         return [
           constructFieldId(rowIndex - 1, prevFieldIndex),

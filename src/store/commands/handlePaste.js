@@ -74,6 +74,8 @@ const handlePaste = (parsedData) => (state) => {
   state.range = {
     anchorNode: constructFieldId(endRow, endField),
     anchorOffset: offset,
+    focusNode: constructFieldId(endRow, endField),
+    focusOffset: offset,
     startContainer: constructFieldId(endRow, endField),
     startOffset: offset,
     endContainer: constructFieldId(endRow, endField),

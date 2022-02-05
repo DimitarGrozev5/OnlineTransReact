@@ -17,6 +17,9 @@ const moveCaretUpThunk = () => (dispatch, getState) => {
   dispatch(
     inputDataActions.updateRange({
       anchorNode: container,
+      anchorOffset: offset,
+      focusNode: container,
+      focusOffset: offset,
       startContainer: container,
       endContainer: container,
       startOffset: offset,

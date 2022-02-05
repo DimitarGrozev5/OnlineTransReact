@@ -1,6 +1,7 @@
 import { deconstructFieldId } from "../helpers/deconstruct-id";
 import modifyField from "./modify-field";
 import deleteSelection from "./delete-selection";
+import placeCaret from "./place-caret";
 
 const handleInput = (action) => (state) => {
   let targetFieldId = deconstructFieldId(state.range.startContainer);
@@ -20,8 +21,12 @@ const handleInput = (action) => (state) => {
   );
 
   //Move carret
-  state.range.startOffset += 1;
-  state.range.endOffset += 1;
+  placeCaret(
+    state,
+    targetFieldId[0],
+    targetFieldId[1],
+    state.range.startOffset + 1
+  );
 };
 
 export default handleInput;

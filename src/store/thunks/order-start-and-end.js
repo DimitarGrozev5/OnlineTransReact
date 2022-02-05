@@ -1,13 +1,13 @@
 import { deconstructFieldId } from "../helpers/deconstruct-id";
 import { inputDataActions } from "../input-data";
 
-const orderStartAndEnd = (anchorNode, anchorOffset, focusContainer, focusOffset) => (dispatch, getState) => {
+const orderStartAndEnd = (anchorNode, anchorOffset, focusNode, focusOffset) => (dispatch, getState) => {
   const [anchorRow, anchorField] = deconstructFieldId(anchorNode);
-  const [focusRow, focusField] = deconstructFieldId(focusContainer);
+  const [focusRow, focusField] = deconstructFieldId(focusNode);
 
   let startContainer = anchorNode;
   let startOffset = anchorOffset;
-  let endContainer = focusContainer;
+  let endContainer = focusNode;
   let endOffset = focusOffset;
   
   if (anchorRow < focusRow) {
@@ -15,7 +15,7 @@ const orderStartAndEnd = (anchorNode, anchorOffset, focusContainer, focusOffset)
   } else if (anchorRow > focusRow) {
     endContainer = startContainer;
     endOffset = startOffset;
-    startContainer = focusContainer;
+    startContainer = focusNode;
     startOffset = focusOffset;
   } else {
     if (anchorField < focusField) {
@@ -23,15 +23,15 @@ const orderStartAndEnd = (anchorNode, anchorOffset, focusContainer, focusOffset)
     } else if (anchorField > focusField) {
       endContainer = startContainer;
       endOffset = startOffset;
-      startContainer = focusContainer;
+      startContainer = focusNode;
       startOffset = focusOffset;
     } else {
-      if (startOffset < focusOffset) {
+      if (anchorOffset < focusOffset) {
         // Do nothing
       } else {
         endContainer = startContainer;
         endOffset = startOffset;
-        startContainer = focusContainer;
+        startContainer = focusNode;
         startOffset = focusOffset;
       }
     }
@@ -39,7 +39,10 @@ const orderStartAndEnd = (anchorNode, anchorOffset, focusContainer, focusOffset)
 
   dispatch(
     inputDataActions.updateRange({
-      anchorNode: anchorNode,
+      anchorNode,
+      anchorOffset,
+      focusNode,
+      focusOffset,
       startContainer,
       startOffset,
       endContainer,

@@ -9,6 +9,9 @@ const moveCaretRightThunk = () => (dispatch, getState) => {
     dispatch(
       inputDataActions.updateRange({
         anchorNode: state.range.endContainer,
+        anchorOffset: state.range.endOffset,
+        focusNode: state.range.endContainer,
+        focusOffset: state.range.endOffset,
         startContainer: state.range.endContainer,
         endContainer: state.range.endContainer,
         startOffset: state.range.endOffset,
@@ -28,6 +31,9 @@ const moveCaretRightThunk = () => (dispatch, getState) => {
     dispatch(
       inputDataActions.updateRange({
         anchorNode: container,
+        anchorOffset: offset,
+        focusNode: container,
+        focusOffset: offset,
         startContainer: container,
         endContainer: container,
         startOffset: offset,

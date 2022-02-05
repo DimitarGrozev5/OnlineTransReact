@@ -6,7 +6,9 @@ const shiftSelectDownThunk = () => (dispatch, getState) => {
   const state = getState().inputData;
 
   // Pick the focus container
-  let [focusContainer, focusOffset] = pickFocusContainer(state);
+  // let [focusContainer, focusOffset] = pickFocusContainer(state);
+  let focusContainer = state.range.focusNode;
+  let focusOffset = state.range.focusOffset;
 
   // Get the new focusContainer data
   const movedCaret = moveOffsetDown(state, focusContainer, focusOffset);

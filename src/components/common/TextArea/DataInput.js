@@ -47,6 +47,7 @@ const DataInput = (props) => {
           <TextArea
             wrap={wrap}
             allowedDividers={allowedDividers.filter((div) => div.on)}
+            dataSource="input"
           />
         </table>
       </TextAreaWraper>

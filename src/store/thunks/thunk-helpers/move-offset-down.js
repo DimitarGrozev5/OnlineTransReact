@@ -9,13 +9,12 @@ const moveOffsetDown = (state, targetContainer, targetOffset) => {
   const [rowIndex, fieldIndex] = deconstructFieldId(targetContainer);
 
   // If the field is on the last row, move the caret to the end of the row
-  if (rowIndex === state.rows.length - 1) {
-    const lastFieldIndex = state.rows[rowIndex].fields.length - 1;
+  if (rowIndex === state.data.length - 1) {
+    const lastFieldIndex = state.data[rowIndex].length - 1;
     const lastFieldLength = getFieldProp(
       state,
       rowIndex,
-      lastFieldIndex,
-      "value"
+      lastFieldIndex
     ).length;
     return [constructFieldId(rowIndex, lastFieldIndex), lastFieldLength];
   }
@@ -23,13 +22,12 @@ const moveOffsetDown = (state, targetContainer, targetOffset) => {
   // check if there is a corresponding field bellow the current one
   else {
     // If not, move the caret to the last field in the bottom row
-    if (state.rows[rowIndex + 1].fields.length <= fieldIndex) {
-      const lastFieldIndex = state.rows[rowIndex + 1].fields.length - 1;
+    if (state.data[rowIndex + 1].length <= fieldIndex) {
+      const lastFieldIndex = state.data[rowIndex + 1].length - 1;
       const lastFieldLength = getFieldProp(
         state,
         rowIndex + 1,
-        lastFieldIndex,
-        "value"
+        lastFieldIndex
       ).length;
       return [constructFieldId(rowIndex + 1, lastFieldIndex), lastFieldLength];
     }
@@ -41,8 +39,7 @@ const moveOffsetDown = (state, targetContainer, targetOffset) => {
       const fieldBellowLength = getFieldProp(
         state,
         rowIndex + 1,
-        fieldIndex,
-        "value"
+        fieldIndex
       ).length;
 
       // If the length of the field bellow is 0, move the caret there dirrectly

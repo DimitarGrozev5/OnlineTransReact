@@ -61,6 +61,8 @@ const deleteSelection = (state) => {
   state.range = {
     anchorNode: startContainer,
     anchorOffset: position,
+    focusNode: startContainer,
+    focusOffset: position,
     startContainer: startContainer,
     endContainer: startContainer,
     startOffset: position,

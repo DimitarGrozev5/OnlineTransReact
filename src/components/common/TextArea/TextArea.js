@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, {  useRef } from "react";
 import classes from "./TextArea.module.css";
 import TextAreaRow from "./TextAreaRow";
 import { useSelector } from "react-redux";
@@ -7,12 +7,23 @@ import useApplySelection from "../../../hooks/use-apply-selection";
 import useManageInput from "../../../hooks/use-input";
 
 const TextArea = (props) => {
-  const rows = useSelector((state) => state.inputData.data);
+  const selector =
+    props.dataSource === "input"
+      ? (state) => state.inputData.data
+      : (state) => state.systems.transformedData;
+  const rows = useSelector(selector);
   const textAreaRef = useRef();
 
+  // Test selection change
+  // useDocumentSelection(textAreaRef);
+
   //Hook that changes the ctx.inputData.range when the document selection changes
-  useApplySelection();
-  const eventHandlers = useManageInput(props.allowedDividers, textAreaRef);
+  useApplySelection(props.dataSource);
+  const eventHandlers = useManageInput(
+    props.dataSource,
+    props.allowedDividers,
+    textAreaRef
+  );
 
   //TextArea click handler
   const clickHandler = (event) => {
@@ -38,8 +49,8 @@ const TextArea = (props) => {
         {rows.map((row, rowIndex) => {
           return (
             <TextAreaRow
+              dataSource={props.dataSource}
               wrap={props.wrap}
-              allowedDividers={props.allowedDividers}
               key={rowIndex}
               rowIndex={rowIndex}
             />

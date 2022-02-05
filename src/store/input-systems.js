@@ -86,29 +86,33 @@ const systemsSlice = createSlice({
       };
     },
     setTransformedData(state, action) {
-      const transformedData = action.payload.map((row) => {
-        const fields = [];
-        if (row["#"]) {
-          fields.push(row["#"]);
-        }
-        if (row["X"]) {
-          fields.push(+row["X"]);
-        }
-        if (row["Y"]) {
-          fields.push(+row["Y"]);
-        }
-        if (row["H"]) {
-          fields.push(+row["H"]);
-        }
-        if (row["Code"]) {
-          fields.push(row["Code"]);
-        }
-        if (row["var"]) {
-          fields.push(...row["var"]);
-        }
-        return fields;
-      });
-      state.transformedData = transformedData;
+      if (action.payload.error) {
+        state.transformedData = action.payload;
+      } else {
+        const transformedData = action.payload.map((row) => {
+          const fields = [];
+          if (row["#"]) {
+            fields.push(row["#"]);
+          }
+          if (row["X"]) {
+            fields.push(+row["X"].toFixed(3));
+          }
+          if (row["Y"]) {
+            fields.push(+row["Y"].toFixed(3));
+          }
+          if (row["H"]) {
+            fields.push(+row["H"].toFixed(3));
+          }
+          if (row["Code"]) {
+            fields.push(row["Code"]);
+          }
+          if (row["var"]) {
+            fields.push(...row["var"]);
+          }
+          return fields;
+        });
+        state.transformedData = transformedData;
+      }
     },
   },
 });

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import TextArea from "./TextArea";
 import TextAreaRow from "./TextAreaRow";
 import TextAreaWraper from "./TextAreaWraper";
 
@@ -26,37 +27,11 @@ const DataOutput = () => {
           <thead>
             <TextAreaRow wrap={false} header />
           </thead>
-          <tbody>
-            {transformedData.map((row, i) => {
-              const fields = [];
-              if (row["#"]) {
-                fields.push(row["#"]);
-              }
-              if (row["X"]) {
-                fields.push(+row["X"].toFixed(3));
-              }
-              if (row["Y"]) {
-                fields.push(+row["Y"].toFixed(3));
-              }
-              if (row["H"]) {
-                fields.push(+row["H"].toFixed(3));
-              }
-              if (row["Code"]) {
-                fields.push(row["Code"]);
-              }
-              if (row["var"]) {
-                fields.push(...row["var"]);
-              }
-
-              return (
-                <tr key={i}>
-                  {fields.map((field) => (
-                    <td>{field}</td>
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
+          <TextArea
+            wrap={"wrap"}
+            // allowedDividers={allowedDividers.filter((div) => div.on)}
+            dataSource="output"
+          />
         </table>
       </TextAreaWraper>
     );

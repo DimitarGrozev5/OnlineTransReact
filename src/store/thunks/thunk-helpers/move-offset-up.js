@@ -17,13 +17,12 @@ const moveOffsetUp = (state, targetContainer, targetOffset) => {
   else {
     // check if there is a corresponding field above the current one
     // If not, move the caret to the last field in the top row
-    if (state.rows[rowIndex - 1].fields.length <= fieldIndex) {
-      const lastFieldIndex = state.rows[rowIndex - 1].fields.length - 1;
+    if (state.data[rowIndex - 1].length <= fieldIndex) {
+      const lastFieldIndex = state.data[rowIndex - 1].length - 1;
       const lastFieldLength = getFieldProp(
         state,
         rowIndex - 1,
-        lastFieldIndex,
-        "value"
+        lastFieldIndex
       ).length;
       return [constructFieldId(rowIndex - 1, lastFieldIndex), lastFieldLength];
     }
@@ -35,8 +34,7 @@ const moveOffsetUp = (state, targetContainer, targetOffset) => {
       const fieldAboveLength = getFieldProp(
         state,
         rowIndex - 1,
-        fieldIndex,
-        "value"
+        fieldIndex
       ).length;
 
       // If the length of the field above is 0, move the caret there dirrectly

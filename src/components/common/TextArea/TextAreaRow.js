@@ -5,7 +5,11 @@ import TextAreaField from "./TextAreaField";
 import classes from "./TextAreaRow.module.css";
 
 const TextAreaRow = (props) => {
-  const fields = useSelector((state) => props.header || state.inputData.data[props.rowIndex]);
+  const selector =
+    props.dataSource === "input"
+      ? (state) => state.inputData.data[props.rowIndex]
+      : (state) => state.systems.transformedData[props.rowIndex];
+  const fields = useSelector((state) => props.header || selector(state));
 
   if (props.header) {
     return (
@@ -31,7 +35,7 @@ const TextAreaRow = (props) => {
       {fields.map((fieldValue, fieldIndex) => {
         return (
           <TextAreaField
-            allowedDividers={props.allowedDividers}
+            dataSource={props.dataSource}
             header={props.header}
             key={constructFieldId(props.rowIndex, fieldIndex)}
             rowIndex={props.rowIndex}

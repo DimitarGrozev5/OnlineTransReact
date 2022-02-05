@@ -14,7 +14,7 @@ const copySelectionThunk = (then) => (dispatch, getState) => {
 
   // If the marked text is one field, copy the text and exit
   if (range.startContainer === range.endContainer) {
-    output = getFieldProp(state, startRow, startField, "value").substring(
+    output = getFieldProp(state, startRow, startField).substring(
       startOffset,
       endOffset
     );
@@ -28,20 +28,16 @@ const copySelectionThunk = (then) => (dispatch, getState) => {
 
       // Copy from first field
       outputArray.push(
-        getFieldProp(state, startRow, startField, "value").substring(
-          startOffset
-        )
+        getFieldProp(state, startRow, startField).substring(startOffset)
       );
 
       // Copy all fields from first field to last field
-      const middleFields = state.rows[startRow].fields
-        .slice(startField + 1, endField)
-        .map((field) => field.value);
+      const middleFields = state.data[startRow].slice(startField + 1, endField);
       outputArray.push(...middleFields);
 
       // Copy from last field
       outputArray.push(
-        getFieldProp(state, endRow, endField, "value").substring(0, endOffset)
+        getFieldProp(state, endRow, endField).substring(0, endOffset)
       );
 
       output = outputArray.join("\t");
@@ -55,38 +51,28 @@ const copySelectionThunk = (then) => (dispatch, getState) => {
 
       // Copy from first field
       tmpRow.push(
-        getFieldProp(state, startRow, startField, "value").substring(
-          startOffset
-        )
+        getFieldProp(state, startRow, startField).substring(startOffset)
       );
 
       // Copy all fields from first field to end of row
-      tmpRow.push(
-        ...state.rows[startRow].fields
-          .slice(startField + 1)
-          .map((field) => field.value)
-      );
+      tmpRow.push(...state.data[startRow].slice(startField + 1));
 
       // Add first row to output
       outputArray.push(tmpRow.join("\t"));
 
       // Loop trough every row between startRow and endRow and add them to the output
       outputArray.push(
-        ...state.rows.slice(startRow + 1, endRow).map(({ fields }) => {
-          return fields.map((field) => field.value).join("\t");
-        })
+        ...state.data.slice(startRow + 1, endRow).map((row) => row.join("\t"))
       );
 
       // Copy the last row from the first field to the endField
       tmpRow = [
-        ...state.rows[endRow].fields
-          .slice(0, endField)
-          .map((field) => field.value),
+        ...state.data[endRow].slice(0, endField),
       ];
 
       // Copy from endRow
       tmpRow.push(
-        getFieldProp(state, endRow, endField, "value").substring(0, endOffset)
+        getFieldProp(state, endRow, endField).substring(0, endOffset)
       );
 
       // Add last row to output
@@ -96,7 +82,6 @@ const copySelectionThunk = (then) => (dispatch, getState) => {
       output = outputArray.join("\n");
     }
   }
-  console.log(navigator.clipboard)
   navigator.clipboard.writeText(output);
 
   if (then) {

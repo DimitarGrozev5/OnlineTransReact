@@ -1,3 +1,4 @@
+import placeCaret from "../commands/place-caret";
 import { inputDataActions } from "../input-data";
 import moveOffsetLeft from "./thunk-helpers/move-offset-left";
 
@@ -9,6 +10,9 @@ const moveCaretLeftThunk = () => (dispatch, getState) => {
     dispatch(
       inputDataActions.updateRange({
         anchorNode: state.range.startContainer,
+        anchorOffset: state.range.startOffset,
+        focusNode: state.range.startContainer,
+        focusOffset: state.range.startOffset,
         startContainer: state.range.startContainer,
         endContainer: state.range.startContainer,
         startOffset: state.range.startOffset,
@@ -28,6 +32,9 @@ const moveCaretLeftThunk = () => (dispatch, getState) => {
     dispatch(
       inputDataActions.updateRange({
         anchorNode: container,
+        anchorOffset: offset,
+        focusNode: container,
+        focusOffset: offset,
         startContainer: container,
         endContainer: container,
         startOffset: offset,

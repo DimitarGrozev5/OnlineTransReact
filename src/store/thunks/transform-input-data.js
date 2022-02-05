@@ -28,13 +28,13 @@ const transformInputDataThunk = () => (dispatch, getState) => {
   }
 
   // If the input data is not transformed get the input data
-  const rawInputData = getState().inputData.rows;
+  const rawInputData = getState().inputData.data;
 
   // If the input text is empty skip
   if (
     rawInputData.length === 1 &&
-    rawInputData[0].fields.length === 1 &&
-    rawInputData[0].fields[0].value === ""
+    rawInputData[0].length === 1 &&
+    rawInputData[0][0].value === ""
   ) {
     dispatch(systemsActions.setTransformedData(null));
     return;
@@ -44,9 +44,9 @@ const transformInputDataThunk = () => (dispatch, getState) => {
   const reformatedData = rawInputData.reduce((output, row) => {
     const headers = ["#", "X", "Y", "H", "Code"];
 
-    const rowContents = row.fields.reduce((dataPoint, field, i) => {
+    const rowContents = row.reduce((dataPoint, field, i) => {
       const key = headers.length ? headers.shift() : `var${i}`;
-      return { ...dataPoint, [key]: field.value };
+      return { ...dataPoint, [key]: field };
     }, {});
 
     return [...output, rowContents];
@@ -64,7 +64,6 @@ const transformInputDataThunk = () => (dispatch, getState) => {
       error: "Loading...",
     })
   );
-  console.log("test")
   // Fetch data
   fetch("http://127.0.0.1/online-trans-api/transform.php", {
   // fetch("online-trans-api/transform.php", {

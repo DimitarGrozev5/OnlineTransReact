@@ -113,48 +113,50 @@ const useDocumentSelection = (textAreaRef, callerName) => {
     let mouseUpEvent = undefined;
     let selectionChanged = false;
 
-    const selectionChangeListener = () => {
-      if (mouseIsUp) {
-        selectionChangeHandler(mouseUpEvent);
-        document.removeEventListener(
-          "selectionchange",
-          selectionChangeListener
-        );
-      } else {
-        selectionChanged = true;
-      }
-    };
-    const startSelectionchangeListener = () => {
-      mouseIsUp = false;
-      mouseUpEvent = undefined;
-      selectionChanged = false;
-      document.addEventListener("selectionchange", selectionChangeListener);
-    };
-    const mouseUpHandler = (event) => {
-      mouseIsUp = true;
-      mouseUpEvent = event;
-      if (selectionChanged) {
-        selectionChangeHandler(event);
-        document.removeEventListener(
-          "selectionchange",
-          selectionChangeListener
-        );
-      }
-    };
+    // const selectionChangeListener = () => {
+    //   if (mouseIsUp) {
+    //     selectionChangeHandler(mouseUpEvent);
+    //     document.removeEventListener(
+    //       "selectionchange",
+    //       selectionChangeListener
+    //     );
+    //   } else {
+    //     selectionChanged = true;
+    //   }
+    // };
+    // const startSelectionchangeListener = () => {
+    //   mouseIsUp = false;
+    //   mouseUpEvent = undefined;
+    //   selectionChanged = false;
+    //   document.addEventListener("selectionchange", selectionChangeListener);
+    // };
+    // const mouseUpHandler = (event) => {
+    //   mouseIsUp = true;
+    //   mouseUpEvent = event;
+    //   if (selectionChanged) {
+    //     selectionChangeHandler(event);
+    //     document.removeEventListener(
+    //       "selectionchange",
+    //       selectionChangeListener
+    //     );
+    //   }
+    // };
 
-    document.addEventListener("mousedown", startSelectionchangeListener);
-    document.addEventListener("mouseup", mouseUpHandler);
+    // document.addEventListener("mousedown", startSelectionchangeListener);
+    // document.addEventListener("mouseup", mouseUpHandler);
 
     // document.addEventListener("mousedown", ()=>console.log("mousedown"));
     // document.addEventListener("mouseup", ()=>console.log("mouseup"));
     // document.addEventListener("click", ()=>console.log("click"));
     // document.addEventListener("selectionchange", ()=>console.log("selectionchange"));
     // document.addEventListener("dragstart", ()=>console.log("dragstart"));
+    // document.addEventListener("selectionchange", selectionChangeHandler);
 
     return () => {
       // document.removeEventListener("mouseup", selectionChangeHandler);
-      document.removeEventListener("mousedown", startSelectionchangeListener);
-      document.removeEventListener("mouseup", mouseUpHandler);
+      // document.removeEventListener("mousedown", startSelectionchangeListener);
+      // document.removeEventListener("mouseup", mouseUpHandler);
+      // document.removeEventListener("selectionchange", selectionChangeHandler);
     };
   }, [dispatch, textAreaRef]);
 };

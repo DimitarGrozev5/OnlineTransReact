@@ -1,16 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { constructFieldId } from "../../../store/helpers/deconstruct-id";
-import { getFieldProp } from "../../../store/helpers/field-prop";
 import classes from "./TextAreaField.module.css";
 
 const TextAreaField = (props) => {
   const selected = useSelector((state) => state.systems.selectedSystems.input);
 
+  const selector =
+    props.dataSource === "input"
+      ? (state) => state.inputData.data[props.rowIndex][props.fieldIndex]
+      : (state) =>
+          state.systems.transformedData[props.rowIndex][props.fieldIndex];
   const fieldValue = useSelector(
     (state) =>
       !props.header &&
-      getFieldProp(state.inputData, props.rowIndex, props.fieldIndex)
+      // getFieldProp(state.inputData, props.rowIndex, props.fieldIndex)
+      selector(state)
   );
 
   return (
