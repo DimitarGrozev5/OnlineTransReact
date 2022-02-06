@@ -1,25 +1,30 @@
 .field.bgs {
   --cs-color-base: var(--bgs-color-base);
+  --cs-color-font: var(--bgs-color-font);
   --cs-color-background: var(--bgs-color-background);
   --cs-color-background-accent: var(--bgs-color-background-accent);
 }
 .field.cs70 {
   --cs-color-base: var(--cs70-color-base);
+  --cs-color-font: var(--cs70-color-font);
   --cs-color-background: var(--cs70-color-background);
   --cs-color-background-accent: var(--cs70-color-background-accent);
 }
 .field.evrs {
   --hs-color-base: var(--evrs-color-base);
+  --hs-color-font: var(--evrs-color-font);
   --hs-color-background: var(--evrs-color-background);
   --hs-color-background-accent: var(--evrs-color-background-accent);
 }
 .field.balt {
   --hs-color-base: var(--balt-color-base);
+  --hs-color-font: var(--balt-color-font);
   --hs-color-background: var(--balt-color-background);
   --hs-color-background-accent: var(--balt-color-background-accent);
 }
 .field.geo {
   --hs-color-base: var(--geo-color-base);
+  --hs-color-font: var(--geo-color-font);
   --hs-color-background: var(--geo-color-background);
   --hs-color-background-accent: var(--geo-color-background-accent);
 }
@@ -30,11 +35,12 @@
   margin-bottom: 0.2em;
   color: #a3a3a3;
   caret-color: black;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .field.header {
   font-weight: bold;
+  border-radius: 3px;
 }
 
 .field:nth-child(1) {
@@ -52,20 +58,24 @@
   flex: 0 0 6em;
   /* margin-left: auto; */
   color: var(--cs-color-base);
+  color: var(--cs-color-font);
 }
 
 .field.field:nth-child(2).header, .field.field:nth-child(3).header {
   border: 1px solid var(--cs-color-base);
+  border: 1px solid var(--cs-color-font);
 }
 
 .field:nth-child(4) {
   flex: 0 0 4.31em;
   /* margin-left: auto; */
   color: var(--hs-color-base);
+  color: var(--hs-color-font);
 }
 
 .field.field:nth-child(4).header {
   border: 1px solid var(--hs-color-base);
+  border: 1px solid var(--hs-color-font);
 }
 
 .field:nth-child(5) {

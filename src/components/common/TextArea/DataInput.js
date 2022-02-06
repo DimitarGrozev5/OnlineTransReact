@@ -42,7 +42,7 @@ const DataInput = (props) => {
       <TextAreaWraper cs={selected.xy} hs={selected.h}>
         <table>
           <thead>
-            <TextAreaRow wrap={wrap} header />
+            <TextAreaRow wrap={wrap} header dataSource="input" />
           </thead>
           <TextArea
             wrap={wrap}

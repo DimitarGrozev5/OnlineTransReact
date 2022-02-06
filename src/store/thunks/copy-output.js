@@ -1,5 +1,4 @@
 import { deconstructFieldId } from "../helpers/deconstruct-id";
-import { getFieldProp } from "../helpers/field-prop";
 
 const copyOutputSelectionThunk = () => (dispatch, getState) => {
   const data = getState().systems.transformedData;

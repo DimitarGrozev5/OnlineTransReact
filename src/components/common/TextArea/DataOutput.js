@@ -25,7 +25,7 @@ const DataOutput = () => {
       <TextAreaWraper cs={selected.xy} hs={selected.h}>
         <table>
           <thead>
-            <TextAreaRow wrap={false} header />
+            <TextAreaRow wrap={false} header dataSource="output" />
           </thead>
           <TextArea
             wrap={"wrap"}

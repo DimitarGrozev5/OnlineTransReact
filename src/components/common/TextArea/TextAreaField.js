@@ -4,7 +4,9 @@ import { constructFieldId } from "../../../store/helpers/deconstruct-id";
 import classes from "./TextAreaField.module.css";
 
 const TextAreaField = (props) => {
-  const selected = useSelector((state) => state.systems.selectedSystems.input);
+  const selected = useSelector(
+    (state) => state.systems.selectedSystems[props.dataSource]
+  );
 
   const selector =
     props.dataSource === "input"

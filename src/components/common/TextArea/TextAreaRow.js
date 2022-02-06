@@ -18,11 +18,31 @@ const TextAreaRow = (props) => {
           props.wrap ? classes.wrap : ""
         }`}
       >
-        <TextAreaField header={props.header} value="№" />
-        <TextAreaField header={props.header} value="X" />
-        <TextAreaField header={props.header} value="Y" />
-        <TextAreaField header={props.header} value="H" />
-        <TextAreaField header={props.header} value="Code" />
+        <TextAreaField
+          header={props.header}
+          value="№"
+          dataSource={props.dataSource}
+        />
+        <TextAreaField
+          header={props.header}
+          value="X"
+          dataSource={props.dataSource}
+        />
+        <TextAreaField
+          header={props.header}
+          value="Y"
+          dataSource={props.dataSource}
+        />
+        <TextAreaField
+          header={props.header}
+          value="H"
+          dataSource={props.dataSource}
+        />
+        <TextAreaField
+          header={props.header}
+          value="Code"
+          dataSource={props.dataSource}
+        />
       </tr>
     );
   }

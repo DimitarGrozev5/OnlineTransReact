@@ -1,22 +1,22 @@
 .select-box.bgs {
   --selected-color-base: var(--bgs-color-base);
   --selected-color-background: var(--bgs-color-background);
-  --selected-color-background-accent: var(--bgs-color-background);
+  --selected-color-background-accent: var(--bgs-color-background-accent);
 }
 .select-box.cs70 {
   --selected-color-base: var(--cs70-color-base);
   --selected-color-background: var(--cs70-color-background);
-  --selected-color-background-accent: var(--cs70-color-background);
+  --selected-color-background-accent: var(--cs70-color-background-accent);
 }
 .select-box.evrs {
   --selected-color-base: var(--evrs-color-base);
   --selected-color-background: var(--evrs-color-background);
-  --selected-color-background-accent: var(--evrs-color-background);
+  --selected-color-background-accent: var(--evrs-color-background-accent);
 }
 .select-box.balt {
   --selected-color-base: var(--balt-color-base);
   --selected-color-background: var(--balt-color-background);
-  --selected-color-background-accent: var(--balt-color-background);
+  --selected-color-background-accent: var(--balt-color-background-accent);
 }
 .select-box.geo {
   --selected-color-base: var(--geo-color-base);
@@ -47,6 +47,7 @@ ul.categories {
 
 ul.categories > li {
   color: var(--app-color-base);
+  color: #000;
   height: 3rem;
   width: 100%;
   padding: 0px;
@@ -57,8 +58,8 @@ ul.categories > li {
 }
 
 ul.categories > li.selected-category {
-  background-color: var(--selected-color-background-accent);
   background-color: var(--app-color-background-accent);
+  background-color: var(--selected-color-base);
 }
 
 ul.categories > li > button {
@@ -121,6 +122,7 @@ ul.variants {
 
 ul.variants > li {
   color: var(--app-color-base);
+  background-color: var(--app-color-background-accent);
   border-radius: 1rem;
 }
 
@@ -131,10 +133,10 @@ ul.variants > li > button {
   background-color: inherit;
   color: inherit;
   border: none;
+  border-radius: inherit;
 }
 
 ul.variants > li.selected-variant > button {
-  background-color: var(--selected-color-background-accent);
-  background-color: var(--app-color-background-accent);
+  background-color: var(--selected-color-base);
   border-radius: 1rem;
 }

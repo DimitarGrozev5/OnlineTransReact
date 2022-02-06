@@ -1,4 +1,3 @@
-import placeCaret from "../commands/place-caret";
 import { inputDataActions } from "../input-data";
 import moveOffsetLeft from "./thunk-helpers/move-offset-left";
 

@@ -3,7 +3,7 @@
   width: 100%;
   justify-content: flex-start;
   caret-color: black;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
 }
 
 .row.wrap {

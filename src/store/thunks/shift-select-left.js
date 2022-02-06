@@ -1,6 +1,5 @@
 import orderStartAndEnd from "./order-start-and-end";
 import moveOffsetLeft from "./thunk-helpers/move-offset-left";
-import pickFocusContainer from "./thunk-helpers/pick-focus-container";
 
 const shiftSelectLeftThunk = () => (dispatch, getState) => {
   const state = getState().inputData;

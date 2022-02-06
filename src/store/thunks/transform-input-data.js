@@ -66,7 +66,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
   );
   // Fetch data
   fetch("http://127.0.0.1/online-trans-api/transform.php", {
-  // fetch("online-trans-api/transform.php", {
+    // fetch("online-trans-api/transform.php", {
     method: "POST",
     mode: "cors",
     body: JSON.stringify(postData),
@@ -112,7 +112,9 @@ const transformInputDataThunk = () => (dispatch, getState) => {
         dispatch(systemsActions.setTransformedData(dataArr));
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      dispatch(systemsActions.setTransformedData({ error: err.toString() }))
+    );
 };
 
 export default transformInputDataThunk;

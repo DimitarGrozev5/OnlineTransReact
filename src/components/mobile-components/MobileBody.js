@@ -7,6 +7,7 @@ import DataInput from "../common/TextArea/DataInput";
 import { useDispatch, useSelector } from "react-redux";
 import { systemsActions } from "../../store/input-systems";
 import DataOutput from "../common/TextArea/DataOutput";
+import hintOnSystemChangeThunk from "../../store/thunks-hint/hint-on-system-change";
 
 const MobileBody = (props) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const MobileBody = (props) => {
 
   const changeInputCSHandler = (targetCS) => {
     dispatch(
-      systemsActions.setSystem({
+      hintOnSystemChangeThunk({
         inputOrOutput: "input",
         system: "xy",
         newValue: targetCS,
@@ -38,7 +39,7 @@ const MobileBody = (props) => {
 
   const changeInputVariantHandler = (targetCS) => {
     dispatch(
-      systemsActions.setSystem({
+      hintOnSystemChangeThunk({
         inputOrOutput: "input",
         system: "variant",
         newValue: targetCS,
@@ -48,7 +49,7 @@ const MobileBody = (props) => {
 
   const changeInputHSHandler = (targetCS) => {
     dispatch(
-      systemsActions.setSystem({
+      hintOnSystemChangeThunk({
         inputOrOutput: "input",
         system: "h",
         newValue: targetCS,
@@ -58,7 +59,7 @@ const MobileBody = (props) => {
 
   const changeOutputCSHandler = (targetCS) => {
     dispatch(
-      systemsActions.setSystem({
+      hintOnSystemChangeThunk({
         inputOrOutput: "output",
         system: "xy",
         newValue: targetCS,
@@ -68,7 +69,7 @@ const MobileBody = (props) => {
 
   const changeOutputVariantHandler = (targetCS) => {
     dispatch(
-      systemsActions.setSystem({
+      hintOnSystemChangeThunk({
         inputOrOutput: "output",
         system: "variant",
         newValue: targetCS,
@@ -78,7 +79,7 @@ const MobileBody = (props) => {
 
   const changeOutputHSHandler = (targetCS) => {
     dispatch(
-      systemsActions.setSystem({
+      hintOnSystemChangeThunk({
         inputOrOutput: "output",
         system: "h",
         newValue: targetCS,

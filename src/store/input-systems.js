@@ -78,6 +78,9 @@ const systemsSlice = createSlice({
       // If the user changes the system, remove the transformation data
       if (state.selectedSystems[inputOrOutput][system] !== newValue) {
         state.transformedData = null;
+        if (system === 'xy') {
+          state.selectedSystems[inputOrOutput].variant = null;
+        }
       }
 
       state.selectedSystems[inputOrOutput] = {

@@ -1,6 +1,5 @@
 .nivigation {
-  overflow: hidden;
-
+  
   text-align: center;
 }
 
@@ -21,6 +20,7 @@
   color: var(--app-color-base);
   height: 3.5rem;
   border-radius: 1.75rem;
+  position: relative;
 }
 
 .nivigation > ul > li > button {
@@ -95,5 +95,120 @@
 }
 
 .data-bar > div.geo {
+  background-color: var(--geo-color-base);
+}
+
+.hint {
+  position: absolute;
+  top: -2.1rem;
+  width: 100%;
+
+  /* border: 1px solid red; */
+}
+
+.hint button {
+  position: relative;
+  z-index: 1;
+
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+
+  border: none;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  margin-right: 0.5rem;
+
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.hint button.bgs::before {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  
+  width: 1rem;
+  height: 2rem;
+
+  /* border: 1px solid red; */
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  background-color: var(--bgs-color-base);
+}
+
+.hint button.cs70::before {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  
+  width: 1rem;
+  height: 2rem;
+
+  /* border: 1px solid red; */
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  background-color: var(--cs70-color-base);
+}
+
+.hint button.evrs::after {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  
+  width: 1rem;
+  height: 2rem;
+
+  /* border: 1px solid red; */
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: var(--evrs-color-base);
+}
+
+.hint button.balt::after {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  
+  width: 1rem;
+  height: 2rem;
+
+  /* border: 1px solid red; */
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: var(--balt-color-base);
+}
+
+.hint button.geo::after {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  
+  width: 1rem;
+  height: 2rem;
+
+  /* border: 1px solid red; */
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
   background-color: var(--geo-color-base);
 }
