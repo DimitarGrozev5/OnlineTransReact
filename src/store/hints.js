@@ -4,8 +4,8 @@ const hintsSlice = createSlice({
   name: "hints",
   initialState: {
     input: [
-      // { xy: "bgs", h: "geo" },
       // { xy: "bgs", h: "evrs" },
+      // { xy: "cs70", h: "balt" },
     ],
     output: [
       // { xy: "cs70", h: "balt" },

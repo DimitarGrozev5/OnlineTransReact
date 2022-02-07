@@ -7,7 +7,7 @@ import DataInput from "../common/TextArea/DataInput";
 import { useDispatch, useSelector } from "react-redux";
 import { systemsActions } from "../../store/input-systems";
 import DataOutput from "../common/TextArea/DataOutput";
-import hintOnSystemChangeThunk from "../../store/thunks-hint/hint-on-system-change";
+import setSystemThunk from "../../store/thunks-hint/set-system";
 
 const MobileBody = (props) => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const MobileBody = (props) => {
 
   const changeInputCSHandler = (targetCS) => {
     dispatch(
-      hintOnSystemChangeThunk({
+      setSystemThunk({
         inputOrOutput: "input",
         system: "xy",
         newValue: targetCS,
@@ -39,7 +39,7 @@ const MobileBody = (props) => {
 
   const changeInputVariantHandler = (targetCS) => {
     dispatch(
-      hintOnSystemChangeThunk({
+      setSystemThunk({
         inputOrOutput: "input",
         system: "variant",
         newValue: targetCS,
@@ -49,7 +49,7 @@ const MobileBody = (props) => {
 
   const changeInputHSHandler = (targetCS) => {
     dispatch(
-      hintOnSystemChangeThunk({
+      setSystemThunk({
         inputOrOutput: "input",
         system: "h",
         newValue: targetCS,
@@ -59,7 +59,7 @@ const MobileBody = (props) => {
 
   const changeOutputCSHandler = (targetCS) => {
     dispatch(
-      hintOnSystemChangeThunk({
+      setSystemThunk({
         inputOrOutput: "output",
         system: "xy",
         newValue: targetCS,
@@ -69,7 +69,7 @@ const MobileBody = (props) => {
 
   const changeOutputVariantHandler = (targetCS) => {
     dispatch(
-      hintOnSystemChangeThunk({
+      setSystemThunk({
         inputOrOutput: "output",
         system: "variant",
         newValue: targetCS,
@@ -79,7 +79,7 @@ const MobileBody = (props) => {
 
   const changeOutputHSHandler = (targetCS) => {
     dispatch(
-      hintOnSystemChangeThunk({
+      setSystemThunk({
         inputOrOutput: "output",
         system: "h",
         newValue: targetCS,
@@ -148,8 +148,8 @@ const MobileBody = (props) => {
       )}
       {props.activePage === "4" && (
         <React.Fragment>
-         <WidgetContainer title="Трансформирани координати" expand>
-           <DataOutput />
+          <WidgetContainer title="Трансформирани координати" expand>
+            <DataOutput />
           </WidgetContainer>
         </React.Fragment>
       )}

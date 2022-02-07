@@ -60,7 +60,7 @@ const systemsSlice = createSlice({
     selectedSystems: {
       input: {
         xy: "bgs",
-        variant: null,
+        variant: 'cad',
         h: "geo",
       },
       output: {
@@ -79,7 +79,7 @@ const systemsSlice = createSlice({
       if (state.selectedSystems[inputOrOutput][system] !== newValue) {
         state.transformedData = null;
         if (system === 'xy') {
-          state.selectedSystems[inputOrOutput].variant = null;
+          state.selectedSystems[inputOrOutput].variant = newValue === 'bgs' ? 'cad' : null;
         }
       }
 

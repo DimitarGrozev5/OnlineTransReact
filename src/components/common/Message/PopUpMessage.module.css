@@ -1,0 +1,39 @@
+.pop-up {
+  position: fixed;
+  z-index: 100;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 5rem;
+  min-height: 3rem;
+
+  padding: 1rem;
+
+  border: 1px solid var(--app-color-base);
+  border-radius: 1rem;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+
+  color: var(--app-color-base);
+  background-color: var(--app-color-background-accent);
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pop-up div {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.pop-up button {
+  display: inline-block;
+
+  width: 4rem;
+  height: 2rem;
+
+  border: 1px solid var(--app-color-base);
+  border-radius: 1rem;
+
+  margin-left: auto;
+}

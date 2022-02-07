@@ -9,7 +9,7 @@ const WidgetContainer = (props) => {
         props.expand ? classes.expand : ""
       }`}
     >
-      <h2>{props.title}</h2>
+      {props.title && <h2>{props.title}</h2>}
       {props.children}
     </div>
   );
