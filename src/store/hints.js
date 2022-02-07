@@ -4,16 +4,23 @@ const hintsSlice = createSlice({
   name: "hints",
   initialState: {
     input: [
-      // { xy: "bgs", h: "evrs" },
-      // { xy: "cs70", h: "balt" },
+      { xy: "bgs", h: "evrs" },
+      { xy: "cs70", h: "balt" },
     ],
-    output: [
-      // { xy: "cs70", h: "balt" },
-    ],
+    output: [{ xy: "bgs", h: "evrs" }],
+    inputIsSet: false,
+    outputIsSet: false,
   },
   reducers: {
     setHints(state, action) {
       return { ...state, ...action.payload };
+    },
+
+    setInput(state) {
+      state.inputIsSet = true;
+    },
+    setOutput(state) {
+      state.outputIsSet = true;
     },
   },
 });

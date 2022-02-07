@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import classes from "./DataInput.module.css";
 import DataInputControls from "./DataInputControls";
 import TextArea from "./TextArea";
@@ -8,6 +8,12 @@ import { useSelector } from "react-redux";
 
 const DataInput = (props) => {
   const selected = useSelector((state) => state.systems.selectedSystems.input);
+  const firstLine = useSelector((state) => state.inputData.data[0].join(","));
+
+  // Saving the first line on typing
+  useEffect(() => {
+    
+  }, [firstLine, selected]);
 
   //Wrap setting: Makes a row of data wrap or no-wrap
   const [wrap, setWrap] = useState(true);
@@ -55,4 +61,4 @@ const DataInput = (props) => {
   );
 };
 
-export default DataInput;
+export default React.memo(DataInput);

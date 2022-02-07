@@ -1,48 +1,28 @@
 import { hintsActions } from "../hints";
 import { systemsActions } from "../input-systems";
+import hintInputsThunk from "./hint-inputs";
+import hintOutputsThunk from "./hint-outputs";
 
 const setSystemThunk = (data) => (dispatch, getState) => {
-  const selectedSystems = getState().systems.selectedSystems;
-
-  if (data.system !== "variant") {
-    let xy;
-    let h;
-    if (data.system === "xy") {
-      xy = data.newValue;
-      h = selectedSystems[data.inputOrOutput].h;
-    } else {
-      xy = selectedSystems[data.inputOrOutput].xy;
-      h = data.newValue;
-    }
-
-    let hints = [];
-    if (xy === "bgs") {
-      if (h === "geo") {
-        hints = [
-          { xy: "bgs", vaiant: 'cad', h: "evrs" },
-          { xy: "cs70", h: "balt" },
-        ];
-      } else if (h === "evrs") {
-        hints = [
-          { xy: "bgs", vaiant: 'cad', h: "geo" },
-          { xy: "cs70", h: "balt" },
-        ];
-      }
-    } else if (xy === "cs70") {
-      hints = [
-        { xy: "bgs",  vaiant: 'cad', h: "evrs" },
-        { xy: "bgs",  vaiant: 'cad', h: "geo" },
-      ];
-    }
-
-    // dispatch(
-    //   hintsActions.setHints({
-    //     ["output"]: hints,
-    //   })
-    // );
-  }
+  const hints = getState().hints;
 
   dispatch(systemsActions.setSystem(data));
+
+  if (data.inputOrOutput === "input") {
+    dispatch(hintsActions.setInput());
+    dispatch(hintsActions.setHints({ input: [] }));
+  }
+
+  if (data.inputOrOutput === "output") {
+    dispatch(hintsActions.setOutput());
+    dispatch(hintsActions.setHints({ output: [] }));
+  }
+
+  if (data.inputOrOutput === "input" && !hints.outputIsSet) {
+    dispatch(hintOutputsThunk());
+  } else if (data.inputOrOutput === "output" && !hints.inputIsSet) {
+    dispatch(hintInputsThunk());
+  }
 };
 
 export default setSystemThunk;
