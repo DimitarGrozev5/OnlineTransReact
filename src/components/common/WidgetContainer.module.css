@@ -36,3 +36,32 @@
   font-size: 1rem;
   color: var(--app-color-base);
 }
+
+@media (min-width: 1024px) {
+  .widget-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* z-index: -5; */
+
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    border: 1px solid var(--app-color-base);
+    border: none;
+    background: var(--app-color-background);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  .expand {
+    flex-grow: 1;
+  }
+
+  .widget-container > h2 {
+    font-size: 1rem;
+    color: var(--app-color-base);
+  }
+}

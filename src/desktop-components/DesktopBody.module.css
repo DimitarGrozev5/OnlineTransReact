@@ -3,11 +3,43 @@
 
   display: grid;
   grid-template-columns: 4fr 4fr 1fr 4fr 4fr;
-  grid-template-rows: 35vh auto;
+  grid-template-rows: min-content auto;
   grid-template-areas:
-    "pick1 pick2 reverse pick3 pick4"
+    "pick1 pick2 rev pick3 pick4"
     "input input transform output output";
   gap: 0px;
 
   text-align: center;
+}
+
+.xy-in {
+  grid-area: pick1;
+}
+
+.h-in {
+  grid-area: pick2;
+}
+
+.reverse-systems {
+  grid-area: rev;
+}
+
+.xy-out {
+  grid-area: pick3;
+}
+
+.h-out {
+  grid-area: pick4;
+}
+
+.textarea-in {
+  grid-area: input;
+}
+
+.transform-btn {
+  grid-area: transform;
+}
+
+.textarea-out {
+  grid-area: output;
 }

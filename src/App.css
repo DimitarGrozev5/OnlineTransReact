@@ -6,36 +6,7 @@ Color profile
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 
-  --app-color-base: #e04609;
-  --app-color-base: #1679ca;
-  --app-color-base: #1762a0;
-  --app-color-background: #edf5fd;
-  --app-color-background-accent: #b6d6f7;
-
-  --bgs-color-base: #e0a800;
-  --bgs-color-background: #fff5d6;
-  --bgs-color-background-accent: #ffe085;
-
-  --cs70-color-base: #a800e0;
-  --cs70-color-background: #faebff;
-  --cs70-color-background-accent: #ebadff;
-
-  --evrs-color-base: #e0a800;
-  --evrs-color-background: #fffaeb;
-  --evrs-color-background-accent: #ffebad;
-
-  --balt-color-base: #a800e0;
-  --balt-color-background: #faebff;
-  --balt-color-background-accent: #ebadff;
-
-  --geo-color-base: #00a300;
-  --geo-color-background: #ebffeb;
-  --geo-color-background-accent: #adffad;
-}
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  --desktop-cutoff: 1024px;
 
   --app-color-base: #444;
   --app-color-background: #E3E3E5;

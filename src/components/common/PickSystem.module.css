@@ -89,7 +89,6 @@ li.geo {
   color: var(--geo-color-base);
 }
 
-
 div.variants {
   padding-top: 0.2rem;
   padding-bottom: 1rem;
@@ -107,7 +106,6 @@ div.variants h3 {
   padding: 0;
   color: var(--app-color-base);
 }
-
 
 ul.variants {
   list-style: none;
@@ -139,4 +137,60 @@ ul.variants > li > button {
 ul.variants > li.selected-variant > button {
   background-color: var(--selected-color-base);
   border-radius: 1rem;
+}
+
+@media (min-width: 1024px) {
+  ul.categories > li {
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  ul.categories > li > button {
+    cursor: inherit;
+  }
+
+  ul.categories > li > button:hover {
+    background-color: var(--app-color-background-accent);
+  }
+
+  ul.categories > li.selected-category > button:hover {
+    background-color: var(--selected-color-background);
+    filter: brightness(100%);
+  }
+
+  div.variants {
+    padding-top: 0.2rem;
+    border-radius: 0.5rem;
+  }
+
+  div.variants h3 {
+    margin-bottom: 0.5rem;
+    padding: 0;
+  }
+
+  ul.variants > li {
+    border-radius: 0.2rem;
+  }
+
+  ul.variants > li > button {
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+  }
+
+  ul.variants > li > button:hover {
+    background-color: var(--app-color-background-accent);
+    filter: brightness(90%);
+  }
+
+  ul.variants > li.selected-variant > button {
+    border-radius: 0.2rem;
+  }
+
+  ul.variants > li.selected-variant > button:hover {
+    background-color: var(--selected-color-background);
+    /* filter: brightness(90%); */
+  }
 }

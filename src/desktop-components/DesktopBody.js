@@ -86,61 +86,69 @@ const DesktopBody = (props) => {
 
   return (
     <div className={styles.main}>
-      <WidgetContainer title="Входна Координатна Система">
-        <PickSystem
-          title="Входна КС"
-          categories={systems.allXYSystems}
-          selectedCategory={selected.input.xy}
-          selectedVariant={selected.input.variant}
-          showVariants
-          activeCategoryVariants={selectedInputSystemVariants}
-          onChangeSystem={changeInputCSHandler}
-          onChangeVariant={changeInputVariantHandler}
-        />
-      </WidgetContainer>
+      <div className={styles["xy-in"]}>
+        <WidgetContainer title="Входна Координатна Система">
+          <PickSystem
+            title="Входна КС"
+            categories={systems.allXYSystems}
+            selectedCategory={selected.input.xy}
+            selectedVariant={selected.input.variant}
+            showVariants
+            activeCategoryVariants={selectedInputSystemVariants}
+            onChangeSystem={changeInputCSHandler}
+            onChangeVariant={changeInputVariantHandler}
+          />
+        </WidgetContainer>
+      </div>
 
-      <WidgetContainer title="Входна Височинна Система">
-        <PickSystem
-          title="Входна КС"
-          categories={systems.allHSystems}
-          selectedCategory={selected.input.h}
-          onChangeSystem={changeInputHSHandler}
-        />
-      </WidgetContainer>
+      <div className={styles["h-in"]}>
+        <WidgetContainer title="Входна Височинна Система">
+          <PickSystem
+            title="Входна КС"
+            categories={systems.allHSystems}
+            selectedCategory={selected.input.h}
+            onChangeSystem={changeInputHSHandler}
+          />
+        </WidgetContainer>
+      </div>
 
-      <div>Reverse</div>
+      <div className={styles["reverse-systems"]}>Reverse</div>
 
-      <WidgetContainer title="Изходна Координатна Система">
-        <PickSystem
-          title="Изходна КС"
-          categories={systems.allXYSystems}
-          selectedCategory={selected.output.xy}
-          selectedVariant={selected.output.variant}
-          showVariants
-          activeCategoryVariants={selectedOutputSystemVariants}
-          onChangeSystem={changeOutputCSHandler}
-          onChangeVariant={changeOutputVariantHandler}
-        />
-      </WidgetContainer>
+      <div className={styles["xy-out"]}>
+        <WidgetContainer title="Изходна Координатна Система">
+          <PickSystem
+            title="Изходна КС"
+            categories={systems.allXYSystems}
+            selectedCategory={selected.output.xy}
+            selectedVariant={selected.output.variant}
+            showVariants
+            activeCategoryVariants={selectedOutputSystemVariants}
+            onChangeSystem={changeOutputCSHandler}
+            onChangeVariant={changeOutputVariantHandler}
+          />
+        </WidgetContainer>
+      </div>
 
-      <WidgetContainer title="Изходна Височинна Система">
-        <PickSystem
-          title="Изходна КС"
-          categories={systems.allHSystems}
-          selectedCategory={selected.output.h}
-          onChangeSystem={changeOutputHSHandler}
-        />
-      </WidgetContainer>
+      <div className={styles["h-out"]}>
+        <WidgetContainer title="Изходна Височинна Система">
+          <PickSystem
+            title="Изходна КС"
+            categories={systems.allHSystems}
+            selectedCategory={selected.output.h}
+            onChangeSystem={changeOutputHSHandler}
+          />
+        </WidgetContainer>
+      </div>
 
-      <div style={{ gridColumnEnd: "span 2", height: "70vh" }}>
+      <div className={styles["textarea-in"]}>
         <WidgetContainer title="Входни координати" expand>
           <DataInput />
         </WidgetContainer>
       </div>
 
-      <div>Transform</div>
+      <div className={styles["transform-btn"]}>Transform</div>
 
-      <div style={{ gridColumnEnd: "span 2", height: "70vh" }}>
+      <div className={styles["textarea-out"]}>
         <WidgetContainer title="Трансформирани координати" expand>
           <DataOutput />
         </WidgetContainer>
