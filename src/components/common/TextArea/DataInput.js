@@ -4,15 +4,17 @@ import DataInputControls from "./DataInputControls";
 import TextArea from "./TextArea";
 import TextAreaWraper from "./TextAreaWraper";
 import TextAreaRow from "./TextAreaRow";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import guessCsThunk from "../../../store/thunks-hint/guess-cs";
 
 const DataInput = (props) => {
   const selected = useSelector((state) => state.systems.selectedSystems.input);
-  const firstLine = useSelector((state) => state.inputData.data[0].join(","));
+  const firstLine = useSelector((state) => state.inputData.data[0]);
+  const dispatch = useDispatch();
 
   // Saving the first line on typing
   useEffect(() => {
-    
+    dispatch(guessCsThunk(firstLine));
   }, [firstLine, selected]);
 
   //Wrap setting: Makes a row of data wrap or no-wrap

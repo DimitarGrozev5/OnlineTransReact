@@ -1,0 +1,140 @@
+.hint,
+.hint.size-1,
+.hint.size-2 {
+  position: absolute;
+  top: -2.1rem;
+  width: 100%;
+
+  /* border: 1px solid red; */
+}
+
+.hint.size-0 {
+  display: none;
+}
+
+.hint.size-3,
+.hint.size-4 {
+  position: absolute;
+  top: -4.4rem;
+  width: 100%;
+}
+
+.hint button {
+  position: relative;
+  z-index: 1;
+
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+
+  margin-bottom: 0.2rem;
+
+  border: none;
+
+  background-color: rgba(0, 0, 0, 0);
+
+  margin-right: 0.5rem;
+
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.hint button::before {
+  z-index: -1;
+}
+
+.hint button::after {
+  z-index: -1;
+}
+
+.hint button.bgs::before {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  width: 1rem;
+  height: 2rem;
+
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  background-color: var(--bgs-color-base);
+}
+
+.hint button.bgs {
+  color: var(--bgs-color-font);
+}
+
+.hint button.cs70::before {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  width: 1rem;
+  height: 2rem;
+
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  background-color: var(--cs70-color-base);
+}
+
+.hint button.cs70 {
+  color: var(--cs70-color-font);
+}
+
+.hint button.evrs::after {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+  width: 1rem;
+  height: 2rem;
+
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: var(--evrs-color-base);
+}
+
+.hint button.balt::after {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+  width: 1rem;
+  height: 2rem;
+
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: var(--balt-color-base);
+}
+
+.hint button.geo::after {
+  content: " ";
+
+  display: inline-block;
+
+  position: absolute;
+  top: 0px;
+  right: 0px;
+
+  width: 1rem;
+  height: 2rem;
+
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-color: var(--geo-color-base);
+}

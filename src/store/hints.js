@@ -10,6 +10,7 @@ const hintsSlice = createSlice({
     output: [{ xy: "bgs", h: "evrs" }],
     inputIsSet: false,
     outputIsSet: false,
+    typingHintIsSet: false,
   },
   reducers: {
     setHints(state, action) {
@@ -22,6 +23,16 @@ const hintsSlice = createSlice({
     setOutput(state) {
       state.outputIsSet = true;
     },
+    setTyping(state) {
+      state.typingHintIsSet = true;
+      state.inputIsSet = false;
+      state.outputIsSet = false;
+    },
+    clearTyping(state) {
+      state.typingHintIsSet = false;
+      state.inputIsSet = false;
+      state.outputIsSet = false;
+    }
   },
 });
 
