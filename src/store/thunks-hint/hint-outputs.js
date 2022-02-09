@@ -27,11 +27,11 @@ const hintOutputsThunk = () => (dispatch, getState) => {
   } else if (selectedSystems.input.xy === "cs70") {
     switch (selectedSystems.input.h) {
       case "geo":
-        hints = [{ xy: "cs70", h: "balt" }];
+        hints = [/* { xy: "cs70", h: "balt" } */];
         break;
 
       case "evrs":
-        hints = [{ xy: "cs70", h: "balt" }];
+        hints = [/* { xy: "cs70", h: "balt" } */];
         break;
 
       case "balt":

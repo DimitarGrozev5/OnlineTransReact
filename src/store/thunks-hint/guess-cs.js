@@ -216,7 +216,7 @@ const pointIsInBoundry = (x, y, boundry) => {
 
 const guessCsThunk = (firstLine) => (dispatch, getState) => {
   const hintsSlice = getState().hints;
-  const inputSystem = getState().systems.selectedSystems.input.xy;
+  const inputSystem = getState().systems.selectedSystems.input;
 
   if (firstLine.length === 1 && firstLine[0] === "") {
     dispatch(hintsActions.clearTyping());
@@ -256,6 +256,7 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
   y = +y;
 
   // Check if the point is one of the Variant boundries
+  // If so add it to the rawHints array
   const rawHints = Array.from(Object.entries(boundries)).reduce(
     (hints, [system, boundry]) => {
       if (pointIsInBoundry(x, y, boundry)) {
@@ -265,9 +266,12 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
     },
     []
   );
+
+  // Create an array of hint objects for the dispatch function
   const hints = rawHints.reduce((allHints, hint) => {
-    console.log(inputSystem);
-    if (hint === "cad" && inputSystem !== "bgs") {
+    // If the selected input system matches the entered coordinates, do not show hints
+    
+    if (hint === "cad" && inputSystem.xy !== "bgs") {
       return [
         ...allHints,
         {
@@ -279,7 +283,7 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
           h: "evrs",
         },
       ];
-    } else if (["k3", "k5", "k7", "k9"].includes(hint)) {
+    } else if (["k3", "k5", "k7", "k9"].includes(hint) && inputSystem.variant !== hint) {
       return [
         ...allHints,
         {
@@ -292,6 +296,7 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
     return allHints;
   }, []);
 
+  // If the hints array is empty do not dispatch an action
   hints.length && dispatch(hintsActions.setTyping());
   hints.length && dispatch(hintsActions.setHints({ input: hints, output: [] }));
 };
