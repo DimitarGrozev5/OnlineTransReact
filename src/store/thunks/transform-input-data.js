@@ -4,9 +4,9 @@ const transformInputDataThunk = () => (dispatch, getState) => {
   const transformedData = getState().systems.transformedData;
 
   // If the input data is transformed do nothing
-  if (transformedData) {
-    return;
-  }
+  // if (transformedData && !transformedData.error) {
+  //   return;
+  // }
 
   // If the input or output CSs are not set, display a message
   const selectedSystems = getState().systems.selectedSystems;
@@ -66,7 +66,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
   );
   // Fetch data
   // fetch("http://127.0.0.1/online-trans-api/transform.php", {
-  fetch("online-trans-api/transform.php", {
+    fetch("online-trans-api/transform.php", {
     method: "POST",
     mode: "cors",
     body: JSON.stringify(postData),
@@ -109,7 +109,45 @@ const transformInputDataThunk = () => (dispatch, getState) => {
           dataArr.push(data[i.toString()]);
         }
 
-        dispatch(systemsActions.setTransformedData(dataArr));
+        const transformedData = dataArr.map((row) => {
+          const fields = [];
+          if (row["#"]) {
+            fields.push(row["#"]);
+          }
+          if (row["X"]) {
+            let x = +row["X"];
+            if (isNaN(x)) {
+              fields.push(row["X"]);
+            } else {
+              fields.push(x.toFixed(3));
+            }
+          }
+          if (row["Y"]) {
+            let y = +row["Y"];
+            if (isNaN(y)) {
+              fields.push(row["Y"]);
+            } else {
+              fields.push(y.toFixed(3));
+            }
+          }
+          if (row["H"]) {
+            let h = +row["Y"];
+            if (isNaN(h)) {
+              fields.push(row["Y"]);
+            } else {
+              fields.push(h.toFixed(3));
+            }
+          }
+          if (row["Code"]) {
+            fields.push(row["Code"]);
+          }
+          if (row["var"]) {
+            fields.push(...row["var"]);
+          }
+          return fields;
+        });
+
+        dispatch(systemsActions.setTransformedData(transformedData));
       }
     })
     .catch((err) =>

@@ -216,6 +216,7 @@ const pointIsInBoundry = (x, y, boundry) => {
 
 const guessCsThunk = (firstLine) => (dispatch, getState) => {
   const hintsSlice = getState().hints;
+  const inputSystem = getState().systems.selectedSystems.input.xy;
 
   if (firstLine.length === 1 && firstLine[0] === "") {
     dispatch(hintsActions.clearTyping());
@@ -244,8 +245,6 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
     y = firstLine[1];
   }
 
-  console.log(x);
-
   // Check if X && Y are numbers
   const numRegEx = /^[0-9]+\.{0,1}[0-9]*/;
   if (!numRegEx.test(x) || !numRegEx.test(y)) {
@@ -267,7 +266,8 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
     []
   );
   const hints = rawHints.reduce((allHints, hint) => {
-    if (hint === "cad") {
+    console.log(inputSystem);
+    if (hint === "cad" && inputSystem !== "bgs") {
       return [
         ...allHints,
         {
