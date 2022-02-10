@@ -23,15 +23,22 @@ const hintOutputsThunk = () => (dispatch, getState) => {
       case "balt":
         hints = [{ xy: "bgs", h: "evrs" }];
         break;
+
+      default:
+        hints = [];
     }
   } else if (selectedSystems.input.xy === "cs70") {
     switch (selectedSystems.input.h) {
       case "geo":
-        hints = [/* { xy: "cs70", h: "balt" } */];
+        hints = [
+          /* { xy: "cs70", h: "balt" } */
+        ];
         break;
 
       case "evrs":
-        hints = [/* { xy: "cs70", h: "balt" } */];
+        hints = [
+          /* { xy: "cs70", h: "balt" } */
+        ];
         break;
 
       case "balt":
@@ -40,6 +47,9 @@ const hintOutputsThunk = () => (dispatch, getState) => {
           { xy: "bgs", h: "geo" },
         ];
         break;
+
+      default:
+        hints = [];
     }
   }
   dispatch(hintsActions.setHints({ output: hints }));

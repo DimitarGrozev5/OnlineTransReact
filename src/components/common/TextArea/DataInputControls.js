@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { inputDataActions } from "../../../store/input-data";
-//import classes from "./DataInputControls.module.css";
+import classes from "./DataInputControls.module.css";
 
 const DataInputControls = (props) => {
   const [showDividerSelect, setShowDividerSelect] = useState(false);
@@ -18,18 +18,30 @@ const DataInputControls = (props) => {
     dispatch(inputDataActions.redo());
   };
 
+  const fileInputRef = useRef();
+
+  const openFileUploadDialog = () => {
+    fileInputRef.current.click();
+  };
+
+  const fileIsLoadedHandler = (event) => {
+    props.onOpenFile(event.target.files);
+  };
+
   return (
-    <div>
+    <div className={classes.controls}>
+      <input ref={fileInputRef} type="file" onChange={fileIsLoadedHandler} />
+      <button onClick={openFileUploadDialog}>Отвори файл</button>
       <button onClick={props.onChangeWrap}>
         {props.wrap ? "No-Wrap" : "Wrap"}
       </button>
-      <div>
+      <div className={classes["pop-up-container"]}>
         <button onClick={toggleDividersHandler}>Разделители</button>
         {showDividerSelect && (
-          <div>
+          <div className={classes["pop-up"]}>
             {props.allowedDividers.map((divider, index) => {
               return (
-                <div key={index}>
+                <div key={index} className={classes["pop-up__row"]}>
                   <div>
                     <input
                       type="checkbox"

@@ -24,6 +24,9 @@ const hintInputsThunk = () => (dispatch, getState) => {
       case "balt":
         hints = [{ xy: "bgs", h: "evrs" }];
         break;
+
+      default:
+        hints = [];
     }
   } else if (selectedSystems.output.xy === "cs70") {
     switch (selectedSystems.output.h) {
@@ -41,9 +44,12 @@ const hintInputsThunk = () => (dispatch, getState) => {
           { xy: "bgs", h: "geo" },
         ];
         break;
+        
+      default:
+        hints = [];
     }
   }
-  dispatch(hintsActions.setHints({ input: [], output: hints }));
+  dispatch(hintsActions.setHints({ input: hints, output: [] }));
 };
 
 export default hintInputsThunk;

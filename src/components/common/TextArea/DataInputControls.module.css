@@ -1,0 +1,82 @@
+.controls {
+  display: flex;
+  justify-content: end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.controls button {
+  padding: 0.2rem;
+
+  border: 1px solid var(--app-color-base);
+  border-radius: 3px;
+
+  background-color: var(--app-color-background);
+
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background-color: var(--app-color-background-accent);
+}
+
+.controls input[type="file"] {
+  display: none;
+}
+
+.pop-up-container {
+  position: relative;
+}
+
+.pop-up {
+  position: absolute;
+  top: 1.6rem;
+  left: 0px;
+  z-index: 5;
+
+  padding: 0.4rem;
+
+  border: 1px solid var(--app-color-base);
+  border-radius: 3px;
+
+  background-color: var(--app-color-background);
+}
+
+.pop-up__row {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.pop-up__row input {
+  position: relative;
+
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+
+  appearance: none;
+
+  border: 1px solid var(--app-color-base);
+  border-radius: 3px;
+
+  background-color: var(--app-color-background);
+}
+
+.pop-up__row input::before {
+  display: none;
+}
+
+.pop-up__row input:checked::before {
+  content: " ";
+  display: inline-block;
+  position: relative;
+  top: 0.04rem;
+  left: 0.15rem;
+  width: 0.6rem;
+  height: 0.6rem;
+
+  background-color: var(--app-color-base);
+  border-radius: 0.3rem;
+}

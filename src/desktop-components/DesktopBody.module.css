@@ -1,4 +1,6 @@
 .main {
+  max-width: 1100px;
+
   flex-grow: 1;
 
   display: grid;
@@ -10,6 +12,10 @@
   gap: 0px;
 
   text-align: center;
+}
+
+.main > div {
+  display: flex;
 }
 
 .xy-in {
@@ -34,12 +40,37 @@
 
 .textarea-in {
   grid-area: input;
+  display: flex;
 }
 
 .transform-btn {
   grid-area: transform;
+  align-self: center;
 }
 
 .textarea-out {
   grid-area: output;
+  display: flex;
+}
+
+.transform-btn button {
+  display: inline-block;
+
+  width: 100%;
+  height: 3rem;
+
+  border: 1px solid var(--app-color-base);
+  border-radius: 0.5rem;
+
+  background-color: var(--app-color-background);
+
+  cursor: pointer;
+}
+
+.transform-btn button:hover {
+  background-color: var(--app-color-background-accent);
+}
+
+.reverse-systems button {
+  display: none;
 }

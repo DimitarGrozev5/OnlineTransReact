@@ -1,7 +1,7 @@
 import { systemsActions } from "../input-systems";
 
 const transformInputDataThunk = () => (dispatch, getState) => {
-  const transformedData = getState().systems.transformedData;
+  // const transformedData = getState().systems.transformedData;
 
   // If the input data is transformed do nothing
   // if (transformedData && !transformedData.error) {
@@ -131,9 +131,9 @@ const transformInputDataThunk = () => (dispatch, getState) => {
             }
           }
           if (row["H"]) {
-            let h = +row["Y"];
+            let h = +row["H"];
             if (isNaN(h)) {
-              fields.push(row["Y"]);
+              fields.push(row["H"]);
             } else {
               fields.push(h.toFixed(3));
             }

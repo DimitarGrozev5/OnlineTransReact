@@ -149,7 +149,7 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
         if (event.ctrlKey && /^(v|V|ж|Ж)$/.test(event.key)) {
           //There shall be a simple paste function just to keep things going
           dispatch(
-            getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers))
+            getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers, null))
           );
           event.preventDefault();
         }
@@ -180,7 +180,7 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
       onPaste: (event) => {
         //There shall be a simple paste function just to keep things going
         dispatch(
-          getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers))
+          getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers, null))
         );
         event.preventDefault();
       },

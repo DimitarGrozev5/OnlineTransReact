@@ -4,6 +4,7 @@ import DataInput from "../components/common/TextArea/DataInput";
 import DataOutput from "../components/common/TextArea/DataOutput";
 import WidgetContainer from "../components/common/WidgetContainer";
 import setSystemThunk from "../store/thunks-hint/set-system";
+import transformInputDataThunk from "../store/thunks/transform-input-data";
 import styles from "./DesktopBody.module.css";
 
 const DesktopBody = (props) => {
@@ -84,6 +85,10 @@ const DesktopBody = (props) => {
     );
   };
 
+  const transformCoordinatesHandler = () => {
+    dispatch(transformInputDataThunk());
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles["xy-in"]}>
@@ -112,7 +117,9 @@ const DesktopBody = (props) => {
         </WidgetContainer>
       </div>
 
-      <div className={styles["reverse-systems"]}>Reverse</div>
+      <div className={styles["reverse-systems"]}>
+        <button>Reverse</button>
+      </div>
 
       <div className={styles["xy-out"]}>
         <WidgetContainer title="Изходна Координатна Система">
@@ -146,7 +153,9 @@ const DesktopBody = (props) => {
         </WidgetContainer>
       </div>
 
-      <div className={styles["transform-btn"]}>Transform</div>
+      <div className={styles["transform-btn"]}>
+        <button onClick={transformCoordinatesHandler}>Transform</button>
+      </div>
 
       <div className={styles["textarea-out"]}>
         <WidgetContainer title="Трансформирани координати" expand>

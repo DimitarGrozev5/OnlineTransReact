@@ -177,7 +177,7 @@ const pointIsInBoundry = (x, y, boundry) => {
     //If i points at the last point, get the first point
     let x2;
     let y2;
-    if (i + 1 == boundry.length) {
+    if (i + 1 === boundry.length) {
       x2 = boundry[0][0];
       y2 = boundry[0][1];
     } else {
@@ -189,7 +189,7 @@ const pointIsInBoundry = (x, y, boundry) => {
     //In the case the polugon segment is vertical there is a different procedure
     let yInt = y;
     let xInt = x1;
-    if (x2 - x1 != 0) {
+    if (x2 - x1 !== 0) {
       const k = (y2 - y1) / (x2 - x1);
       const m = y1 - k * x1;
 
@@ -211,7 +211,7 @@ const pointIsInBoundry = (x, y, boundry) => {
       intCounter++;
     }
   }
-  return intCounter % 2 == 1;
+  return intCounter % 2 === 1;
 };
 
 const guessCsThunk = (firstLine) => (dispatch, getState) => {
@@ -270,7 +270,7 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
   // Create an array of hint objects for the dispatch function
   const hints = rawHints.reduce((allHints, hint) => {
     // If the selected input system matches the entered coordinates, do not show hints
-    
+
     if (hint === "cad" && inputSystem.xy !== "bgs") {
       return [
         ...allHints,
@@ -283,7 +283,10 @@ const guessCsThunk = (firstLine) => (dispatch, getState) => {
           h: "evrs",
         },
       ];
-    } else if (["k3", "k5", "k7", "k9"].includes(hint) && inputSystem.variant !== hint) {
+    } else if (
+      ["k3", "k5", "k7", "k9"].includes(hint) &&
+      inputSystem.variant !== hint
+    ) {
       return [
         ...allHints,
         {

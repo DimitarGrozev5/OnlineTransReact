@@ -1,0 +1,29 @@
+.draggable {
+  flex-grow: 1;
+  display: flex;
+
+  position: relative;
+}
+
+.overlay {
+  display: none;
+}
+
+.dragging {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -6px;
+  z-index: 10;
+
+  border: 5px dashed var(--app-color-background-accent);
+  background-color: var(--app-color-background);
+
+  color: var(--app-color-background-accent);
+  font-size: 2rem;
+}

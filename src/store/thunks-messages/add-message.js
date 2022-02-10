@@ -3,7 +3,8 @@ import { messagesActions } from "../messages";
 export const messageExecutables = [];
 
 const addMessageThunk = (message, action) => (dispatch, getState) => {
-  messageExecutables.push(action);
+  const nullFunction = () => {};
+  messageExecutables.push(action || nullFunction);
   dispatch(messagesActions.addMessage(message));
 };
 

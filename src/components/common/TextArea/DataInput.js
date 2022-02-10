@@ -6,6 +6,20 @@ import TextAreaWraper from "./TextAreaWraper";
 import TextAreaRow from "./TextAreaRow";
 import { useDispatch, useSelector } from "react-redux";
 import guessCsThunk from "../../../store/thunks-hint/guess-cs";
+import Draggable from "./Draggable";
+import addMessageThunk from "../../../store/thunks-messages/add-message";
+import pasteThunk from "../../../store/thunks/paste";
+
+// Function that reads a text file and returns a promise
+const ReadFileAsText = (file) =>
+  new Promise((resolve, reject) => {
+    const promise = new FileReader();
+    promise.addEventListener("load", (event) => {
+      resolve(event.target.result);
+    });
+    promise.addEventListener("error", () => reject());
+    promise.readAsText(file);
+  });
 
 const DataInput = (props) => {
   const selected = useSelector((state) => state.systems.selectedSystems.input);
@@ -15,7 +29,7 @@ const DataInput = (props) => {
   // Saving the first line on typing
   useEffect(() => {
     dispatch(guessCsThunk(firstLine));
-  }, [firstLine, selected]);
+  }, [firstLine, selected, dispatch]);
 
   //Wrap setting: Makes a row of data wrap or no-wrap
   const [wrap, setWrap] = useState(true);
@@ -39,26 +53,56 @@ const DataInput = (props) => {
     });
   };
 
+  const openFileHandler = (files) => {
+    const arrFiles = Array.from(files).filter(
+      (file) => file.type === "text/plain"
+    );
+
+    if (arrFiles.length !== files.length) {
+      dispatch(addMessageThunk("Приемат се само текстови файлове", null));
+    }
+
+    arrFiles.forEach((file) => {
+      ReadFileAsText(file)
+        .then((res) => {
+          dispatch(
+            pasteThunk(
+              allowedDividers.filter((div) => div.on),
+              res
+            )
+          );
+        })
+        .catch(() =>
+          dispatch(
+            addMessageThunk("Проблем при отваряне на файл " + file.name, null)
+          )
+        );
+    });
+  };
+
   return (
     <React.Fragment>
       <DataInputControls
+        onOpenFile={openFileHandler}
         wrap={wrap}
         onChangeWrap={changeWrapHandler}
         allowedDividers={allowedDividers}
         onToggleDivider={toggleDividerHandler}
       />
-      <TextAreaWraper cs={selected.xy} hs={selected.h}>
-        <table>
-          <thead>
-            <TextAreaRow wrap={wrap} header dataSource="input" />
-          </thead>
-          <TextArea
-            wrap={wrap}
-            allowedDividers={allowedDividers.filter((div) => div.on)}
-            dataSource="input"
-          />
-        </table>
-      </TextAreaWraper>
+      <Draggable onDrop={openFileHandler}>
+        <TextAreaWraper cs={selected.xy} hs={selected.h}>
+          <table>
+            <thead>
+              <TextAreaRow wrap={wrap} header dataSource="input" />
+            </thead>
+            <TextArea
+              wrap={wrap}
+              allowedDividers={allowedDividers.filter((div) => div.on)}
+              dataSource="input"
+            />
+          </table>
+        </TextAreaWraper>
+      </Draggable>
     </React.Fragment>
   );
 };

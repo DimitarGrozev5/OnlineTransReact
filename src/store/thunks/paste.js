@@ -1,11 +1,17 @@
 import { inputDataActions } from "../input-data";
 
-const pasteThunk = (dividers) => async (dispatch, getState) => {
+const pasteThunk = (dividers, fileInput) => async (dispatch, getState) => {
   // Get clipboard contents
-  const input = await navigator.clipboard.readText();
+  const rawInput = fileInput || (await navigator.clipboard.readText());
 
   // Assuming that the clipboard contents will be of type <data><divider><data><divide>....<data><linebreak>
   // TODO: Consider not assuming the above
+
+  // *.kpt files divide the fields with multiple spaces
+  // If the space divider is swiched on, cllapse multiple spaces in to one
+  const input = dividers.find((div) => div.regexAlt === " ")
+    ? rawInput.replace(/ +/g, " ")
+    : rawInput;
 
   // const inputIsDivider = dividers.reduce((result, divider) => {
   //   return divider.regex.test(event.key) || result;
@@ -18,7 +24,7 @@ const pasteThunk = (dividers) => async (dispatch, getState) => {
   // Parse clipboard data
   let parsedData = input
     .split(/\r?\n|\r/g)
-    .map((line) => line.split(dividerRegex));
+    .map((line) => line.trim().split(dividerRegex));
 
   if (parsedData.length === 0) {
     return;
@@ -28,6 +34,7 @@ const pasteThunk = (dividers) => async (dispatch, getState) => {
   dispatch(
     inputDataActions.newPaste({
       parsedData,
+      fileInput: true,
     })
   );
 };
