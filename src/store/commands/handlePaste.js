@@ -9,7 +9,42 @@ import deleteSelection from "./delete-selection";
 import mergeFields from "./merge-fields";
 import splitField from "./split-field";
 
-const handlePaste = (parsedData) => (state) => {
+const handlePaste = (parsedData, fileUpload) => (state) => {
+  // If There is a file uploading do some prep
+  if (fileUpload) {
+    if (
+      state.data.length === 1 &&
+      state.data[0].length === 1 &&
+      state.data[0][0].length === 0
+    ) {
+      state.range = {
+        anchorNode: "0-0",
+        anchorOffset: 0,
+        focusNode: "0-0",
+        focusOffset: 0,
+        startContainer: "0-0",
+        startOffset: 0,
+        endContainer: "0-0",
+        endOffset: 0,
+        collapsed: true,
+      };
+    } else {
+      state.data.push([""]);
+      const id = constructFieldId(state.data.length - 1, 0);
+      state.range = {
+        anchorNode: id,
+        anchorOffset: 0,
+        focusNode: id,
+        focusOffset: 0,
+        startContainer: id,
+        startOffset: 0,
+        endContainer: id,
+        endOffset: 0,
+        collapsed: true,
+      };
+    }
+  }
+
   //If the Selection range is not collapsed delete the marked text
   if (!state.range.collapsed) {
     deleteSelection(state);
@@ -40,7 +75,7 @@ const handlePaste = (parsedData) => (state) => {
   parsedData.forEach((parsedRow) => {
     addRow(state, endRow);
     parsedRow.forEach((fieldValue) => {
-      const targetRow = endRow ? endRow + 1 : state.data.length - 1
+      const targetRow = endRow ? endRow + 1 : state.data.length - 1;
       addField(state, targetRow, null, fieldValue);
     });
     endRow && endRow++;

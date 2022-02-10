@@ -47,7 +47,8 @@ export const undoCommand = (state) => {
 
 export const redoCommand = (state) => {
   if (state.undo.undoStackPointer < state.undo.undoStack.length - 1) {
-    const redoPatch = state.undo.undoStack[state.undo.undoStackPointer + 1].redo;
+    const redoPatch =
+      state.undo.undoStack[state.undo.undoStackPointer + 1].redo;
     const patchedState = applyPatches(original(state), redoPatch);
     return produce(patchedState, (draft) => {
       draft.undo.undoStackPointer += 1;

@@ -13,6 +13,7 @@ import applyUndoableCommand, {
   undoCommand,
 } from "./history-manages/history-manager";
 import handlePaste from "./commands/handlePaste";
+import { constructFieldId } from "./helpers/deconstruct-id";
 enablePatches();
 
 const inputDataSlice = createSlice({
@@ -21,13 +22,15 @@ const inputDataSlice = createSlice({
     range: {
       anchorNode: undefined,
       anchorOffset: undefined,
+      focusNode: undefined,
+      focusOffset: undefined,
       startContainer: undefined,
       startOffset: undefined,
       endContainer: undefined,
       endOffset: undefined,
       collapsed: undefined,
     },
-    data: [['']],
+    data: [[""]],
     undo: {
       undoStack: [],
       undoStackPointer: -1,
@@ -97,9 +100,14 @@ const inputDataSlice = createSlice({
     newPaste(state, action) {
       //If the Selection range is undefined, exit
       if (!state.range.startContainer || !state.range.endContainer) {
-        return state;
+        if (!action.payload.fileInput) {
+          return state;
+        }
       }
-      const handlePasteWithData = handlePaste(action.payload.parsedData);
+      const handlePasteWithData = handlePaste(
+        action.payload.parsedData,
+        action.payload.fileInput
+      );
       return applyUndoableCommand(state, handlePasteWithData);
     },
   },
