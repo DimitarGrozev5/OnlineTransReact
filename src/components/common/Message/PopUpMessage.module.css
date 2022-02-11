@@ -14,7 +14,7 @@
 
   color: var(--app-color-base);
   background-color: var(--app-color-background-accent);
-  
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -36,4 +36,19 @@
   border-radius: 1rem;
 
   margin-left: auto;
+}
+
+@media (min-width: 1024px) {
+  .pop-up {
+    position: fixed;
+    z-index: 100;
+    /* left: auto; */
+    right: 0.5rem;
+    margin: auto;
+    bottom: 5rem;
+    min-height: 3rem;
+    width: 30rem;
+  
+    border-radius: 1rem;
+  }
 }

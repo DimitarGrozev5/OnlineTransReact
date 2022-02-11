@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import DataOutputControls from "./DataOutputControls";
 import TextArea from "./TextArea";
 import TextAreaRow from "./TextAreaRow";
 import TextAreaWraper from "./TextAreaWraper";
@@ -20,20 +21,34 @@ const DataOutput = () => {
     output = <div>{transformedData.error}</div>;
   }
 
+  //Wrap setting: Makes a row of data wrap or no-wrap
+  const [wrap, setWrap] = useState(true);
+  const changeWrapHandler = () => {
+    setWrap((prevState) => !prevState);
+  };
+
   if (transformedData && !transformedData.error) {
     output = (
-      <TextAreaWraper cs={selected.xy} hs={selected.h}>
-        <table>
-          <thead>
-            <TextAreaRow wrap={false} header dataSource="output" />
-          </thead>
-          <TextArea
-            wrap={"wrap"}
-            // allowedDividers={allowedDividers.filter((div) => div.on)}
-            dataSource="output"
-          />
-        </table>
-      </TextAreaWraper>
+      <React.Fragment>
+        <DataOutputControls
+          data={transformedData}
+          systems={selected}
+          wrap={wrap}
+          onChangeWrap={changeWrapHandler}
+        />
+        <TextAreaWraper cs={selected.xy} hs={selected.h}>
+          <table>
+            <thead>
+              <TextAreaRow wrap={wrap} header dataSource="output" />
+            </thead>
+            <TextArea
+              wrap={wrap}
+              // allowedDividers={allowedDividers.filter((div) => div.on)}
+              dataSource="output"
+            />
+          </table>
+        </TextAreaWraper>
+      </React.Fragment>
     );
   }
 

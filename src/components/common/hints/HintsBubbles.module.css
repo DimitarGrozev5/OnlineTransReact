@@ -36,6 +36,8 @@
   margin-right: 0.5rem;
 
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+
+  cursor: inherit;
 }
 
 .hint button::before {
@@ -137,4 +139,33 @@
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
   background-color: var(--geo-color-base);
+}
+
+@media (min-width: 1024px) {
+  .hint,
+  .hint.size-1,
+  .hint.size-2 {
+    top: 0.2rem;
+    right: 0.2rem;
+    width: max-content;
+    cursor: pointer;
+  }
+
+  .hint.size-0 {
+    display: none;
+  }
+
+  .hint.size-3,
+  .hint.size-4 {
+    top: 0.2rem;
+    right: 0.2rem;
+    width: 5rem;
+  }
+
+  .hint button {
+    box-shadow: none;
+  }
+  .hint button:hover {
+    filter: brightness(120%);
+  }
 }

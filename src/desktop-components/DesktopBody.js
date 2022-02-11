@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import HintsBubbles from "../components/common/hints/HintsBubbles";
 import PickSystem from "../components/common/PickSystem";
 import DataInput from "../components/common/TextArea/DataInput";
 import DataOutput from "../components/common/TextArea/DataOutput";
@@ -149,6 +150,7 @@ const DesktopBody = (props) => {
 
       <div className={styles["textarea-in"]}>
         <WidgetContainer title="Входни координати" expand>
+          <HintsBubbles hints="input" />
           <DataInput />
         </WidgetContainer>
       </div>
@@ -159,6 +161,7 @@ const DesktopBody = (props) => {
 
       <div className={styles["textarea-out"]}>
         <WidgetContainer title="Трансформирани координати" expand>
+          <HintsBubbles hints="output" />
           <DataOutput />
         </WidgetContainer>
       </div>

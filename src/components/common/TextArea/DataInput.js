@@ -29,7 +29,7 @@ const DataInput = (props) => {
   // Saving the first line on typing
   useEffect(() => {
     dispatch(guessCsThunk(firstLine));
-  }, [firstLine, selected, dispatch]);
+  }, [firstLine, dispatch]);
 
   //Wrap setting: Makes a row of data wrap or no-wrap
   const [wrap, setWrap] = useState(true);
@@ -74,7 +74,9 @@ const DataInput = (props) => {
         })
         .catch(() =>
           dispatch(
-            addMessageThunk("Проблем при отваряне на файл " + file.name, null)
+            addMessageThunk({
+              msg: "Проблем при отваряне на файл " + file.name,
+            })
           )
         );
     });

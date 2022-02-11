@@ -215,6 +215,7 @@ const pointIsInBoundry = (x, y, boundry) => {
 };
 
 const guessCsThunk = (firstLine) => (dispatch, getState) => {
+  console.log("guess cs")
   const hintsSlice = getState().hints;
   const inputSystem = getState().systems.selectedSystems.input;
 

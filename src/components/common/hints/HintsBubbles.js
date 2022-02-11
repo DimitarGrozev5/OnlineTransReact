@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import setSystemThunk from "../../store/thunks-hint/set-system";
+import setSystemThunk from "../../../store/thunks-hint/set-system";
 import classes from "./HintsBubbles.module.css";
 
 const HintsBubbles = (props) => {
