@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { constructFieldId } from "../../../store/helpers/deconstruct-id";
 import classes from "./TextAreaField.module.css";
+// import cssDisplayModes from "./TextAreaFieldDisplayModes.module.css";
 
 const TextAreaField = (props) => {
   const selected = useSelector(
@@ -24,18 +25,32 @@ const TextAreaField = (props) => {
     <React.Fragment>
       {props.header && (
         <th
-          className={`${classes.field} ${classes.header} ${
-            classes[selected.xy]
-          } ${classes[selected.h]}`}
+          className={
+            classes.field +
+            " " +
+            classes.header +
+            " " +
+            classes[selected.xy] +
+            " " +
+            classes[selected.h] +
+            " " +
+            classes[props.displayMode]
+          }
         >
           {props.value}
         </th>
       )}
       {!props.header && (
         <td
-          className={`${classes.field} ${classes[selected.xy]} ${
-            classes[selected.h]
-          }`}
+          className={
+            classes.field +
+            " " +
+            classes[selected.xy] +
+            " " +
+            classes[selected.h] +
+            " " +
+            classes[props.displayMode]
+          }
           id={constructFieldId(props.rowIndex, props.fieldIndex)}
           data-id={constructFieldId(props.rowIndex, props.fieldIndex)}
         >

@@ -14,34 +14,43 @@ const TextAreaRow = (props) => {
   if (props.header) {
     return (
       <tr
-        className={`${classes.row} ${classes.header} ${
-          props.wrap ? classes.wrap : ""
-        }`}
+        className={
+          classes.row +
+          " " +
+          classes.header +
+          " " +
+          (props.wrap ? classes.wrap : "")
+        }
       >
         <TextAreaField
           header={props.header}
           value="№"
           dataSource={props.dataSource}
+          displayMode={props.displayMode}
         />
         <TextAreaField
           header={props.header}
           value="X"
           dataSource={props.dataSource}
+          displayMode={props.displayMode}
         />
         <TextAreaField
           header={props.header}
           value="Y"
           dataSource={props.dataSource}
+          displayMode={props.displayMode}
         />
         <TextAreaField
           header={props.header}
           value="H"
           dataSource={props.dataSource}
+          displayMode={props.displayMode}
         />
         <TextAreaField
           header={props.header}
           value="Code"
           dataSource={props.dataSource}
+          displayMode={props.displayMode}
         />
       </tr>
     );
@@ -49,13 +58,14 @@ const TextAreaRow = (props) => {
 
   return (
     <tr
-      className={`${classes.row} ${props.wrap ? classes.wrap : ""}`}
+      className={classes.row + " " + (props.wrap ? classes.wrap : "")}
       data-type="row"
     >
       {fields.map((fieldValue, fieldIndex) => {
         return (
           <TextAreaField
             dataSource={props.dataSource}
+            displayMode={props.displayMode}
             header={props.header}
             key={constructFieldId(props.rowIndex, fieldIndex)}
             rowIndex={props.rowIndex}

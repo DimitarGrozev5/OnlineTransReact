@@ -36,6 +36,15 @@
   border-radius: 1rem;
 
   margin-left: auto;
+
+  cursor: pointer;
+}
+
+.pop-up.cancelable button {
+  margin-left: auto;
+}
+.pop-up.cancelable button:last-child {
+  margin-left: 1rem;
 }
 
 @media (min-width: 1024px) {
@@ -48,7 +57,7 @@
     bottom: 5rem;
     min-height: 3rem;
     width: 30rem;
-  
+
     border-radius: 1rem;
   }
 }

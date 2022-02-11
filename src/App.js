@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./App.css";
 import MobilePortraitApp from "./app-layouts/MobilePortraitApp";
@@ -9,6 +9,7 @@ import { messagesActions } from "./store/messages";
 import addMessageThunk from "./store/thunks-messages/add-message";
 import confirmMessageThunk from "./store/thunks-messages/confirm-message";
 import DesktopLandscapeApp from "./app-layouts/DesktopLandscapeApp";
+import cancelMessageThunk from "./store/thunks-messages/cancel-message";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,25 @@ function App() {
   const confirmMessageHandler = () => {
     dispatch(confirmMessageThunk());
   };
+  const cancelMessageHandler = () => {
+    dispatch(cancelMessageThunk());
+  };
+
+  // Ask for cookie approval
+  useEffect(() => {
+    const saveCookiePreference = () => {
+      localStorage.setItem("Cookie confirmed", "confirmed");
+    };
+    if (localStorage.getItem("Cookie confirmed") !== "confirmed") {
+      dispatch(
+        addMessageThunk({
+          msg: "Този сайт използва курабийки, за да запазва потребителски настройки",
+          action: saveCookiePreference,
+          cancelable: true,
+        })
+      );
+    }
+  }, [dispatch]);
 
   // Get geolocation confirmation
   // const askedForGeolocationPermission = useSelector(
@@ -59,6 +79,7 @@ function App() {
         <PopUpMessage
           content={currentMessage}
           confirm={confirmMessageHandler}
+          cancel={cancelMessageHandler}
         />
       )}
       {content}

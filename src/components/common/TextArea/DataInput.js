@@ -38,13 +38,42 @@ const DataInput = (props) => {
   };
 
   //Allowed dividers setting: The input text area uses different dividers
-  const [allowedDividers, setAllowedDividers] = useState([
-    { regex: / /, regexAlt: " ", caption: "Шпация", on: true },
-    { regex: /\|/, regexAlt: "\\|", caption: "Черта |", on: true },
-    { regex: /,/, regexAlt: ",", caption: "Запетая", on: true },
-    //{ regex: /\t/, caption: "Таб", on: true },
-    { regex: /Tab/, regexAlt: "\\t", caption: "Таб", on: true },
-  ]);
+  // Get dividers from localStorage
+  let initDividers = [
+    {
+      regex: / /,
+      regexAlt: " ",
+      caption: "Интервал",
+      on: true,
+      name: "mode-space",
+    },
+    {
+      regex: /\|/,
+      regexAlt: "\\|",
+      caption: "Черта |",
+      on: true,
+      name: "mode-line",
+    },
+    {
+      regex: /,/,
+      regexAlt: ",",
+      caption: "Запетая",
+      on: true,
+      name: "mode-comma",
+    },
+    {
+      regex: /Tab/,
+      regexAlt: "\\t",
+      caption: "Таб",
+      on: true,
+      name: "mode-tab",
+    },
+  ];
+  // if (localStorage.getItem("dividers")) {
+  //   initDividers = JSON.parse(localStorage.getItem("dividers"));
+  // }
+
+  const [allowedDividers, setAllowedDividers] = useState(initDividers);
   const toggleDividerHandler = (index) => {
     setAllowedDividers((dividers) => {
       const divs = [...dividers];
@@ -53,6 +82,22 @@ const DataInput = (props) => {
     });
   };
 
+  // Set display mode
+  const [textareaDisplayMode, setTextareaDisplayMode] = useState("mode-tab");
+  // The display mode changes automatically if only one divider is selected
+  useEffect(() => {
+    const dividersOn = allowedDividers
+      .filter((div) => div.on)
+      .map((div) => div.name);
+
+    if (dividersOn.length === 1) {
+      setTextareaDisplayMode(dividersOn[0]);
+    } else {
+      setTextareaDisplayMode("mode-tab");
+    }
+  }, [allowedDividers]);
+
+  // Open file handler
   const openFileHandler = (files) => {
     const arrFiles = Array.from(files).filter(
       (file) => file.type === "text/plain"
@@ -87,6 +132,7 @@ const DataInput = (props) => {
       <DataInputControls
         onOpenFile={openFileHandler}
         wrap={wrap}
+        displayMode={textareaDisplayMode}
         onChangeWrap={changeWrapHandler}
         allowedDividers={allowedDividers}
         onToggleDivider={toggleDividerHandler}
@@ -95,10 +141,16 @@ const DataInput = (props) => {
         <TextAreaWraper cs={selected.xy} hs={selected.h}>
           <table>
             <thead>
-              <TextAreaRow wrap={wrap} header dataSource="input" />
+              <TextAreaRow
+                wrap={wrap}
+                header
+                dataSource="input"
+                displayMode={textareaDisplayMode}
+              />
             </thead>
             <TextArea
               wrap={wrap}
+              displayMode={textareaDisplayMode}
               allowedDividers={allowedDividers.filter((div) => div.on)}
               dataSource="input"
             />

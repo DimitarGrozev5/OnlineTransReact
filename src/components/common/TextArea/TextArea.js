@@ -1,4 +1,4 @@
-import React, {  useRef } from "react";
+import React, { useRef } from "react";
 import classes from "./TextArea.module.css";
 import TextAreaRow from "./TextAreaRow";
 import { useSelector } from "react-redux";
@@ -50,6 +50,7 @@ const TextArea = (props) => {
           return (
             <TextAreaRow
               dataSource={props.dataSource}
+              displayMode={props.displayMode}
               wrap={props.wrap}
               key={rowIndex}
               rowIndex={rowIndex}
