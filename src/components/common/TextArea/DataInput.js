@@ -69,9 +69,6 @@ const DataInput = (props) => {
       name: "mode-tab",
     },
   ];
-  // if (localStorage.getItem("dividers")) {
-  //   initDividers = JSON.parse(localStorage.getItem("dividers"));
-  // }
 
   const [allowedDividers, setAllowedDividers] = useState(initDividers);
   const toggleDividerHandler = (index) => {
@@ -82,8 +79,21 @@ const DataInput = (props) => {
     });
   };
 
+  // On first load get saved dividers from localStorig
+  useEffect(() => {
+    const cookieDividers = localStorage.getItem("Dividers");
+    if (cookieDividers) {
+      try {
+        setAllowedDividers(JSON.parse(cookieDividers));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
   // Set display mode
   const [textareaDisplayMode, setTextareaDisplayMode] = useState("mode-tab");
+  
   // The display mode changes automatically if only one divider is selected
   useEffect(() => {
     const dividersOn = allowedDividers
@@ -95,6 +105,15 @@ const DataInput = (props) => {
     } else {
       setTextareaDisplayMode("mode-tab");
     }
+
+    // Save new dividers to localStorage if the user approved cookies
+    const saveDividers = setTimeout(() => {
+      if (localStorage.getItem("Cookie confirmed") === "confirmed") {
+        localStorage.setItem("Dividers", JSON.stringify(allowedDividers));
+      }
+    }, 1000);
+
+    return () => clearTimeout(saveDividers);
   }, [allowedDividers]);
 
   // Open file handler

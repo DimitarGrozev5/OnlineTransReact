@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useImperativeHandle, useState } from "react";
 import ReactDom from "react-dom";
 import classes from "./Modal.module.css";
 
@@ -7,10 +7,14 @@ const Backdrop = (props) => {
 };
 
 const Overlay = (props) => {
-  return <div className={classes.overlay}>{props.children}</div>;
+  return (
+    <div className={classes.overlay}>
+      {props.children}
+    </div>
+  );
 };
 
-const Modal = (props) => {
+const Modal = (props, ref) => {
   return (
     <React.Fragment>
       {ReactDom.createPortal(
@@ -25,4 +29,4 @@ const Modal = (props) => {
   );
 };
 
-export default Modal;
+export default React.forwardRef(Modal);

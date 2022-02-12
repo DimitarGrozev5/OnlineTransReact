@@ -18,5 +18,11 @@
   bottom: 1.5em;
   z-index: 10;
 
+  padding: 1rem;
+
   background-color: var(--app-color-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }

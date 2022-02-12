@@ -1,0 +1,25 @@
+.go-back {
+  margin-bottom: 1rem;
+}
+
+.go-back button {
+  padding: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--app-color-base);
+  background-color: var(--app-color-background-accent);
+}
+
+.link {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border: none;
+  background-color: transparent;
+}
+
+.container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+}

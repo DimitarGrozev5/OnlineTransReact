@@ -1,0 +1,16 @@
+.question__heading {
+  display: block;
+  width: 100%;
+  padding: 0.5rem;
+
+  text-align: left;
+  font-size: 1.1rem;
+  font-weight: bold;
+
+  border: none;
+  background-color: transparent;
+}
+
+.question__content {
+  padding-left: 0.5rem;
+}
