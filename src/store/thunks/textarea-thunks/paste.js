@@ -34,7 +34,7 @@ const pasteThunk = (dividers, fileInput) => async (dispatch, getState) => {
   dispatch(
     inputDataActions.newPaste({
       parsedData,
-      fileInput: true,
+      fileInput: fileInput,
     })
   );
 };

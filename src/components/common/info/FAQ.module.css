@@ -16,3 +16,20 @@
 .question__content {
   padding-left: 0.5rem;
 }
+
+.question__content table {
+  border-collapse: collapse;
+}
+
+.question__content th {
+  font-weight: bold;
+}
+
+.question__content th,
+.question__content td {
+  border: 1px solid var(--app-color-background-accent);
+
+  text-align: center;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+}
