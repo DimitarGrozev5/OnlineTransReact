@@ -48,6 +48,77 @@ const FAQ = (props) => {
             резултатът от БГСТранс е истинската стойност на съответната
             трансформация.
           </p>
+          <p>
+            <table>
+              <thead>
+                <tr>
+                  <td>От</td>
+                  <td>Към</td>
+                  <td>n</td>
+                  <td>
+                    m<sub>x</sub>
+                  </td>
+                  <td>
+                    m<sub>y</sub>
+                  </td>
+                  <td>
+                    f<sub>x</sub>
+                    <sup>max</sup>
+                  </td>
+                  <td>
+                    f<sub>y</sub>
+                    <sup>max</sup>
+                  </td>
+                  <td>
+                    Sk<sub>x</sub>
+                  </td>
+                  <td>
+                    Sk<sub>y</sub>
+                  </td>
+                  <td>
+                    E<sub>x</sub>
+                  </td>
+                  <td>
+                    E<sub>y</sub>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>БГС 2005, кадастрална</td>
+                  <td>КС 1970, К3</td>
+                </tr>
+                <tr>
+                  <td>БГС 2005, кадастрална</td>
+                  <td>КС 1970, К5</td>
+                </tr>
+                <tr>
+                  <td>БГС 2005, кадастрална</td>
+                  <td>КС 1970, К7</td>
+                </tr>
+                <tr>
+                  <td>БГС 2005, кадастрална</td>
+                  <td>КС 1970, К9</td>
+                </tr>
+                <tr>
+                  <td>КС 1970, К3</td>
+                  <td>БГС 2005, кадастрална</td>
+                </tr>
+                <tr>
+                  <td>КС 1970, К5</td>
+                  <td>БГС 2005, кадастрална</td>
+                </tr>
+                <tr>
+                  <td>КС 1970, К7</td>
+                  <td>БГС 2005, кадастрална</td>
+                </tr>
+                <tr>
+                  <td>КС 1970, К9</td>
+                  <td>БГС 2005, кадастрална</td>
+                </tr>
+              </tbody>
+            </table>
+          </p>
         </React.Fragment>
       ),
       show: false,
@@ -89,6 +160,36 @@ const FAQ = (props) => {
             БГСТранс(версия 4.6). При изчисляване на точностите се приема, че
             резултатът от БГСТранс е истинската стойност на съответната
             трансформация.
+          </p>
+          <p>
+            <table>
+              <thead>
+                <tr>
+                  <td>От</td>
+                  <td>Към</td>
+                  <td>n</td>
+                  <td>
+                    m<sub>h</sub>
+                  </td>
+                  <td>
+                    f<sub>h</sub>
+                    <sup>max</sup>
+                  </td>
+                  <td>Sk</td>
+                  <td>E</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Геодезични височини</td>
+                  <td>EVRS 2007</td>
+                </tr>
+                <tr>
+                  <td>EVRS 2007</td>
+                  <td>Балтийска</td>
+                </tr>
+              </tbody>
+            </table>
           </p>
         </React.Fragment>
       ),

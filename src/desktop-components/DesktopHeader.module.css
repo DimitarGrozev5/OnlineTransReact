@@ -1,8 +1,11 @@
 .header {
   position: relative;
   top: 0px;
-  left: 0px;
-  right: 0px;
+  width: 100vw;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   color: var(--app-color-base);
 }
@@ -10,4 +13,52 @@
 .header h1 {
   padding: 0.7em;
   margin: 0px;
+}
+
+.navigation {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  display: flex;
+}
+
+.navigation button {
+  padding: 0.5rem;
+
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--app-color-base);
+
+  font-size: 0.9rem;
+
+  cursor: pointer;
+}
+
+.navigation button:hover {
+  background-color: var(--app-color-background-accent);
+}
+
+.close-pop-up {
+  text-align: right;
+}
+
+.close-pop-up__button {
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: var(--app-color-base);
+  font-size: 1.2rem;
+}
+
+.close-pop-up__button:hover {
+  background-color: var(--app-color-background-accent);
+}
+
+.modal-content {
+  overflow: auto;
 }
