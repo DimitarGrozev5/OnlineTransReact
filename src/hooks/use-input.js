@@ -19,13 +19,14 @@ import shiftSelectUpThunk from "../store/thunks/textarea-thunks/shift-select-up"
 const useManageInput = (dataSource, dividers, textAreaRef) => {
   //useEffect(() => {
   const dispatch = useDispatch();
-  const parsedDividers = dividers.map((div) => {
-    return { ...div, regex: RegExp(div.regex) };
-  });
 
   //Events are sequenced by the order of their triggering
   let events = {};
   if (dataSource === "input") {
+    const parsedDividers = dividers.map((div) => {
+      return { ...div, regex: RegExp(div.regex) };
+    });
+    
     events = {
       onKeyDown: (event) => {
         //Allow F1 - F12 keys

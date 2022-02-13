@@ -39,12 +39,18 @@ const DataOutput = () => {
         <TextAreaWraper cs={selected.xy} hs={selected.h}>
           <table>
             <thead>
-              <TextAreaRow wrap={wrap} header dataSource="output" />
+              <TextAreaRow
+                wrap={wrap}
+                header
+                dataSource="output"
+                displayMode="mode-tab"
+              />
             </thead>
             <TextArea
               wrap={wrap}
               // allowedDividers={allowedDividers.filter((div) => div.on)}
               dataSource="output"
+              displayMode="mode-tab"
             />
           </table>
         </TextAreaWraper>
