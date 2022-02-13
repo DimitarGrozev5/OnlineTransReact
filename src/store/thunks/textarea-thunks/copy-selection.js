@@ -1,5 +1,5 @@
-import { deconstructFieldId } from "../helpers/deconstruct-id";
-import { getFieldProp } from "../helpers/field-prop";
+import { deconstructFieldId } from "../../helpers/deconstruct-id";
+import { getFieldProp } from "../../helpers/field-prop";
 
 const copySelectionThunk = (then) => (dispatch, getState) => {
   const state = getState().inputData;

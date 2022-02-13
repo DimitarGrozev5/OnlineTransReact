@@ -1,4 +1,4 @@
-import { inputDataActions } from "../input-data";
+import { inputDataActions } from "../../input-data";
 
 const pasteThunk = (dividers, fileInput) => async (dispatch, getState) => {
   // Get clipboard contents

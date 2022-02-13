@@ -5,7 +5,7 @@ import DataInput from "../components/common/TextArea/DataInput";
 import DataOutput from "../components/common/TextArea/DataOutput";
 import WidgetContainer from "../components/common/WidgetContainer";
 import setSystemThunk from "../store/thunks-hint/set-system";
-import transformInputDataThunk from "../store/thunks/transform-input-data";
+import transformInputDataThunk from "../store/thunks/textarea-thunks/transform-input-data";
 import styles from "./DesktopBody.module.css";
 
 const DesktopBody = (props) => {

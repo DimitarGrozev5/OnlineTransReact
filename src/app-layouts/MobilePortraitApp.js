@@ -5,7 +5,7 @@ import MobileNavigation from "../components/mobile-components/MobileNavigation";
 import classes from "./MobilePortraitApp.module.css";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import transformInputDataThunk from "../store/thunks/transform-input-data";
+import transformInputDataThunk from "../store/thunks/textarea-thunks/transform-input-data";
 
 const MobilePortraitApp = (props) => {
   const dispatch = useDispatch();

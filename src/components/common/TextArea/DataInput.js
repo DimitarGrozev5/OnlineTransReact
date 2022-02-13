@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import guessCsThunk from "../../../store/thunks-hint/guess-cs";
 import Draggable from "./Draggable";
 import addMessageThunk from "../../../store/thunks-messages/add-message";
-import pasteThunk from "../../../store/thunks/paste";
+import pasteThunk from "../../../store/thunks/textarea-thunks/paste";
 
 // Function that reads a text file and returns a promise
 const ReadFileAsText = (file) =>
@@ -41,28 +41,28 @@ const DataInput = (props) => {
   // Get dividers from localStorage
   let initDividers = [
     {
-      regex: / /,
+      regex: " ",
       regexAlt: " ",
       caption: "Интервал",
       on: true,
       name: "mode-space",
     },
     {
-      regex: /\|/,
+      regex: "\\|",
       regexAlt: "\\|",
       caption: "Черта |",
       on: true,
       name: "mode-line",
     },
     {
-      regex: /,/,
+      regex: ",",
       regexAlt: ",",
       caption: "Запетая",
       on: true,
       name: "mode-comma",
     },
     {
-      regex: /Tab/,
+      regex: "Tab",
       regexAlt: "\\t",
       caption: "Таб",
       on: true,
@@ -93,7 +93,7 @@ const DataInput = (props) => {
 
   // Set display mode
   const [textareaDisplayMode, setTextareaDisplayMode] = useState("mode-tab");
-  
+
   // The display mode changes automatically if only one divider is selected
   useEffect(() => {
     const dividersOn = allowedDividers

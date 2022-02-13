@@ -1,22 +1,27 @@
 import { useDispatch } from "react-redux";
 import { inputDataActions } from "../store/input-data";
-import copyOutputSelectionThunk from "../store/thunks/copy-output";
-import copySelectionThunk from "../store/thunks/copy-selection";
-import getSelectionThunk from "../store/thunks/get-selection";
-import moveCaretDownThunk from "../store/thunks/move-caret-down";
-import moveCaretLeftThunk from "../store/thunks/move-caret-left";
-import moveCaretRightThunk from "../store/thunks/move-caret-right";
-import moveCaretUpThunk from "../store/thunks/move-caret-up";
-import pasteThunk from "../store/thunks/paste";
-import selectAllThunk from "../store/thunks/select-all";
-import shiftSelectDownThunk from "../store/thunks/shift-select-down";
-import shiftSelectLeftThunk from "../store/thunks/shift-select-left";
-import shiftSelectRightThunk from "../store/thunks/shift-select-right";
-import shiftSelectUpThunk from "../store/thunks/shift-select-up";
+import copyOutputSelectionThunk from "../store/thunks/textarea-thunks/copy-output";
+import copySelectionThunk from "../store/thunks/textarea-thunks/copy-selection";
+import getSelectionThunk from "../store/thunks/textarea-thunks/get-selection";
+import goHomeThunk from "../store/thunks/textarea-thunks/go-home";
+import goToEndThunk from "../store/thunks/textarea-thunks/go-to-end";
+import moveCaretDownThunk from "../store/thunks/textarea-thunks/move-caret-down";
+import moveCaretLeftThunk from "../store/thunks/textarea-thunks/move-caret-left";
+import moveCaretRightThunk from "../store/thunks/textarea-thunks/move-caret-right";
+import moveCaretUpThunk from "../store/thunks/textarea-thunks/move-caret-up";
+import pasteThunk from "../store/thunks/textarea-thunks/paste";
+import selectAllThunk from "../store/thunks/textarea-thunks/select-all";
+import shiftSelectDownThunk from "../store/thunks/textarea-thunks/shift-select-down";
+import shiftSelectLeftThunk from "../store/thunks/textarea-thunks/shift-select-left";
+import shiftSelectRightThunk from "../store/thunks/textarea-thunks/shift-select-right";
+import shiftSelectUpThunk from "../store/thunks/textarea-thunks/shift-select-up";
 
 const useManageInput = (dataSource, dividers, textAreaRef) => {
   //useEffect(() => {
   const dispatch = useDispatch();
+  const parsedDividers = dividers.map((div) => {
+    return { ...div, regex: RegExp(div.regex) };
+  });
 
   //Events are sequenced by the order of their triggering
   let events = {};
@@ -29,7 +34,7 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
         }
         //The KeyDown Event handler catches the following modification keys
         //Dividers
-        const inputIsDivider = dividers.reduce((result, divider) => {
+        const inputIsDivider = parsedDividers.reduce((result, divider) => {
           return divider.regex.test(event.key) || result;
         }, false);
         if (inputIsDivider) {
@@ -103,23 +108,23 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
 
         //Home
         if (event.key === "Home") {
-          console.log("Home");
+          dispatch(getSelectionThunk(textAreaRef, goHomeThunk));
           event.preventDefault();
         }
         //End
         if (event.key === "End") {
-          console.log("End");
+          dispatch(getSelectionThunk(textAreaRef, goToEndThunk));
           event.preventDefault();
         }
         //PageUp
         if (event.key === "PageUp") {
-          console.log("PageUp");
-          event.preventDefault();
+          // console.log("PageUp");
+          // event.preventDefault();
         }
         //PageDown
         if (event.key === "PageDown") {
-          console.log("PageDown");
-          event.preventDefault();
+          // console.log("PageDown");
+          // event.preventDefault();
         }
 
         //The KeyDown Event handler catches the following shortcuts
@@ -149,7 +154,10 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
         if (event.ctrlKey && /^(v|V|ж|Ж)$/.test(event.key)) {
           //There shall be a simple paste function just to keep things going
           dispatch(
-            getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers, null))
+            getSelectionThunk(
+              textAreaRef,
+              pasteThunk.bind(null, parsedDividers, null)
+            )
           );
           event.preventDefault();
         }
@@ -180,7 +188,10 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
       onPaste: (event) => {
         //There shall be a simple paste function just to keep things going
         dispatch(
-          getSelectionThunk(textAreaRef, pasteThunk.bind(null, dividers, null))
+          getSelectionThunk(
+            textAreaRef,
+            pasteThunk.bind(null, parsedDividers, null)
+          )
         );
         event.preventDefault();
       },
@@ -196,7 +207,7 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
       onBeforeInput: (event) => {
         event.preventDefault();
 
-        const inputIsDivider = dividers.reduce((result, divider) => {
+        const inputIsDivider = parsedDividers.reduce((result, divider) => {
           return divider.regex.test(event.data) || result;
         }, false);
         if (inputIsDivider) {
@@ -236,12 +247,12 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
 
         //Copy
         if (event.ctrlKey && /^(c|C|ц|Ц)$/.test(event.key)) {
-          dispatch(copyOutputSelectionThunk())
+          dispatch(copyOutputSelectionThunk());
           event.preventDefault();
         }
         //Cut
         if (event.ctrlKey && /^(x|X|ь|ѝ)$/.test(event.key)) {
-          dispatch(copyOutputSelectionThunk())
+          dispatch(copyOutputSelectionThunk());
           event.preventDefault();
         }
         //Paste
@@ -257,14 +268,14 @@ const useManageInput = (dataSource, dividers, textAreaRef) => {
         //If any other key combination is entered, it will be left to go trough
       },
       onCopy: (event) => {
-        dispatch(copyOutputSelectionThunk())
+        dispatch(copyOutputSelectionThunk());
         event.preventDefault();
       },
       onPaste: (event) => {
         event.preventDefault();
       },
       onCut: (event) => {
-        dispatch(copyOutputSelectionThunk())
+        dispatch(copyOutputSelectionThunk());
         event.preventDefault();
       },
       onBeforeInput: (event) => {

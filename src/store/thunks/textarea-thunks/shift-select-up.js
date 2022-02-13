@@ -1,7 +1,7 @@
 import orderStartAndEnd from "./order-start-and-end";
-import moveOffsetLeft from "./thunk-helpers/move-offset-left";
+import moveOffsetUp from "../thunk-helpers/move-offset-up";
 
-const shiftSelectLeftThunk = () => (dispatch, getState) => {
+const shiftSelectUpThunk = () => (dispatch, getState) => {
   const state = getState().inputData;
 
   // Pick the focus container
@@ -10,7 +10,7 @@ const shiftSelectLeftThunk = () => (dispatch, getState) => {
   let focusOffset = state.range.focusOffset;
 
   // Get the new focusContainer data
-  const movedCaret = moveOffsetLeft(state, focusContainer, focusOffset);
+  const movedCaret = moveOffsetUp(state, focusContainer, focusOffset);
   focusContainer = movedCaret[0];
   focusOffset = movedCaret[1];
 
@@ -25,4 +25,4 @@ const shiftSelectLeftThunk = () => (dispatch, getState) => {
   );
 };
 
-export default shiftSelectLeftThunk;
+export default shiftSelectUpThunk;

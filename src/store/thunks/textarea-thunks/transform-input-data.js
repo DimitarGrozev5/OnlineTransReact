@@ -1,4 +1,4 @@
-import { systemsActions } from "../input-systems";
+import { systemsActions } from "../../input-systems";
 
 const transformInputDataThunk = () => (dispatch, getState) => {
   // const transformedData = getState().systems.transformedData;

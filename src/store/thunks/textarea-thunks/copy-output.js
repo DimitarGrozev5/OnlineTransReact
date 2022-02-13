@@ -1,4 +1,4 @@
-import { deconstructFieldId } from "../helpers/deconstruct-id";
+import { deconstructFieldId } from "../../helpers/deconstruct-id";
 
 const copyOutputSelectionThunk = () => (dispatch, getState) => {
   const data = getState().systems.transformedData;

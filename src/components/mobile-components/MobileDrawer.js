@@ -29,10 +29,10 @@ const MobileDrawer = (props) => {
       {activePage === 0 && (
         <div>
           <button className={classes.link} onClick={changePageHandler(1)}>Често задавани въпроси</button>
-          <button className={classes.link} onClick={changePageHandler(2)}>
+          {/* <button className={classes.link} onClick={changePageHandler(2)}>
             Как се работи със сайта
           </button>
-          <button className={classes.link} onClick={changePageHandler(3)}>Контакти</button>
+          <button className={classes.link} onClick={changePageHandler(3)}>Контакти</button> */}
         </div>
       )}
       {activePage === 1 && (
