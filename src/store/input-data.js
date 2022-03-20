@@ -13,7 +13,6 @@ import applyUndoableCommand, {
   undoCommand,
 } from "./history-manages/history-manager";
 import handlePaste from "./commands/handlePaste";
-import { constructFieldId } from "./helpers/deconstruct-id";
 enablePatches();
 
 const inputDataSlice = createSlice({

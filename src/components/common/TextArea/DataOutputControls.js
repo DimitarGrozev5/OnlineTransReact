@@ -24,15 +24,30 @@ const DataOutputControls = (props) => {
     navigator.clipboard.writeText(output);
     dispatch(addMessageThunk({ msg: "Копирано", timeout: 2000 }));
   };
+  const copyFirstHandler = () => {
+    const output = props.data
+      .map((line) => line.slice(0, 5).join("\t"))
+      .join("\n");
+    navigator.clipboard.writeText(output);
+    dispatch(addMessageThunk({ msg: "Копирано", timeout: 2000 }));
+  };
 
   return (
     <div className={classes.controls}>
       <button onClick={copyAllHandler}>Копирай всичко</button>
+      <button onClick={copyFirstHandler}>Копирай първите пет колони</button>
       <button onClick={props.onChangeWrap}>
         {props.wrap ? "No-Wrap" : "Wrap"}
       </button>
       <button onClick={saveToFile}>Save</button>
-      <a ref={saveHref} className={classes["save-link"]}></a>
+      <a
+        href="/"
+        ref={saveHref}
+        style={{ display: "none" }}
+        className={classes["save-link"]}
+      >
+        save
+      </a>
     </div>
   );
 };

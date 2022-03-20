@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FAQ from "../common/info/FAQ";
 import classes from "./MobileDrawer.module.css";
 
@@ -28,7 +28,9 @@ const MobileDrawer = (props) => {
       </div>
       {activePage === 0 && (
         <div>
-          <button className={classes.link} onClick={changePageHandler(1)}>Често задавани въпроси</button>
+          <button className={classes.link} onClick={changePageHandler(1)}>
+            Често задавани въпроси
+          </button>
           {/* <button className={classes.link} onClick={changePageHandler(2)}>
             Как се работи със сайта
           </button>

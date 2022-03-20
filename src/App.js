@@ -5,7 +5,6 @@ import MobilePortraitApp from "./app-layouts/MobilePortraitApp";
 import useWindowSize from "./hooks/use-window-size";
 import { useDispatch, useSelector } from "react-redux";
 import PopUpMessage from "./components/common/Message/PopUpMessage";
-import { messagesActions } from "./store/messages";
 import addMessageThunk from "./store/thunks-messages/add-message";
 import confirmMessageThunk from "./store/thunks-messages/confirm-message";
 import DesktopLandscapeApp from "./app-layouts/DesktopLandscapeApp";
