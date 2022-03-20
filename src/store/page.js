@@ -7,10 +7,10 @@ export const pages = {
 
 const activePageSlice = createSlice({
   name: "page",
-  initialState: pages.BGS_TRANS,
+  initialState: { name: pages.BGS_TRANS },
   reducers: {
     changePage(state, action) {
-      state = action.payload;
+      state.name = action.payload;
     },
   },
 });

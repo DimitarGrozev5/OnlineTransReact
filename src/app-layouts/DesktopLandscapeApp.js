@@ -6,7 +6,7 @@ import { pages } from "../store/page";
 import styles from "./DesktopLandscapeApp.module.css";
 
 const DesktopLandscapeApp = (props) => {
-  const activePage = useSelector((state) => state.activePage);
+  const activePage = useSelector((state) => state.activePage.name);
 
   let content = <DesktopBody />;
   if (activePage === pages.KROKI) {

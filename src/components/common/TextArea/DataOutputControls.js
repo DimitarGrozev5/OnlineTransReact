@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { activePageActions, pages } from "../../../store/page";
 import addMessageThunk from "../../../store/thunks-messages/add-message";
 import classes from "./DataInputControls.module.css";
 
@@ -32,8 +33,13 @@ const DataOutputControls = (props) => {
     dispatch(addMessageThunk({ msg: "Копирано", timeout: 2000 }));
   };
 
+  const openKrokiHandler = () => {
+    dispatch(activePageActions.changePage(pages.KROKI));
+  };
+
   return (
     <div className={classes.controls}>
+      <button onClick={openKrokiHandler}>Крокирай</button>
       <button onClick={copyAllHandler}>Копирай всичко</button>
       <button onClick={copyFirstHandler}>Копирай първите пет колони</button>
       <button onClick={props.onChangeWrap}>
