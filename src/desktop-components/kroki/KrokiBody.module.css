@@ -1,0 +1,12 @@
+.main {
+  flex-grow: 1;
+  width: 100%;
+  padding: 1rem;
+
+  display: grid;
+  grid-template-columns: 28rem auto;
+}
+
+.main > div {
+  border: 1px solid black;
+}
