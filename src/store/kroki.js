@@ -21,7 +21,7 @@ const krokiSlice = createSlice({
           const data = point
             .slice(0, 5)
             .reduce((obj, val) => ({ ...obj, [fields.shift()]: val }), {});
-          const code = data[4] || null;
+          const code = data.c;
 
           state.pointData[id] = { data, code };
           state.pointsOrder.push(id);
