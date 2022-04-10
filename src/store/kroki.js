@@ -4,17 +4,19 @@ import { nanoid } from "nanoid";
 const krokiSlice = createSlice({
   name: "kroki",
   initialState: {
-    pointData: {},
-    pointsOrder: [],
     versionStack: [],
+
+    pointData: [],
     resections: [],
     lines: [],
+
+    availableActions: [],
   },
   reducers: {
     // Expects an array of points
     // It will create ids on the fly
     addPoints(state, action) {
-      if (!state.pointsOrder.length) {
+      if (!state.pointData.length) {
         action.payload.forEach((point) => {
           const id = nanoid();
           let fields = ["n", "x", "y", "h", "c"];
@@ -23,8 +25,7 @@ const krokiSlice = createSlice({
             .reduce((obj, val) => ({ ...obj, [fields.shift()]: val }), {});
           const code = data.c;
 
-          state.pointData[id] = { data, code };
-          state.pointsOrder.push(id);
+          state.pointData.push({ data, code });
         });
       }
     },

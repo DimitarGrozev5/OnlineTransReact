@@ -2,11 +2,14 @@
   flex-grow: 1;
   width: 100%;
   padding: 1rem;
+  overflow: hidden;
 
   display: grid;
   grid-template-columns: 28rem auto;
+  grid-template-rows: 20rem;
 }
 
 .main > div {
   border: 1px solid black;
+  overflow: auto;
 }
