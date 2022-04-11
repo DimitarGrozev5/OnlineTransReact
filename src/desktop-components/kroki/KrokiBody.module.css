@@ -11,5 +11,5 @@
 
 .main > div {
   border: 1px solid black;
-  overflow: auto;
+  /* overflow: auto; */
 }

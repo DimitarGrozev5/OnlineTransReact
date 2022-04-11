@@ -15,7 +15,7 @@ const KrokiPoints = ({ points }) => {
         </thead>
         <tbody>
           {points.map(({ data }, index) => (
-            <tr kry={index}>
+            <tr key={index}>
               <td>{data.n}</td>
               <td>{data.x}</td>
               <td>{data.y}</td>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import loadPointsThunk from "../../store/thunks-kroki/loadPointsThunk";
+import KrokiCanvas from "./canvas/KrokiCanvas";
 import styles from "./KrokiBody.module.css";
 import KrokiPoints from "./points/KrokiPoints";
 
@@ -13,7 +14,7 @@ const KrokiBody = () => {
       // state.kroki.pointsOrder.map((id) => state.kroki.pointData[id])
       state.kroki.pointData
   );
-  console.log(currentPoints);
+  // console.log(currentPoints);
 
   // On load check if there are points
   // If no, load them from the output data
@@ -30,7 +31,9 @@ const KrokiBody = () => {
       <div className={styles["points-container"]}>
         <KrokiPoints points={currentPoints} />
       </div>
-      <div className={styles["canvas"]}>canvas</div>
+      <div className={styles["canvas"]}>
+        <KrokiCanvas points={currentPoints} />
+      </div>
     </div>
   );
 };

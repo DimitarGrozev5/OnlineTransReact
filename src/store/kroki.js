@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
 
 const krokiSlice = createSlice({
   name: "kroki",
@@ -18,7 +17,7 @@ const krokiSlice = createSlice({
     addPoints(state, action) {
       if (!state.pointData.length) {
         action.payload.forEach((point) => {
-          const id = nanoid();
+          // const id = nanoid();
           let fields = ["n", "x", "y", "h", "c"];
           const data = point
             .slice(0, 5)
