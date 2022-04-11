@@ -24,7 +24,9 @@ const krokiSlice = createSlice({
             .reduce((obj, val) => ({ ...obj, [fields.shift()]: val }), {});
           const code = data.c;
 
-          state.pointData.push({ data, code });
+          if (data.n) {
+            state.pointData.push({ data, code });
+          }
         });
       }
     },
