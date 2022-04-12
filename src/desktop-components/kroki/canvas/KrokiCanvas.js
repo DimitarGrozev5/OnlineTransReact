@@ -23,23 +23,96 @@ const KrokiCanvas = ({ points }) => {
   // On first run claculate initial scale and transaltion
   useEffect(() => {
     if (w && h) {
-      // Get points bounding box
+      /// Get points bounding box
+      const pointData = points.map(({ data }) => ({
+        n: data.n,
+        x: +data.x,
+        y: +data.y,
+        h: +data.h,
+        c: data.c,
+      }));
 
-      const pointData = points.map(({ data }) => data);
-
+      // TODO: account for empty object?
       const min = (arg) => (a, b) => a < b[arg] ? a : b[arg];
       const max = (arg) => (a, b) => a > b[arg] ? a : b[arg];
 
-      const selectFromList = (initialValue, fn, theList) =>
-        theList.reduce((currentVal, x) => fn(currentVal, x), initialValue);
+      const minMax = (arg) => (a, b) => [min(arg)(a[0], b), max(arg)(a[1], b)];
+      const minMaxXY = (a, b) => [minMax("x")(a[0], b), minMax("y")(a[1], b)];
 
-      const minX = selectFromList(10000000, min("x"), pointData);
-      const minY = selectFromList(10000000, min("y"), pointData);
-      const maxX = selectFromList(0, max("x"), pointData);
-      const maxY = selectFromList(0, max("y"), pointData);
-      console.log(minX, minY, maxX, maxY);
+      const initialValue = [
+        [10000000, 0],
+        [10000000, 0],
+      ];
+
+      const [[minX, maxX], [minY, maxY]] = pointData.reduce(
+        minMaxXY,
+        initialValue
+      );
+
+      // Calculate WCS boundry size
+      const wcsW = maxY - minY;
+      const wcsH = maxX - minX;
+
+      // Calculate scaling factor
+      const sX = h / wcsH;
+      const sY = w / wcsW;
+
+      // Set scale and translation
+      setScale(Math.min(sX, sY));
+      setTranslation([minX, minY]);
     }
-  }, [w, h]);
+  }, [w, h, points]);
+
+  // Having scale and translation, draw the points
+  useEffect(() => {
+    if (scale > 0) {
+      console.log(translation);
+      const trPtToWCS = (s, t) => (x, y) => [x * s + t[0], y * s + t[1]];
+      const trPtToWCS1 = trPtToWCS(scale, translation);
+
+      const trPtToC = (s, t) => (x, y) => [(x - t[0]) / s, (y - t[1]) / s];
+      const trPtToC1 = trPtToC(scale, translation);
+      const trArrToPt = (pt) => {
+        const [x, y] = trPtToC1(pt.x, pt.y);
+        return { ...pt, x, y };
+      };
+
+      // Calcualte canvas boundry in WCS space
+      const canvasWCSRect = [trPtToWCS1(0, 0), trPtToWCS1(h, w)];
+
+      // Filter points based on bounding box
+      const inRec = (bRect) => (pt) =>
+        pt.x >= bRect[0][0] &&
+        pt.x <= bRect[1][0] &&
+        pt.y >= bRect[0][1] &&
+        pt.y <= bRect[1][1];
+      const fPoints = points
+        .map(({ data }) => ({
+          n: data.n,
+          x: +data.x,
+          y: +data.y,
+          h: +data.h,
+          c: data.c,
+        }))
+        .filter(inRec(canvasWCSRect))
+        // Transform all points to canvas space
+        .map(trArrToPt);
+      console.log(fPoints[0])
+    }
+
+    // const ctx = canvasRef.current.getContext("2d");
+    // ctx.beginPath();
+
+    // points.forEach(({data}) => {
+    //   ctx
+    // })
+
+    // ctx.moveTo(75, 50);
+    // ctx.lineTo(100, 75);
+    // ctx.lineTo(100, 25);
+
+    // ctx.stroke();
+  }, [scale, translation, points, canvasRef]);
 
   return (
     <div ref={containerRef} className={styles.container}>
