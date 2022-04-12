@@ -66,11 +66,11 @@ const KrokiCanvas = ({ points }) => {
   // Having scale and translation, draw the points
   useEffect(() => {
     if (scale > 0) {
-      console.log(translation);
-      const trPtToWCS = (s, t) => (x, y) => [x * s + t[0], y * s + t[1]];
+      console.log(scale);
+      const trPtToWCS = (s, t) => (x, y) => [x / s + t[0], y / s + t[1]];
       const trPtToWCS1 = trPtToWCS(scale, translation);
 
-      const trPtToC = (s, t) => (x, y) => [(x - t[0]) / s, (y - t[1]) / s];
+      const trPtToC = (s, t) => (x, y) => [(x - t[0]) * s, (y - t[1]) * s];
       const trPtToC1 = trPtToC(scale, translation);
       const trArrToPt = (pt) => {
         const [x, y] = trPtToC1(pt.x, pt.y);
@@ -86,6 +86,7 @@ const KrokiCanvas = ({ points }) => {
         pt.x <= bRect[1][0] &&
         pt.y >= bRect[0][1] &&
         pt.y <= bRect[1][1];
+
       const fPoints = points
         .map(({ data }) => ({
           n: data.n,
@@ -97,21 +98,18 @@ const KrokiCanvas = ({ points }) => {
         .filter(inRec(canvasWCSRect))
         // Transform all points to canvas space
         .map(trArrToPt);
-      console.log(fPoints[0])
+
+      // Draw points
+      const ctx = canvasRef.current.getContext("2d");
+      ctx.beginPath();
+
+      fPoints.forEach(({ x, y }) => {
+        ctx.moveTo(y, h - x);
+        ctx.lineTo(y + 5, h - x + 5);
+      });
+
+      ctx.stroke();
     }
-
-    // const ctx = canvasRef.current.getContext("2d");
-    // ctx.beginPath();
-
-    // points.forEach(({data}) => {
-    //   ctx
-    // })
-
-    // ctx.moveTo(75, 50);
-    // ctx.lineTo(100, 75);
-    // ctx.lineTo(100, 25);
-
-    // ctx.stroke();
   }, [scale, translation, points, canvasRef]);
 
   return (
