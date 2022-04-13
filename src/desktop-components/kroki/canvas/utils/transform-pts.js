@@ -30,15 +30,15 @@ const wcsScaleR = (scale) => (pt) => ({
 const lToC = (h, w) => (pt) => ({
   ...pt,
   // x: (3 * h) / 2 - pt.x,
-  x: -1 * (pt.x - h / 2),
-  y: pt.y + w / 2,
+  y: -1 * (pt.x - h / 2),
+  x: pt.y + w / 2,
 });
 
 const cToL = (h, w) => (pt) => ({
   ...pt,
   // x: (3 * h) / 2 - pt.x,
-  x: -1 * (pt.x + h / 2),
-  y: pt.y - w / 2,
+  y: -1 * (pt.x + h / 2),
+  x: pt.y - w / 2,
 });
 
 // Convert WCS to Canvas

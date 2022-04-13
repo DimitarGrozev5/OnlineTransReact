@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { drawPoint } from "./drawing-objects/p-point";
 import styles from "./KrokiCanvas.module.css";
-import { boundingRect } from "./utils/bounding-box";
+import { zoomExtends } from "./utils/bounding-box";
 import { wcsToCanvasCS } from "./utils/transform-pts";
 
 const KrokiCanvas = ({ points }) => {
@@ -39,35 +40,26 @@ const KrokiCanvas = ({ points }) => {
         h: +data.h,
         c: data.c,
       }));
-      const [[minX, minY], [maxX, maxY]] = boundingRect(pointData);
 
-      // Calculate WCS boundry size
-      const wcsW = maxY - minY;
-      const wcsH = maxX - minX;
+      let scale = gScale;
+      let trans = gTranslation;
+      // If scale and translation are uninitialized, calculate initial values
+      if (gScale === 0 || gTranslation[0] === 0 || gTranslation[1] === 0) {
+        [scale, trans] = zoomExtends(pointData, h, w);
 
-      // Calculate scaling factor
-      const sX = h / wcsH;
-      const sY = w / wcsW;
-      const scale = Math.min(sX, sY);
-
-      // Calculate Transaltion
-      const trans = [(maxX + minX) / 2, (maxY + minY) / 2];
-
-      // Set scale and translation
-      setGScale(scale);
-      setGTranslation(trans);
+        // Set scale and translation
+        setGScale(scale);
+        setGTranslation(trans);
+      }
 
       // Calculate cPoints
       const tr = wcsToCanvasCS(scale, trans, h, w);
       const cPoints_ = pointData.map(tr);
-      console.log(w, h);
-      console.log(scale);
-      console.log(cPoints_);
 
       // Set cPoints
       setCPoints(cPoints_);
     }
-  }, [w, h, points]);
+  }, [w, h, points, gScale, gTranslation]);
 
   // If the cPoints change, redraw them
   useEffect(() => {
@@ -76,10 +68,9 @@ const KrokiCanvas = ({ points }) => {
       const ctx = canvasRef.current.getContext("2d");
       ctx.beginPath();
 
-      cPoints.forEach(({ x, y }) => {
-        ctx.moveTo(y, h - x);
-        ctx.lineTo(y + 5, h - x + 5);
-      });
+      const drawPtWithCtx = drawPoint(ctx);
+
+      cPoints.forEach(drawPtWithCtx);
 
       ctx.stroke();
     }

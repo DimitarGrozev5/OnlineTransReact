@@ -15,5 +15,23 @@ const initialValue = [
 ];
 
 // {n, x, y, h, c} => [[minX, minY], [maxX, maxY]]
-export const boundingRect = (pointData) =>
+const boundingRect = (pointData) =>
   pointData.reduce(minMaxXY, initialValue);
+
+export const zoomExtends = (pointData, h, w) => {
+  const [[minX, minY], [maxX, maxY]] = boundingRect(pointData);
+
+  // Calculate WCS boundry size
+  const wcsW = maxY - minY;
+  const wcsH = maxX - minX;
+
+  // Calculate scaling factor
+  const sX = h / wcsH;
+  const sY = w / wcsW;
+  const scale = Math.min(sX, sY);
+
+  // Calculate Translаtion
+  const trans = [(maxX + minX) / 2, (maxY + minY) / 2];
+
+  return [scale, trans];
+};
