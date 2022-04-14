@@ -1,26 +1,26 @@
 import { pipe } from "../../../../utils/pipe";
 
 // Translate and reverse translate points
-const wcsTranslate = (translation) => (pt) => ({
+export const translatePt = (translation) => (pt) => ({
   ...pt,
   x: pt.x - translation[0],
   y: pt.y - translation[1],
 });
 
-const wcsTranslateR = (translation) => (pt) => ({
+const translatePtR = (translation) => (pt) => ({
   ...pt,
   x: pt.x + translation[0],
   y: pt.y + translation[1],
 });
 
 // Scale and reverse scale points
-const wcsScale = (scale) => (pt) => ({
+const scalePt = (scale) => (pt) => ({
   ...pt,
   x: pt.x * scale,
   y: pt.y * scale,
 });
 
-const wcsScaleR = (scale) => (pt) => ({
+const scalePtR = (scale) => (pt) => ({
   ...pt,
   x: pt.x / scale,
   y: pt.y / scale,
@@ -43,4 +43,14 @@ const cToL = (h, w) => (pt) => ({
 
 // Convert WCS to Canvas
 export const wcsToCanvasCS = (scale, translation, h, w) => (pt) =>
-  pipe(pt)(wcsTranslate(translation), wcsScale(scale), lToC(h, w));
+  pipe(pt)(translatePt(translation), scalePt(scale), lToC(h, w));
+
+export const scaleCPoint = (scale, translation) => (pt) =>
+  pipe(pt)(translatePt(translation), scalePt(scale), translatePtR(translation));
+
+export const panCPoint = (baseTrans, currentTrans) => (pt) =>
+  pipe(pt)(
+    translatePt(baseTrans),
+    translatePt(currentTrans),
+    translatePtR(baseTrans)
+  );
