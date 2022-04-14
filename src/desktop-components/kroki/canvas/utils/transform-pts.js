@@ -48,9 +48,10 @@ export const wcsToCanvasCS = (scale, translation, h, w) => (pt) =>
 export const scaleCPoint = (scale, translation) => (pt) =>
   pipe(pt)(translatePt(translation), scalePt(scale), translatePtR(translation));
 
-export const panCPoint = (baseTrans, currentTrans) => (pt) =>
+export const panCPoint = (baseTrans, prevTrans, currentTrans) => (pt) =>
   pipe(pt)(
     translatePt(baseTrans),
-    translatePt(currentTrans),
+    translatePt(prevTrans),
+    translatePtR(currentTrans),
     translatePtR(baseTrans)
   );

@@ -1,9 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { clearCanvas } from "./drawing-objects/clear-canvas";
 import { drawPoint } from "./drawing-objects/p-point";
 import styles from "./KrokiCanvas.module.css";
 import { zoomExtends } from "./utils/bounding-box";
-import { scaleCPoint, translatePt, wcsToCanvasCS } from "./utils/transform-pts";
+import {
+  panCPoint,
+  scaleCPoint,
+  translatePt,
+  wcsToCanvasCS,
+} from "./utils/transform-pts";
 
 const KrokiCanvas = ({ points }) => {
   const containerRef = useRef();
@@ -21,11 +26,19 @@ const KrokiCanvas = ({ points }) => {
   const [cPoints, setCPoints] = useState([]);
 
   // Translation for Pan command [currently Paning, translationX, translationY]
-  const [cTranslationBasePoint, setCTranslationBasePoint] = useState([
-    false,
-    0,
-    0,
-  ]);
+  const [cTranslationBasePoint, dispatchTranslationBasePoint] = useReducer(
+    basePointReducer,
+    {
+      panning: false,
+      base: [0, 0],
+      current: [0, 0],
+    }
+  );
+  // const [cTranslationBasePoint, setCTranslationBasePoint] = useState({
+  //   panning: false,
+  //   base: [0, 0],
+  //   prev: [0, 0],
+  // });
   // Timestamp of the last time the middle button was lifted
   // Used for determening a double middle click, which is used
   // for zooming to extents
@@ -83,17 +96,24 @@ const KrokiCanvas = ({ points }) => {
 
       const drawPtWithCtx = drawPoint(ctx);
 
-      cPoints.forEach(drawPtWithCtx);
+      let cPoints_ = cPoints;
+
+      if (cTranslationBasePoint.panning) {
+        const tr = translatePt(cTranslationBasePoint.current);
+        cPoints_ = cPoints.map(tr);
+      }
+
+      cPoints_.forEach(drawPtWithCtx);
 
       ctx.stroke();
     }
-  }, [cPoints, canvasRef, w, h]);
+  }, [cPoints, canvasRef, w, h, cTranslationBasePoint]);
 
   // If cScale changes recalculate cPoints
   const scrollHandler = (event) => {
-    const SCALE_K = 0.2;
+    const SCALE_K = 0.3;
 
-    const scale_ = 1 + Math.sign(event.deltaY) * SCALE_K;
+    const scale_ = 1 - Math.sign(event.deltaY) * SCALE_K;
     const trans = [event.nativeEvent.offsetX, event.nativeEvent.offsetY];
 
     const tr = scaleCPoint(scale_, trans);
@@ -104,31 +124,35 @@ const KrokiCanvas = ({ points }) => {
   // Handle Pan
   const startMiddleClick = (event) => {
     if (event.button === 1) {
-      setCTranslationBasePoint([
-        true,
-        event.nativeEvent.offsetX,
-        event.nativeEvent.offsetY,
-      ]);
+      dispatchTranslationBasePoint({
+        type: "turn-on",
+        payload: [event.nativeEvent.offsetX, event.nativeEvent.offsetY],
+      });
     }
   };
 
   const panView = (event) => {
-    if (cTranslationBasePoint[0]) {
-      const [, baseX, baseY] = cTranslationBasePoint;
-      const clentX = event.nativeEvent.offsetX;
-      const clentY = event.nativeEvent.offsetY;
-      const trans = [clentX - baseX, clentY - baseY];
-      setCTranslationBasePoint([true, ...trans]);
-
-      const tr = translatePt(trans);
-      const cPoints_ = cPoints.map(tr);
-      setCPoints(cPoints_);
+    if (cTranslationBasePoint.panning) {
+      const clientX = event.nativeEvent.offsetX;
+      const clientY = event.nativeEvent.offsetY;
+      dispatchTranslationBasePoint({
+        type: "update-current",
+        payload: [clientX, clientY],
+      });
     }
   };
 
   const endMiddleClick = (event) => {
     if (event.button === 1) {
-      setCTranslationBasePoint([false, 0, 0]);
+      // Transform cPoints to final Pan position
+      const tr = translatePt(cTranslationBasePoint.current);
+      const cPoints_ = cPoints.map(tr);
+      setCPoints(cPoints_);
+
+      // Reset Pan base point
+      dispatchTranslationBasePoint({
+        type: "turn-off",
+      });
 
       // Handle middle click
       const now = Date.now();
@@ -155,3 +179,28 @@ const KrokiCanvas = ({ points }) => {
 };
 
 export default KrokiCanvas;
+
+function basePointReducer(state, action) {
+  switch (action.type) {
+    case "turn-on":
+      return {
+        panning: true,
+        base: action.payload,
+        current: [0, 0],
+      };
+    case "turn-off":
+      return {
+        panning: false,
+        base: [0, 0],
+        current: [0, 0],
+      };
+    case "update-current":
+      const [clientX, clientY] = action.payload;
+      return {
+        ...state,
+        current: [state.base[0] - clientX, state.base[1] - clientY],
+      };
+    default:
+      throw new Error();
+  }
+}
