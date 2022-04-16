@@ -11,5 +11,9 @@
 
 .main > div {
   border: 1px solid black;
-  /* overflow: auto; */
+  overflow: auto;
+}
+
+.main > div.canvas {
+  overflow: hidden;
 }

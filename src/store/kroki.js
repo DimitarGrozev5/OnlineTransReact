@@ -9,25 +9,15 @@ const krokiSlice = createSlice({
     resections: [],
     lines: [],
 
-    availableActions: [],
+    currentCommand: null,
+    actions: [],
   },
   reducers: {
     // Expects an array of points
     // It will create ids on the fly
     addPoints(state, action) {
       if (!state.pointData.length) {
-        action.payload.forEach((point) => {
-          // const id = nanoid();
-          let fields = ["n", "x", "y", "h", "c"];
-          const data = point
-            .slice(0, 5)
-            .reduce((obj, val) => ({ ...obj, [fields.shift()]: val }), {});
-          const code = data.c;
-
-          if (data.n) {
-            state.pointData.push({ data, code });
-          }
-        });
+        state.pointData = action.payload;
       }
     },
   },

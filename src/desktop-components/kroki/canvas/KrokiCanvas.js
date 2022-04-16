@@ -92,6 +92,11 @@ const KrokiCanvas = ({ points }) => {
       // Clear canvas
       clearCanvas(ctx, h, w);
 
+      // ctx.beginPath();
+      // ctx.moveTo(120, 100);
+      // ctx.arc(100, 100, 20, 0, 2 * Math.PI, true);
+      // ctx.stroke();
+
       ctx.beginPath();
 
       const drawPtWithCtx = drawPoint(ctx);
