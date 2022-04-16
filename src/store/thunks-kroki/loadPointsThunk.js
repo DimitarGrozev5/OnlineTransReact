@@ -5,30 +5,29 @@ const loadPointsThunk = () => (dispatch, getState) => {
   const state = getState();
 
   // Get transformed points and map them to a new format
-  const transformedData = state.systems.transformedData
-    .map((point) => {
-      let fields = ["n", "x", "y", "h", "c"];
-      const data = point
-        .slice(0, 5)
-        .reduce((obj, val) => ({ ...obj, [fields.shift()]: val }), {});
-      const code = data.c;
+  const transformedData = state.systems.transformedData.reduce((res, point) => {
+    let fields = ["n", "x", "y", "h", "c"];
+    const data = point
+      .slice(0, 5)
+      .reduce((obj, val) => ({ ...obj, [fields.shift()]: val }), {});
+    const code = data.c;
 
-      // If the row is empty ther will be no n prop, so skip the point
-      if (data.n) {
-        return { data, code };
-      }
-    })
-    // Filter out the empty rows
-    .filter((p) => !!p);
+    // If the row is empty there will be no n prop, so skip the point
+    if (data.n) {
+      return [...res, { data, code }];
+    }
+    return res;
+  }, []);
 
   // Add transformed points to store
   dispatch(krokiActions.addPoints(transformedData));
 
   // Apply command
   const [commandName, newActions] = commandParser(null, transformedData);
-  console.log(commandName, newActions);
+  // console.log(commandName, newActions);
 
   // Add actions to store
+  dispatch(krokiActions.updateActions([commandName, newActions]));
 };
 
 export default loadPointsThunk;

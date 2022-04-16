@@ -14,7 +14,10 @@ const KrokiBody = () => {
       // state.kroki.pointsOrder.map((id) => state.kroki.pointData[id])
       state.kroki.pointData
   );
-  // console.log(currentPoints);
+  const currentActions = useSelector((state) => state.kroki.actions);
+  const pointActions = currentActions.filter(
+    (action) => action.group === "POINT"
+  );
 
   // On load check if there are points
   // If no, load them from the output data
@@ -29,10 +32,10 @@ const KrokiBody = () => {
       <div className={styles["actions"]}>actions</div>
       <div className={styles["results"]}>results</div>
       <div className={styles["points-container"]}>
-        <KrokiPoints points={currentPoints} />
+        <KrokiPoints points={currentPoints} actions={pointActions} />
       </div>
       <div className={styles["canvas"]}>
-        <KrokiCanvas points={currentPoints} />
+        <KrokiCanvas points={currentPoints} pointActions={pointActions} />
       </div>
     </div>
   );

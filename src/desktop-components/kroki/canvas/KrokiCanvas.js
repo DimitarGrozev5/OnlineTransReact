@@ -10,7 +10,7 @@ import {
   wcsToCanvasCS,
 } from "./utils/transform-pts";
 
-const KrokiCanvas = ({ points }) => {
+const KrokiCanvas = ({ points, pointActions }) => {
   const containerRef = useRef();
   const canvasRef = useRef();
 
@@ -99,7 +99,13 @@ const KrokiCanvas = ({ points }) => {
 
       ctx.beginPath();
 
-      const drawPtWithCtx = drawPoint(ctx);
+      const drawPtWithCtx = (pt, index) => {
+        let style = "none";
+        if (pointActions.find((a) => a.target === index)) {
+          style = "delete";
+        }
+        drawPoint(ctx, style)(pt);
+      };
 
       let cPoints_ = cPoints;
 

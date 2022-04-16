@@ -1,4 +1,5 @@
 export const deletePointCommand = (id) => ({
-  type: "DELETE_POINT",
+  group: "POINT",
+  type: "DELETE",
   target: id,
 });

@@ -1,6 +1,14 @@
 import styles from "./KrokiPoints.module.css";
 
-const KrokiPoints = ({ points }) => {
+const KrokiPoints = ({ points, actions }) => {
+  const dActions = actions.filter((a) => a.type === "DELETE");
+  const intersection = points.map((pt, index) => {
+    if (dActions.find((a) => a.target === index)) {
+      return { ...pt, style: styles.delete };
+    } else {
+      return { ...pt, style: "" };
+    }
+  });
   return (
     <div>
       <table>
@@ -14,8 +22,8 @@ const KrokiPoints = ({ points }) => {
           </tr>
         </thead>
         <tbody>
-          {points.map(({ data }, index) => (
-            <tr key={index}>
+          {intersection.map(({ data, style }, index) => (
+            <tr className={style} key={index}>
               <td>{data.n}</td>
               <td>{data.x}</td>
               <td>{data.y}</td>

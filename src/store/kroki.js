@@ -20,6 +20,10 @@ const krokiSlice = createSlice({
         state.pointData = action.payload;
       }
     },
+    updateActions(state, action) {
+      state.currentCommand = action.payload[0];
+      state.actions = action.payload[1];
+    },
   },
 });
 
