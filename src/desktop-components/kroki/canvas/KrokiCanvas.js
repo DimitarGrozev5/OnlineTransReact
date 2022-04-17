@@ -99,6 +99,7 @@ const KrokiCanvas = ({ points, pointActions }) => {
 
       ctx.beginPath();
 
+      // TODO: The following part needs to be refactored
       const drawPtWithCtx = (pt, index) => {
         let style = "none";
         if (pointActions.find((a) => a.target === index)) {

@@ -1,5 +1,6 @@
 import { deletePoints } from "./deletePoints";
 
+
 const nextCommandName = (prevCmd) => {
   const queue = ["deletePoint", "mergePoints"];
 
