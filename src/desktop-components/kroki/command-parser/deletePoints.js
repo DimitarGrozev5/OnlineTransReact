@@ -93,7 +93,7 @@ function nearest(points, point) {
 
   const compare = (prev, curr, index) => {
     const cDist = dist(curr, point);
-    if (prev[1] > cDist && curr.n !== point.n) {
+    if (prev[1] > cDist && curr.id !== point.id) {
       return [index, cDist];
     } else {
       return prev;
