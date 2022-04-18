@@ -5,7 +5,9 @@ const krokiSlice = createSlice({
   initialState: {
     versionStack: [],
 
-    pointData: [],
+    pointDataObj: {},
+    pointDataArr: [],
+
     resections: [],
     lines: [],
 
@@ -16,8 +18,11 @@ const krokiSlice = createSlice({
     // Expects an array of points
     // It will create ids on the fly
     addPoints(state, action) {
-      if (!state.pointData.length) {
-        state.pointData = action.payload;
+      if (!state.pointDataArr.length) {
+        action.payload.forEach((pt) => {
+          state.pointDataObj[pt.id] = pt;
+          state.pointDataArr.push(pt.id);
+        });
       }
     },
     updateActions(state, action) {

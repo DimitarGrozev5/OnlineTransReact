@@ -56,7 +56,7 @@ const KrokiCanvas = ({ points, pointActions }) => {
   // If the WCS Data chages, recalculate the C points
   useEffect(() => {
     if (w && h) {
-      const pointData = points.map(({ data }) => ({
+      const pointData = points.map((data) => ({
         n: data.n,
         x: +data.x,
         y: +data.y,
@@ -102,9 +102,9 @@ const KrokiCanvas = ({ points, pointActions }) => {
       // TODO: The following part needs to be refactored
       const drawPtWithCtx = (pt, index) => {
         let style = "none";
-        if (pointActions.find((a) => a.target === index)) {
-          style = "delete";
-        }
+        // if (pointActions.find((a) => a.target === index)) {
+        //   style = "delete";
+        // }
         drawPoint(ctx, style)(pt);
       };
 
