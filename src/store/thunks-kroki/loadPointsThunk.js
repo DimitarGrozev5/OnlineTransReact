@@ -24,8 +24,8 @@ const loadPointsThunk = () => (dispatch, getState) => {
   dispatch(krokiActions.addPoints(transformedData));
 
   // Apply command
-  // const [commandName, newActions] = commandParser(null, transformedData);
-  // console.log(commandName, newActions);
+  const newActions = commandParser(transformedData);
+  console.log(newActions);
 
   // Add actions to store
   // dispatch(krokiActions.updateActions([commandName, newActions]));

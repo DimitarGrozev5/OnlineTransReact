@@ -1,6 +1,5 @@
 import { deletePoints } from "./deletePoints";
 
-
 const nextCommandName = (prevCmd) => {
   const queue = ["deletePoint", "mergePoints"];
 
@@ -16,22 +15,19 @@ const nextCommandName = (prevCmd) => {
   return queue[indexOfPrev + 1];
 };
 
+const mergePoints = (points) => [];
 
-const mergePoints = (points) => null;
+export const commandParser = (points) => {
+  // List of all commands
+  // Each command is of type points -> actions
+  const commands = [deletePoints, mergePoints];
 
-export const commandParser = (prevCmd, points) => {
-  const commands = {
-    deletePoint: {
-      name: "delete points",
-      getActions: deletePoints,
-    },
-    mergePoints: {
-      name: "merge points",
-      getActions: mergePoints,
-    },
-  };
+  // The parser runs every command in sequence
+  // If a command yealds a result, it skips the rest
+  const newActions = commands.reduce(
+    (a, command) => (a.length ? a : command(points)),
+    []
+  );
 
-  const nextName = nextCommandName(prevCmd);
-  const nextCommand = commands[nextName];
-  return [nextCommand.name, nextCommand.getActions(points)];
+  return newActions;
 };

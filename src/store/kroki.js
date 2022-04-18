@@ -11,7 +11,6 @@ const krokiSlice = createSlice({
     resections: [],
     lines: [],
 
-    currentCommand: null,
     actions: [],
   },
   reducers: {

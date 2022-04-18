@@ -1,5 +1,6 @@
 import P from "parsimmon";
 import { deletePointCommand } from "./command-creators";
+import { pipeParsers } from "./utils";
 
 //// Command that deletes a point
 /// Syntax:
@@ -99,15 +100,4 @@ function nearest(points, point) {
   return points.reduce(compare, [null, 1000000]);
 }
 
-// Pipe value true the provided handlers
-// If one handler returns a valid value, then skip all of the rest
-function pipeParsers(...handlers) {
-  return (reduced, pt, index) =>
-    handlers.reduce((prev, curr) => {
-      if (prev) {
-        return prev;
-      } else {
-        return curr(reduced, pt, index);
-      }
-    }, null);
-}
+
