@@ -1,6 +1,5 @@
 import P from "parsimmon";
 import { deletePointCommand } from "./command-creators";
-import { pipeParsers } from "./utils";
 
 //// Command that deletes a point
 /// Syntax:
@@ -25,7 +24,7 @@ const delNearestParser = P.string(".del.n");
 
 // Code handlers
 const delPrevHandler = (parser) => (reduced, pt, index) => {
-  const delPrevConfirmed = parser.parse(pt.code).status;
+  const delPrevConfirmed = parser.parse(pt.c).status;
   if (delPrevConfirmed) {
     const action = [deletePointCommand(index)];
 
@@ -34,13 +33,13 @@ const delPrevHandler = (parser) => (reduced, pt, index) => {
       action.push(deletePointCommand(targetIndex));
     }
     const pointer = targetIndex;
-    return createReduced(pointer, [...reduced.actions, ...action]);
+    return createIntermediateValue(pointer, [...reduced.actions, ...action]);
   } else {
     return null;
   }
 };
 const delNearestHandler = (parser, pts) => (reduced, pt, index) => {
-  const delNearConfirmed = parser.parse(pt.code).status;
+  const delNearConfirmed = parser.parse(pt.c).status;
   if (delNearConfirmed) {
     const action = [deletePointCommand(index)];
 
@@ -50,35 +49,39 @@ const delNearestHandler = (parser, pts) => (reduced, pt, index) => {
     }
 
     const pointer = reduced.pointer;
-    return createReduced(pointer, [...reduced.actions, ...action]);
+    return createIntermediateValue(pointer, [...reduced.actions, ...action]);
   } else {
     return null;
   }
 };
 
 // Actions reducer
-const createActions = (pts) => (reduced, pt, index) => {
+const createActionsFromPoints = (pts) => (intermediateVal, pt, index) => {
   // Init handlers
   const delPrevHandler_ = delPrevHandler(delPrevParser);
   const delNearestHandler_ = delNearestHandler(delNearestParser, pts);
 
   // If hr is not null, then one parser managed to detect a valid code
-  let hr = pipeParsers(delPrevHandler_, delNearestHandler_)(reduced, pt, index);
+  let hr = pipeParsers(delPrevHandler_, delNearestHandler_)(
+    intermediateVal,
+    pt,
+    index
+  );
   if (hr) {
-    return createReduced(hr.pointer + 1, hr.actions);
+    return createIntermediateValue(hr.pointer + 1, hr.actions);
   }
 
   // If hr was null then return the current actions and update the pointer
-  return createReduced(index + 1, reduced.actions);
+  return createIntermediateValue(index + 1, intermediateVal.actions);
 };
-const createReduced = (pointer, actions) => ({ pointer, actions });
-const initReduced = createReduced(0, []);
+const createIntermediateValue = (pointer, actions) => ({ pointer, actions });
+const initIntermediate = createIntermediateValue(0, []);
 
 // Execute command to generate actions
 export const deletePoints = (points) => {
-  const createActions_ = createActions(points);
-  const reduced = points.reduce(createActions_, initReduced);
-  return reduced.actions;
+  const createActions_ = createActionsFromPoints(points);
+  const createdActions = points.reduce(createActions_, initIntermediate);
+  return createdActions.actions;
 };
 
 /// Helper functions
@@ -89,8 +92,8 @@ function nearest(points, point) {
     Math.sqrt((pt1.x - pt2.x) ** 2 + (pt1.y - pt2.y) ** 2);
 
   const compare = (prev, curr, index) => {
-    const cDist = dist(curr.data, point.data);
-    if (prev[1] > cDist && curr.data.n !== point.data.n) {
+    const cDist = dist(curr, point);
+    if (prev[1] > cDist && curr.n !== point.n) {
       return [index, cDist];
     } else {
       return prev;
@@ -100,4 +103,15 @@ function nearest(points, point) {
   return points.reduce(compare, [null, 1000000]);
 }
 
-
+// Pipe value true the provided handlers
+// If one handler returns a valid value, then skip all of the rest
+function pipeParsers(...handlers) {
+  return (reduced, pt, index) =>
+    handlers.reduce((prev, curr) => {
+      if (prev) {
+        return prev;
+      } else {
+        return curr(reduced, pt, index);
+      }
+    }, null);
+}

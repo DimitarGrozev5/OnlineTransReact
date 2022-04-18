@@ -1,20 +1,6 @@
 import { deletePoints } from "./deletePoints";
 
-const nextCommandName = (prevCmd) => {
-  const queue = ["deletePoint", "mergePoints"];
-
-  const indexOfPrev = queue.indexOf(prevCmd);
-  if (indexOfPrev < 0) {
-    return queue[0];
-  }
-
-  if (indexOfPrev === queue.length - 1) {
-    return null;
-  }
-
-  return queue[indexOfPrev + 1];
-};
-
+// Stub
 const mergePoints = (points) => [];
 
 export const commandParser = (points) => {
