@@ -29,11 +29,6 @@ const KrokiCanvas = ({ points, pointActions }) => {
       current: [0, 0],
     }
   );
-  // const [cTranslationBasePoint, setCTranslationBasePoint] = useState({
-  //   panning: false,
-  //   base: [0, 0],
-  //   prev: [0, 0],
-  // });
   // Timestamp of the last time the middle button was lifted
   // Used for determening a double middle click, which is used
   // for zooming to extents
@@ -52,6 +47,7 @@ const KrokiCanvas = ({ points, pointActions }) => {
   useEffect(() => {
     if (w && h) {
       const pointData = points.map((data) => ({
+        id: data.id,
         n: data.n,
         x: +data.x,
         y: +data.y,
@@ -95,11 +91,11 @@ const KrokiCanvas = ({ points, pointActions }) => {
       ctx.beginPath();
 
       // TODO: The following part needs to be refactored
-      const drawPtWithCtx = (pt, index) => {
+      const drawPtWithCtx = (pt) => {
         let style = "none";
-        // if (pointActions.find((a) => a.target === index)) {
-        //   style = "delete";
-        // }
+        if (pointActions.find((a) => a.data === pt.id)) {
+          style = "delete";
+        }
         drawPoint(ctx, style)(pt);
       };
 

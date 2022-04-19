@@ -49,7 +49,7 @@ const KrokiBody = () => {
         <KrokiPoints points={currentPoints} actions={pointActions} />
       </div>
       <div className={styles["canvas"]}>
-        <KrokiCanvas points={currentPoints} pointActions={currentActions} />
+        <KrokiCanvas points={currentPoints} pointActions={pointActions} />
       </div>
     </div>
   );
