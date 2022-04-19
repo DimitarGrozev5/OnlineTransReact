@@ -1,4 +1,4 @@
-import { deletePoints } from "./deletePoints/code-parser";
+import { deletePoints } from "./deletePoints/delete-points-code-parser";
 
 // Stub
 const mergePoints = (points) => [];

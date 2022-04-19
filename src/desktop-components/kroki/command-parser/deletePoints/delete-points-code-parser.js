@@ -2,7 +2,7 @@ import P from "parsimmon";
 import {
   createDeleteMultiplePointsCommand,
   createDeletePointCommand,
-} from "./commands";
+} from "./delete-points-commands";
 
 //// Command that deletes a point
 /// Syntax:

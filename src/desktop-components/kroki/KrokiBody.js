@@ -42,7 +42,7 @@ const KrokiBody = () => {
   return (
     <div className={styles.main}>
       <div className={styles["actions"]}>
-        {/* <KrokiActions actions={currentActions} /> */}
+        <KrokiActions actions={currentActions} />
       </div>
       <div className={styles["results"]}>results</div>
       <div className={styles["points-container"]}>
