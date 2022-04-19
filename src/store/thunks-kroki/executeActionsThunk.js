@@ -1,8 +1,9 @@
+import { commandParser } from "../../desktop-components/kroki/command-parser/commandParser";
 import { deleteMultiplePointsFromCommand } from "../../desktop-components/kroki/command-parser/deletePoints/delete-points-commands";
 import { krokiActions } from "../kroki";
 
 const executeActionsThunk = () => (dispatch, getState) => {
-  const state = getState().kroki;
+  let state = getState().kroki;
 
   // Get actions
   const actions = state.actions;
@@ -25,6 +26,14 @@ const executeActionsThunk = () => (dispatch, getState) => {
   dispatch(krokiActions.updatePoints(newPoints));
 
   // Run next command
+  state = getState().kroki;
+  const transformedData = state.pointDataArr.map(
+    (id) => state.pointDataObj[id]
+  );
+  const newActions = commandParser(transformedData);
+
+  // Add actions to store
+  dispatch(krokiActions.updateActions(newActions));
 };
 
 export default executeActionsThunk;
