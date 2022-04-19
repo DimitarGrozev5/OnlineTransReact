@@ -18,16 +18,18 @@ const KrokiBody = () => {
   const currentAction = useSelector((state) => state.kroki.actions);
 
   // Extract point actions
-  const pointActions = currentAction.data.filter((action) => {
-    switch (action.type) {
-      case "DELETE_SINGLE_POINT":
-      case "UPDATE_SINGLE_POINT":
-      case "CREATE_SINGLE_POINT":
-        return true;
-      default:
-        return false;
-    }
-  });
+  const pointActions =
+    currentAction &&
+    currentAction.data.filter((action) => {
+      switch (action.type) {
+        case "DELETE_SINGLE_POINT":
+        case "UPDATE_SINGLE_POINT":
+        case "CREATE_SINGLE_POINT":
+          return true;
+        default:
+          return false;
+      }
+    });
 
   // On load check if there are points
   // If no, load them from the output data
