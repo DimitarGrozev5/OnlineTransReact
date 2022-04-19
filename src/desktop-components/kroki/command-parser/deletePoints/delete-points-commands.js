@@ -38,7 +38,7 @@ export const deleteMultiplePointsFromCommand = (ptsObj, ptsArr, command) => {
   const baseState = {
     ptsObj,
     ptsArr,
-    reverseCommands: null,
+    reverseCommands: [],
   };
   // Produce new state using immer
   const newState = produce(baseState, (draft) => {
@@ -63,7 +63,7 @@ export const deleteMultiplePointsFromCommand = (ptsObj, ptsArr, command) => {
       return [...rCmds, rCmd];
     }, []);
 
-    draft.reverseCommands = createRestoreMultiplePointsCommand(reverseCmds);
+    draft.reverseCommands = [createRestoreMultiplePointsCommand(reverseCmds)];
   });
 
   // Return new state

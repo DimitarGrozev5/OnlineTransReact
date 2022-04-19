@@ -4,6 +4,7 @@ const krokiSlice = createSlice({
   name: "kroki",
   initialState: {
     versionStack: [],
+    versionIndex: -1,
 
     pointDataObj: {},
     pointDataArr: [],
@@ -26,6 +27,12 @@ const krokiSlice = createSlice({
     },
     updateActions(state, action) {
       state.actions = [...action.payload];
+    },
+    updatePoints(state, action) {
+      state.pointDataObj = action.payload[0];
+      state.pointDataArr = action.payload[1];
+      state.versionStack.push(action.payload[2]);
+      state.versionIndex++;
     },
   },
 });
