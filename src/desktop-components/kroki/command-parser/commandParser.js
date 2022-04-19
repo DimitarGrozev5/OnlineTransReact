@@ -1,4 +1,4 @@
-import { deletePoints } from "./deletePoints";
+import { deletePoints } from "./deletePoints/code-parser";
 
 // Stub
 const mergePoints = (points) => [];
@@ -11,8 +11,8 @@ export const commandParser = (points) => {
   // The parser runs every command in sequence
   // If a command yealds a result, it skips the rest
   const newActions = commands.reduce(
-    (a, command) => (a.length ? a : command(points)),
-    []
+    (a, command) => (a ? a : command(points)),
+    null
   );
 
   return newActions;

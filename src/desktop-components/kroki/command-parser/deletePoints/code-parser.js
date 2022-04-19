@@ -1,5 +1,8 @@
 import P from "parsimmon";
-import { deletePointCommand } from "./command-creators";
+import {
+  createDeleteMultiplePointsCommand,
+  createDeletePointCommand,
+} from "./commands";
 
 //// Command that deletes a point
 /// Syntax:
@@ -22,34 +25,42 @@ import { deletePointCommand } from "./command-creators";
 const delPrevParser = P.string(".del.p");
 const delNearestParser = P.string(".del.n");
 
-// Code handlers
-const delPrevHandler = (parser) => (reduced, pt, index) => {
+/////////////////////////// Code handlers
+const delPrevHandler = (parser, pts) => (intemediate, pt, index) => {
   const delPrevConfirmed = parser.parse(pt.c).status;
   if (delPrevConfirmed) {
-    const action = [deletePointCommand(index)];
+    const action = [createDeletePointCommand(pt.id)];
 
-    const targetIndex = 2 * reduced.pointer - index - 1;
+    const targetIndex = 2 * intemediate.pointer - index - 1;
     if (targetIndex >= 0) {
-      action.push(deletePointCommand(targetIndex));
+      const targetId = pts[targetIndex].id;
+      action.push(createDeletePointCommand(targetId));
     }
     const pointer = targetIndex;
-    return createIntermediateValue(pointer, [...reduced.actions, ...action]);
+    return createIntermediateValue(pointer, [
+      ...intemediate.actions,
+      ...action,
+    ]);
   } else {
     return null;
   }
 };
-const delNearestHandler = (parser, pts) => (reduced, pt, index) => {
+const delNearestHandler = (parser, pts) => (intermediate, pt, index) => {
   const delNearConfirmed = parser.parse(pt.c).status;
   if (delNearConfirmed) {
-    const action = [deletePointCommand(index)];
+    const action = [createDeletePointCommand(pt.id)];
 
     const targetIndex = nearest(pts, pt);
     if (targetIndex[0] !== null && targetIndex[0] >= 0) {
-      action.push(deletePointCommand(targetIndex[0]));
+      const targetId = pts[targetIndex[0]].id;
+      action.push(createDeletePointCommand(targetId));
     }
 
-    const pointer = reduced.pointer;
-    return createIntermediateValue(pointer, [...reduced.actions, ...action]);
+    const pointer = intermediate.pointer;
+    return createIntermediateValue(pointer, [
+      ...intermediate.actions,
+      ...action,
+    ]);
   } else {
     return null;
   }
@@ -58,7 +69,7 @@ const delNearestHandler = (parser, pts) => (reduced, pt, index) => {
 // Actions reducer
 const createActionsFromPoints = (pts) => (intermediateVal, pt, index) => {
   // Init handlers
-  const delPrevHandler_ = delPrevHandler(delPrevParser);
+  const delPrevHandler_ = delPrevHandler(delPrevParser, pts);
   const delNearestHandler_ = delNearestHandler(delNearestParser, pts);
 
   // If hr is not null, then one parser managed to detect a valid code
@@ -81,7 +92,7 @@ const initIntermediate = createIntermediateValue(0, []);
 export const deletePoints = (points) => {
   const createActions_ = createActionsFromPoints(points);
   const createdActions = points.reduce(createActions_, initIntermediate);
-  return createdActions.actions;
+  return createDeleteMultiplePointsCommand(createdActions.actions);
 };
 
 /// Helper functions
