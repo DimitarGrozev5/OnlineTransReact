@@ -20,11 +20,11 @@ const scalePt = (scale) => (pt) => ({
   y: pt.y * scale,
 });
 
-const scalePtR = (scale) => (pt) => ({
-  ...pt,
-  x: pt.x / scale,
-  y: pt.y / scale,
-});
+// const scalePtR = (scale) => (pt) => ({
+//   ...pt,
+//   x: pt.x / scale,
+//   y: pt.y / scale,
+// });
 
 // Convert decart local CS to Canvas CS
 const lToC = (h, w) => (pt) => ({
@@ -34,12 +34,12 @@ const lToC = (h, w) => (pt) => ({
   x: pt.y + w / 2,
 });
 
-const cToL = (h, w) => (pt) => ({
-  ...pt,
-  // x: (3 * h) / 2 - pt.x,
-  y: -1 * (pt.x + h / 2),
-  x: pt.y - w / 2,
-});
+// const cToL = (h, w) => (pt) => ({
+//   ...pt,
+//   // x: (3 * h) / 2 - pt.x,
+//   y: -1 * (pt.x + h / 2),
+//   x: pt.y - w / 2,
+// });
 
 // Convert WCS to Canvas
 export const wcsToCanvasCS = (scale, translation, h, w) => (pt) =>

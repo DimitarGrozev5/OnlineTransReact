@@ -3,12 +3,7 @@ import { clearCanvas } from "./drawing-objects/clear-canvas";
 import { drawPoint } from "./drawing-objects/p-point";
 import styles from "./KrokiCanvas.module.css";
 import { zoomExtends } from "./utils/bounding-box";
-import {
-  panCPoint,
-  scaleCPoint,
-  translatePt,
-  wcsToCanvasCS,
-} from "./utils/transform-pts";
+import { scaleCPoint, translatePt, wcsToCanvasCS } from "./utils/transform-pts";
 
 const KrokiCanvas = ({ points, pointActions }) => {
   const containerRef = useRef();
