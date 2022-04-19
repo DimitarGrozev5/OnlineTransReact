@@ -1,8 +1,7 @@
 import styles from "./KrokiPoints.module.css";
 
 const KrokiPoints = ({ points, actions }) => {
-  const dActions =
-    actions && actions.filter((a) => a.type === "DELETE_SINGLE_POINT");
+  const dActions = actions.filter((a) => a.type === "DELETE_SINGLE_POINT");
   const intersection = points.map((pt) => {
     if (dActions?.find((a) => a.data === pt.id)) {
       return { ...pt, style: styles.delete };

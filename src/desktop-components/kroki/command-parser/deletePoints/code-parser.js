@@ -92,7 +92,7 @@ const initIntermediate = createIntermediateValue(0, []);
 export const deletePoints = (points) => {
   const createActions_ = createActionsFromPoints(points);
   const createdActions = points.reduce(createActions_, initIntermediate);
-  return createDeleteMultiplePointsCommand(createdActions.actions);
+  return [createDeleteMultiplePointsCommand(createdActions.actions)];
 };
 
 /// Helper functions

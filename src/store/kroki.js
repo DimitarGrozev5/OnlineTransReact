@@ -11,7 +11,7 @@ const krokiSlice = createSlice({
     resections: [],
     lines: [],
 
-    actions: null,
+    actions: [],
   },
   reducers: {
     // Expects an array of points
@@ -25,7 +25,7 @@ const krokiSlice = createSlice({
       }
     },
     updateActions(state, action) {
-      state.actions = action.payload;
+      state.actions = [...action.payload];
     },
   },
 });

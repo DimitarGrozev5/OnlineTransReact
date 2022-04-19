@@ -15,12 +15,11 @@ const KrokiBody = () => {
   );
 
   // Get action data
-  const currentAction = useSelector((state) => state.kroki.actions);
+  const currentActions = useSelector((state) => state.kroki.actions);
 
   // Extract point actions
-  const pointActions =
-    currentAction &&
-    currentAction.data.filter((action) => {
+  const pointActions = currentActions.flatMap((action) =>
+    action.data.filter((action) => {
       switch (action.type) {
         case "DELETE_SINGLE_POINT":
         case "UPDATE_SINGLE_POINT":
@@ -29,7 +28,8 @@ const KrokiBody = () => {
         default:
           return false;
       }
-    });
+    })
+  );
 
   // On load check if there are points
   // If no, load them from the output data
@@ -49,8 +49,7 @@ const KrokiBody = () => {
         <KrokiPoints points={currentPoints} actions={pointActions} />
       </div>
       <div className={styles["canvas"]}>
-        {/* <KrokiCanvas points={currentPoints} pointActions={pointActions} /> */}
-        <KrokiCanvas points={currentPoints} />
+        <KrokiCanvas points={currentPoints} pointActions={currentActions} />
       </div>
     </div>
   );
