@@ -1,6 +1,10 @@
 import styles from "./KrokiPoints.module.css";
 
-const KrokiPoints = ({ points, actions }) => {
+const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
+  // Display versioning of points
+  
+
+  // Modify points to visualize active actions
   const dActions = actions.filter((a) => a.type === "DELETE_SINGLE_POINT");
   const intersection = points.map((pt) => {
     if (dActions?.find((a) => a.data === pt.id)) {
@@ -9,6 +13,7 @@ const KrokiPoints = ({ points, actions }) => {
       return { ...pt, style: "" };
     }
   });
+
   return (
     <div>
       <table>

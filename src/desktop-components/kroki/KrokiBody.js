@@ -13,6 +13,9 @@ const KrokiBody = () => {
   const currentPoints = useSelector((state) =>
     state.kroki.pointDataArr.map((id) => state.kroki.pointDataObj[id])
   );
+  // Get versioning
+  const versionStack = useSelector((state) => state.kroki.versionStack);
+  const versionIndex = useSelector((state) => state.kroki.versionIndex);
 
   // Get action data
   const currentActions = useSelector((state) => state.kroki.actions);
@@ -46,7 +49,12 @@ const KrokiBody = () => {
       </div>
       <div className={styles["results"]}>results</div>
       <div className={styles["points-container"]}>
-        <KrokiPoints points={currentPoints} actions={pointActions} />
+        <KrokiPoints
+          points={currentPoints}
+          actions={pointActions}
+          versionStack={versionStack}
+          versionIndex={versionIndex}
+        />
       </div>
       <div className={styles["canvas"]}>
         <KrokiCanvas points={currentPoints} pointActions={pointActions} />
