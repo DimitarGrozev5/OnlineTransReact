@@ -1,4 +1,6 @@
-import produce from "@reduxjs/toolkit/node_modules/immer";
+import produce, {
+  produceWithPatches,
+} from "@reduxjs/toolkit/node_modules/immer";
 
 // Creates a command that deletes a single point
 export const createDeletePointCommand = (id) => ({
@@ -38,17 +40,21 @@ export const deleteMultiplePointsFromCommand = (ptsObj, ptsArr, command) => {
   const baseState = {
     ptsObj,
     ptsArr,
-    reverseCommands: [],
+  };
+  const reverseCommand = {
+    caption: command.meta.caption,
+    patch: null,
+    reversePatch: null,
   };
   // Produce new state using immer
-  const newState = produce(baseState, (draft) => {
+  const newState = produceWithPatches(baseState, (draft) => {
     // Loop trough delete single point commands and execute them
     const data = command.data;
 
-    const reverseCmds = data.reduce((rCmds, cmd) => {
+    data.forEach((cmd) => {
       // Get point id and data from pts collection
       const ptId = cmd.data;
-      const ptData = draft.ptsObj[cmd.data];
+      // const ptData = draft.ptsObj[cmd.data];
 
       // Find point position in pts array
       const ptIndex = draft.ptsArr.indexOf(ptId); // Optional?: validate that the index is not -1
@@ -57,17 +63,20 @@ export const deleteMultiplePointsFromCommand = (ptsObj, ptsArr, command) => {
       delete draft.ptsObj[cmd.data];
       draft.ptsArr.splice(ptIndex, 1);
 
-      // Create reverse command
-      const rCmd = createRestorePointCommand(ptId, ptIndex, ptData);
+      // // Create reverse command
+      // const rCmd = createRestorePointCommand(ptId, ptIndex, ptData);
 
-      return [...rCmds, rCmd];
-    }, []);
+      // return [...rCmds, rCmd];
+    });
 
-    draft.reverseCommands = [createRestoreMultiplePointsCommand(reverseCmds)];
+    // draft.reverseCommands = [createRestoreMultiplePointsCommand(reverseCmds)];
   });
 
+  reverseCommand.patch = newState[1];
+  reverseCommand.reversePatch = newState[2];
+
   // Return new state
-  return [newState.ptsObj, newState.ptsArr, newState.reverseCommands];
+  return [newState[0].ptsObj, newState[0].ptsArr, reverseCommand];
 };
 
 // Execute a reverse command that restores deleted points

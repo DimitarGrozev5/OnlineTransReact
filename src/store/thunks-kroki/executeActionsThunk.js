@@ -16,7 +16,7 @@ const executeActionsThunk = () => (dispatch, getState) => {
       prevState[1],
       command
     );
-    const reverseCommands = [...prevState[2], ...newState[2]];
+    const reverseCommands = [...prevState[2], newState[2]];
     return [newState[0], newState[1], reverseCommands];
   };
   const newPoints = actions.reduce(reducer, initState);
