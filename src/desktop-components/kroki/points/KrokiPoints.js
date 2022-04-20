@@ -1,8 +1,15 @@
+import { useDispatch } from "react-redux";
+import changeVersionThunk from "../../../store/thunks-kroki/changeVersionThunk";
 import styles from "./KrokiPoints.module.css";
 
 const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
+  const dispatch = useDispatch();
+
   // Display versioning of points
-  
+  const versions = versionStack.length;
+  const changeVersionHandler = (target) => () => {
+    dispatch(changeVersionThunk(target));
+  };
 
   // Modify points to visualize active actions
   const dActions = actions.filter((a) => a.type === "DELETE_SINGLE_POINT");
@@ -16,6 +23,25 @@ const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
 
   return (
     <div>
+      <div>
+        <h4>Rollback</h4>
+        <ul>
+          <li>
+            <button onClick={changeVersionHandler(-1)}>Initial state</button>
+          </li>
+          {[...Array(versions).keys()].map((i) => (
+            <li key={i}>
+              {i === versionIndex ? (
+                versionStack[i].map((c) => c.caption).join(" & ")
+              ) : (
+                <button onClick={changeVersionHandler(i)}>
+                  {versionStack[i].map((c) => c.caption).join(" & ")}
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
       <table>
         <thead>
           <tr>
