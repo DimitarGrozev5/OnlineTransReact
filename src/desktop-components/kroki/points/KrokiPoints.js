@@ -7,6 +7,7 @@ const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
 
   // Display versioning of points
   const versions = versionStack.length;
+  // console.log(versions)
   const changeVersionHandler = (target) => () => {
     dispatch(changeVersionThunk(target));
   };
@@ -27,7 +28,11 @@ const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
         <h4>Rollback</h4>
         <ul>
           <li>
-            <button onClick={changeVersionHandler(-1)}>Initial state</button>
+            {versionIndex === -1 ? (
+              "Initial state"
+            ) : (
+              <button onClick={changeVersionHandler(-1)}>Initial state</button>
+            )}
           </li>
           {[...Array(versions).keys()].map((i) => (
             <li key={i}>

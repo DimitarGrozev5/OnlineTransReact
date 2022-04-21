@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, original } from "@reduxjs/toolkit";
 
 const krokiSlice = createSlice({
   name: "kroki",
@@ -31,7 +31,14 @@ const krokiSlice = createSlice({
     updatePoints(state, action) {
       state.pointDataObj = action.payload[0];
       state.pointDataArr = action.payload[1];
-      state.versionStack.push(action.payload[2]);
+
+      // state.versionStack.push(action.payload[2]);
+      // console.log(original(state.versionStack));
+      state.versionStack = [
+        ...state.versionStack.slice(0, state.versionIndex + 1),
+        action.payload[2],
+      ];
+
       state.versionIndex++;
     },
     updatePointDataStructure(state, action) {
