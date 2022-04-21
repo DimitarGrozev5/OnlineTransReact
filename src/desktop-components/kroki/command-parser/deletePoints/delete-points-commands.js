@@ -35,48 +35,36 @@ export const createRestoreMultiplePointsCommand = (commands) => ({
 });
 
 // Executes a command for deleting multiple points
-export const deleteMultiplePointsFromCommand = (ptsObj, ptsArr, command) => {
+export const deleteMultiplePointsFromCommand = (state, command) => {
   // Settup base state for immer
-  const baseState = {
-    ptsObj,
-    ptsArr,
-  };
   const reverseCommand = {
     caption: command.meta.caption,
     patch: null,
     reversePatch: null,
   };
   // Produce new state using immer
-  const newState = produceWithPatches(baseState, (draft) => {
+  const newStateAndPatches = produceWithPatches(state, (draft) => {
     // Loop trough delete single point commands and execute them
     const data = command.data;
 
     data.forEach((cmd) => {
       // Get point id and data from pts collection
       const ptId = cmd.data;
-      // const ptData = draft.ptsObj[cmd.data];
 
       // Find point position in pts array
-      const ptIndex = draft.ptsArr.indexOf(ptId); // Optional?: validate that the index is not -1
+      const ptIndex = draft.pointDataArr.indexOf(ptId); // Optional?: validate that the index is not -1
 
       // Mutate the draft state, to remove the point
-      delete draft.ptsObj[cmd.data];
-      draft.ptsArr.splice(ptIndex, 1);
-
-      // // Create reverse command
-      // const rCmd = createRestorePointCommand(ptId, ptIndex, ptData);
-
-      // return [...rCmds, rCmd];
+      delete draft.pointDataObj[cmd.data];
+      draft.pointDataArr.splice(ptIndex, 1);
     });
-
-    // draft.reverseCommands = [createRestoreMultiplePointsCommand(reverseCmds)];
   });
 
-  reverseCommand.patch = newState[1];
-  reverseCommand.reversePatch = newState[2];
+  reverseCommand.patch = newStateAndPatches[1];
+  reverseCommand.reversePatch = newStateAndPatches[2];
 
   // Return new state
-  return [newState[0].ptsObj, newState[0].ptsArr, reverseCommand];
+  return [newStateAndPatches[0], reverseCommand];
 };
 
 // Execute a reverse command that restores deleted points

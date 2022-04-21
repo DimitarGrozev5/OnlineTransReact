@@ -28,23 +28,24 @@ const krokiSlice = createSlice({
     updateActions(state, action) {
       state.actions = [...action.payload];
     },
-    updatePoints(state, action) {
-      state.pointDataObj = action.payload[0];
-      state.pointDataArr = action.payload[1];
+    updateStateAndPatches(state, action) {
+      const s = action.payload[0];
+      state.pointDataObj = s.pointDataObj;
+      state.pointDataArr = s.pointDataArr;
 
-      // state.versionStack.push(action.payload[2]);
-      // console.log(original(state.versionStack));
       state.versionStack = [
         ...state.versionStack.slice(0, state.versionIndex + 1),
-        action.payload[2],
+        action.payload[1],
       ];
 
       state.versionIndex++;
     },
-    updatePointDataStructure(state, action) {
-      state.pointDataObj = action.payload[0];
-      state.pointDataArr = action.payload[1];
-      state.versionIndex = action.payload[2];
+    updateStateAndPointer(state, action) {
+      const s = action.payload[0];
+      state.pointDataObj = s.pointDataObj;
+      state.pointDataArr = s.pointDataArr;
+
+      state.versionIndex = action.payload[1];
     },
   },
 });

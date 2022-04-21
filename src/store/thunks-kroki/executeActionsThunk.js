@@ -1,5 +1,5 @@
+import { commandExecutor } from "../../desktop-components/kroki/command-parser/commandExecutor";
 import { commandParser } from "../../desktop-components/kroki/command-parser/commandParser";
-import { deleteMultiplePointsFromCommand } from "../../desktop-components/kroki/command-parser/deletePoints/delete-points-commands";
 import { krokiActions } from "../kroki";
 
 const executeActionsThunk = () => (dispatch, getState) => {
@@ -9,21 +9,21 @@ const executeActionsThunk = () => (dispatch, getState) => {
   const actions = state.actions;
 
   // Calcualte new points
-  const initState = [state.pointDataObj, state.pointDataArr, []];
-  const reducer = (prevState, command) => {
-    const newState = deleteMultiplePointsFromCommand(
-      prevState[0],
-      prevState[1],
-      command
-    );
-    const reverseCommands = [...prevState[2], newState[2]];
-    return [newState[0], newState[1], reverseCommands];
+  const initState = [
+    {
+      pointDataObj: state.pointDataObj,
+      pointDataArr: state.pointDataArr,
+    },
+    [],
+  ];
+  const reducer = (prev, cmd) => {
+    const newSnP = commandExecutor(prev[0], cmd);
+    return [newSnP[0], [...prev[1], newSnP[1]]];
   };
-  const newPoints = actions.reduce(reducer, initState);
-  // console.log(newPoints);
+  const newStateAndPatches = actions.reduce(reducer, initState);
 
   // Dispatch new points and reverse actions
-  dispatch(krokiActions.updatePoints(newPoints));
+  dispatch(krokiActions.updateStateAndPatches(newStateAndPatches));
 
   // Run next command
   state = getState().kroki;

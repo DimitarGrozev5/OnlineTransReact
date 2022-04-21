@@ -21,12 +21,7 @@ const changeVersionThunk = (target) => (dispatch, getState) => {
     releventPatches = versionStack.slice(target, versionIndex + 1);
   }
 
-  const ptsObj = state.pointDataObj;
-  const ptsArr = state.pointDataArr;
-  const currState = {
-    ptsObj,
-    ptsArr,
-  };
+  const currState = { ...state };
 
   const newState = releventPatches.reduce((st, patches) => {
     return patches.reduce((s, patch) => {
@@ -36,13 +31,7 @@ const changeVersionThunk = (target) => (dispatch, getState) => {
   }, currState);
 
   // Update state
-  dispatch(
-    krokiActions.updatePointDataStructure([
-      newState.ptsObj,
-      newState.ptsArr,
-      target,
-    ])
-  );
+  dispatch(krokiActions.updateStateAndPointer([newState, target]));
 
   // Run command
   state = getState().kroki;

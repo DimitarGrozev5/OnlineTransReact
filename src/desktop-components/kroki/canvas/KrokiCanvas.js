@@ -110,7 +110,7 @@ const KrokiCanvas = ({ points, pointActions }) => {
 
       ctx.stroke();
     }
-  }, [cPoints, canvasRef, w, h, cTranslationBasePoint]);
+  }, [cPoints, canvasRef, w, h, cTranslationBasePoint, pointActions]);
 
   // If cScale changes recalculate cPoints
   const scrollHandler = (event) => {
