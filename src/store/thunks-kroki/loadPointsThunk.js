@@ -28,7 +28,7 @@ const loadPointsThunk = () => (dispatch, getState) => {
   // console.log(newActions);
 
   // Add actions to store
-  dispatch(krokiActions.updateActions(newActions));
+  newActions && dispatch(krokiActions.updateActions(newActions));
 };
 
 export default loadPointsThunk;

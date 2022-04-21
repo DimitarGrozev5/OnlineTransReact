@@ -1,8 +1,6 @@
 import P from "parsimmon";
-import {
-  createDeleteMultiplePointsCommand,
-  createDeletePointCommand,
-} from "./delete-points-commands";
+import { createDeletePointCommand } from "../common/common-commands";
+import { createDeleteMultiplePointsCommand } from "./delete-points-commands";
 
 //// Command that deletes a point
 /// Syntax:
@@ -26,19 +24,19 @@ const delPrevParser = P.string(".del.p");
 const delNearestParser = P.string(".del.n");
 
 /////////////////////////// Code handlers
-const delPrevHandler = (parser, pts) => (intemediate, pt, index) => {
+const delPrevHandler = (parser, pts) => (intermediate, pt, index) => {
   const delPrevConfirmed = parser.parse(pt.c).status;
   if (delPrevConfirmed) {
     const action = [createDeletePointCommand(pt.id)];
 
-    const targetIndex = 2 * intemediate.pointer - index - 1;
+    const targetIndex = 2 * intermediate.pointer - index - 1;
     if (targetIndex >= 0) {
       const targetId = pts[targetIndex].id;
       action.push(createDeletePointCommand(targetId));
     }
     const pointer = targetIndex;
     return createIntermediateValue(pointer, [
-      ...intemediate.actions,
+      ...intermediate.actions,
       ...action,
     ]);
   } else {

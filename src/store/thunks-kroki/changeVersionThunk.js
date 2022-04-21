@@ -41,7 +41,7 @@ const changeVersionThunk = (target) => (dispatch, getState) => {
   const newActions = commandParser(transformedData);
 
   // Add actions to store
-  dispatch(krokiActions.updateActions(newActions));
+  newActions && dispatch(krokiActions.updateActions(newActions));
 };
 
 export default changeVersionThunk;

@@ -1,10 +1,5 @@
 import { deletePoints } from "./deletePoints/delete-points-code-parser";
-
-// Stub
-const mergePoints = (points) => {
-  console.log("merge");
-  return [];
-};
+import { mergePoints } from "./mergePoints/merge-points-code-parser";
 
 export const commandParser = (points) => {
   // List of all commands

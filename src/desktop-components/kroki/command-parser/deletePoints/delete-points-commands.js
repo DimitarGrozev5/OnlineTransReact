@@ -1,22 +1,4 @@
-import produce, {
-  produceWithPatches,
-} from "@reduxjs/toolkit/node_modules/immer";
-
-// Creates a command that deletes a single point
-export const createDeletePointCommand = (id) => ({
-  type: "DELETE_SINGLE_POINT",
-  data: id,
-});
-
-// Creates a reverse command that restores a single point
-export const createRestorePointCommand = (id, index, data) => ({
-  type: "RESTORE_SINGLE_POINT",
-  data: {
-    id,
-    index,
-    data,
-  },
-});
+import { produceWithPatches } from "@reduxjs/toolkit/node_modules/immer";
 
 // Creates a command that deletes multiple points
 export const createDeleteMultiplePointsCommand = (commands) => ({
@@ -25,12 +7,6 @@ export const createDeleteMultiplePointsCommand = (commands) => ({
     caption: "Delete multiple points",
     desc: `${commands.length} points will be deleted on execution`,
   },
-  data: [...commands],
-});
-
-// Creates a command that restores multiple points
-export const createRestoreMultiplePointsCommand = (commands) => ({
-  type: "RESTORE_MULTIPLE_POINTS",
   data: [...commands],
 });
 
@@ -65,26 +41,4 @@ export const deleteMultiplePointsFromCommand = (state, command) => {
 
   // Return new state
   return [newStateAndPatches[0], reverseCommand];
-};
-
-// Execute a reverse command that restores deleted points
-export const restoreMultiplePointsFromCommand = (ptsObj, ptsArr, command) => {
-  // Settup base state for immer
-  const baseState = {
-    ptsObj,
-    ptsArr,
-  };
-  // Produce new state using immer
-  const newState = produce(baseState, (draft) => {
-    // Loop trough restore single point commands and execute them
-    const commands = command.data;
-    commands.forEach((cmd) => {
-      const { ptId, ptIndex, ptData } = cmd.data;
-      draft.ptsObj[ptId] = ptData;
-      draft.ptsArr.splice(ptIndex, 0, ptId);
-    });
-  });
-
-  // Return new state
-  return [newState.ptsObj, newState.ptsArr];
 };
