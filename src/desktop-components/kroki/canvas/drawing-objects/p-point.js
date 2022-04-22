@@ -5,6 +5,8 @@ export const drawPoint =
 
     if (style === "delete") {
       ctx.fillStyle = "red";
+    } else if (style === "update") {
+      ctx.fillStyle = "rgb(204, 204, 19)";
     }
 
     // Draw point

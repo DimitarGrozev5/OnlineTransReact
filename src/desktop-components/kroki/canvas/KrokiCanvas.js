@@ -91,10 +91,14 @@ const KrokiCanvas = ({ points, pointActions }) => {
       ctx.beginPath();
 
       // TODO: The following part needs to be refactored
+      const dActions = pointActions.filter((a) => a.type === "DELETE_SINGLE_POINT");
+      const uActions = pointActions.filter((a) => a.type === "UPDATE_SINGLE_POINT");
       const drawPtWithCtx = (pt) => {
         let style = "none";
-        if (pointActions.find((a) => a.data === pt.id)) {
+        if (dActions?.find((a) => a.data === pt.id)) {
           style = "delete";
+        } else if (uActions?.find((a) => a.data.id === pt.id)) {
+          style = "update";
         }
         drawPoint(ctx, style)(pt);
       };
