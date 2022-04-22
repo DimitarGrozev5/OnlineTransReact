@@ -1,5 +1,8 @@
 import P from "parsimmon";
-import { createDeletePointCommand } from "../common/common-commands";
+import {
+  createDeletePointCommand,
+  createUpdatePointCommand,
+} from "../common/common-commands";
 import { createMergeMultiplePointsCommand } from "./merge-points-commands";
 
 //// Command that merges coordinates and height from two points
@@ -18,90 +21,55 @@ import { createMergeMultiplePointsCommand } from "./merge-points-commands";
 /// [code?].hxy
 /// |> [code?].hxy
 
-// Code parsers
-const randomCodeParser = P.regexp(/.*/);
-const xyParser = P.string(".xy");
-const hParser = P.string(".h");
-const xyhParser = P.string(".xyh");
-const hxyParser = P.string(".hxy");
-
-/////////////////////////// Code handlers
-const hIgnoreHandler = (pts) => (intermediate, pt, index) => {
-  // const hIgnoreConfimed = P.seq(randomCodeParser, xyParser).parse(pt.c);
-  const hIgnoreConfimed = pt.c.endsWith(".xy");
-  if (hIgnoreConfimed) {
-    // const action = [createDeletePointCommand(pt.id)];
-
-    // const targetIndex = 2 * intermediate.pointer - index - 1;
-    // if (targetIndex >= 0) {
-    //   const targetId = pts[targetIndex].id;
-    //   action.push(createDeletePointCommand(targetId));
-    // }
-    // const pointer = targetIndex;
-    // return createIntermediateValue(pointer, [
-    //   ...intermediate.actions,
-    //   ...action,
-    // ]);
-    return null;
-  } else {
-    return null;
-  }
+// Parser chain
+const hIgnore = ([pt, actionsSoFar]) => {
+  const newCode = pt.c.substring(0, pt.c.length - 3);
+  const updatedPoint = { ...pt, h: -1000, c: newCode };
+  const updateCommand = createUpdatePointCommand(updatedPoint);
+  return [baseParser, [...actionsSoFar, updateCommand]];
 };
 
-// Actions reducer
-const createActionsFromPoints = (pts) => (intermediateVal, pt, index) => {
-  // Init handlers
-  const hIgnoreHandler_ = hIgnoreHandler(pts);
+const thenH =
+  (pt1) =>
+  ([pt2, actionsSoFar]) => {
+    if (pt2.c.endsWith(".xyh")) {
+      const newCode = pt1.c.substring(0, pt1.c.length - 4);
+      const updatedPoint = { ...pt1, x: pt1.x, y: pt1.y, h: pt2.h, c: newCode };
+      const updateCommand = [createUpdatePointCommand(updatedPoint)];
+      updateCommand.push(createDeletePointCommand(pt2.id));
+      return [baseParser, [...actionsSoFar, ...updateCommand]];
+    } else {
+      return hIgnore([pt1, actionsSoFar]);
+    }
+  };
+const xyThenH = ([pt1, actionsSoFar]) => [thenH(pt1), actionsSoFar];
 
-  // If hr is not null, then one parser managed to detect a valid code
-  let hr = pipeParsers(hIgnoreHandler_)(intermediateVal, pt, index);
-  if (hr) {
-    return createIntermediateValue(hr.pointer + 1, hr.actions);
-  }
+const thenXY =
+  (pt1) =>
+  ([pt2, actionsSoFar]) => {
+    if (pt2.c.endsWith(".hxy")) {
+      const newCode = pt1.c.substring(0, pt1.c.length - 4);
+      const updatedPoint = { ...pt1, x: pt2.x, y: pt2.y, h: pt1.h, c: newCode };
+      const updateCommand = [createUpdatePointCommand(updatedPoint)];
+      updateCommand.push(createDeletePointCommand(pt2.id));
+      return [baseParser, [...actionsSoFar, ...updateCommand]];
+    } else {
+      return baseParser([pt2, actionsSoFar]);
+    }
+  };
+const hThenXY = ([pt1, actionsSoFar]) => [thenXY(pt1), actionsSoFar];
 
-  // If hr was null then return the current actions and update the pointer
-  return createIntermediateValue(index + 1, intermediateVal.actions);
-};
-const createIntermediateValue = (pointer, actions) => ({ pointer, actions });
-const initIntermediate = createIntermediateValue(0, []);
+function baseParser([pt, actionsSoFar]) {
+  let nextParser = [baseParser, actionsSoFar];
+  if (pt.c.endsWith(".xy")) nextParser = hIgnore([pt, actionsSoFar]);
+  if (pt.c.endsWith(".xyh")) nextParser = xyThenH([pt, actionsSoFar]);
+  if (pt.c.endsWith(".hxy")) nextParser = hThenXY([pt, actionsSoFar]);
+  return nextParser;
+}
 
 // Execute command to generate actions
 export const mergePoints = (points) => {
-  const createActions_ = createActionsFromPoints(points);
-  const createdActions = points.reduce(createActions_, initIntermediate);
-  return createdActions.actions.length
-    ? [createMergeMultiplePointsCommand(createdActions.actions)]
-    : null;
+  const reducer = (prev, curr) => prev[0]([curr, prev[1]]);
+  const createdActions = points.reduce(reducer, [baseParser, []]);
+  return [createMergeMultiplePointsCommand(createdActions[1])];
 };
-
-/// Helper functions
-
-// Find the nearest point
-function nearest(points, point) {
-  const dist = (pt1, pt2) =>
-    Math.sqrt((pt1.x - pt2.x) ** 2 + (pt1.y - pt2.y) ** 2);
-
-  const compare = (prev, curr, index) => {
-    const cDist = dist(curr, point);
-    if (prev[1] > cDist && curr.id !== point.id) {
-      return [index, cDist];
-    } else {
-      return prev;
-    }
-  };
-
-  return points.reduce(compare, [null, 1000000]);
-}
-
-// Pipe value true the provided handlers
-// If one handler returns a valid value, then skip all of the rest
-function pipeParsers(...handlers) {
-  return (reduced, pt, index) =>
-    handlers.reduce((prev, curr) => {
-      if (prev) {
-        return prev;
-      } else {
-        return curr(reduced, pt, index);
-      }
-    }, null);
-}

@@ -5,7 +5,7 @@ export const createDeletePointCommand = (id) => ({
 });
 
 // Creates a command that updates a single point
-export const createUpdatePointCommand = (id) => ({
-  type: "DELETE_SINGLE_POINT",
-  data: id,
+export const createUpdatePointCommand = (updatedPt) => ({
+  type: "UPDATE_SINGLE_POINT",
+  data: updatedPt,
 });
