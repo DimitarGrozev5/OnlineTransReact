@@ -71,5 +71,7 @@ function baseParser([pt, actionsSoFar]) {
 export const mergePoints = (points) => {
   const reducer = (prev, curr) => prev[0]([curr, prev[1]]);
   const createdActions = points.reduce(reducer, [baseParser, []]);
-  return [createMergeMultiplePointsCommand(createdActions[1])];
+  return createdActions[1].length
+    ? [createMergeMultiplePointsCommand(createdActions[1])]
+    : [];
 };
