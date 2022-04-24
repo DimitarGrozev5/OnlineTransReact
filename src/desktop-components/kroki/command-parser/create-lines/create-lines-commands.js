@@ -4,6 +4,18 @@ import {
   updatePoint,
 } from "../common/common-commands";
 
+// Add point to line
+export const addPointToLineCommand = (ptId, lineId) => ({
+  type: "ADD_POINT_TO_LINE",
+  data: { ptId, lineId },
+});
+
+// Close line
+export const closeLineCommand = (lineId) => ({
+  type: "CLOSE_LINE",
+  data: lineId,
+});
+
 // Creates a command that merges multiple points
 export const createMultipleLinesCommand = (commands) => ({
   type: "CREATE_MULTIPLE_LINES",

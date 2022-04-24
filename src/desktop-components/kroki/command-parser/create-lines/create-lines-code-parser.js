@@ -1,5 +1,14 @@
+import { nanoid } from "nanoid";
+import {
+  createUpdatePointCommand,
+  updatePoint,
+} from "../common/common-commands";
 import { reservedCodes } from "../reserved-codes";
-import { createMultipleLinesCommand } from "./create-lines-commands";
+import {
+  addPointToLineCommand,
+  closeLineCommand,
+  createMultipleLinesCommand,
+} from "./create-lines-commands";
 
 //// Command that creates lines from point codes
 /// Syntax:
@@ -28,19 +37,69 @@ const isLineCode = (reservedCodes) => (code) => {
 };
 const isAcceptedLineCode = isLineCode(reservedCodes);
 
+// Create line object
+const newLine = (cmdId) => ({
+  id: nanoid(),
+  cmdId,
+  commands: [],
+});
+
 // Parser chain
 
-function baseParser([pt, actionsSoFar]) {
-  let nextParser = [baseParser, actionsSoFar];
+function baseParser([pt, lines]) {
+  let nextParser = [baseParser, lines];
+
   const lineCode = isAcceptedLineCode(pt.c);
-  lineCode && console.log(lineCode);
+  if (lineCode) {
+    let nextLines = [...lines];
+    const [lineLabel, lineNum, code] = lineCode;
+    let nextCode = code;
+    const lineId = "" + lineLabel + lineNum;
+
+    // Check if the line is added to the actionsSoFar
+    let targetLine = lines.find((l) => l.cmdId === lineId);
+
+    // If no add the line
+    if (!targetLine) {
+      targetLine = newLine(lineId);
+      nextLines = [...lines, targetLine];
+    }
+
+    // Add the new point to the line
+    const newPoint = addPointToLineCommand(pt.id, targetLine.id);
+    targetLine.commands.push(newPoint);
+
+    // Parse the rest of the code and continue
+    if (code === "e") {
+      targetLine.cmdId = null;
+      nextCode = "";
+    }
+    if (code === "c") {
+      targetLine.cmdId = null;
+      targetLine.commands.push(closeLineCommand(targetLine.id));
+      nextCode = "";
+    }
+
+    // Update code of points
+    const updatedPoint = createUpdatePointCommand({
+      ...pt,
+      code: "" + lineLabel + nextCode,
+    });
+    targetLine.commands.push(updatedPoint);
+
+    // Update return value
+    nextParser = [baseParser, nextLines];
+  }
+
   return nextParser;
 }
 
 // Execute command to generate actions
 export const createLines = (points) => {
-  const reducer = ([parser, actions], currPt) => parser([currPt, actions]);
+  const reducer = ([parser, lines], currPt) => parser([currPt, lines]);
   const createdActions = points.reduce(reducer, [baseParser, []]);
+  // TODO: convert lines to commands
+  console.log(createdActions[1]);
   return createdActions[1].length
     ? [createMultipleLinesCommand(createdActions[1])]
     : [];
