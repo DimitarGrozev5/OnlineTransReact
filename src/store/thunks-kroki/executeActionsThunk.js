@@ -1,6 +1,7 @@
 import { commandExecutor } from "../../desktop-components/kroki/command-parser/commandExecutor";
 import { commandParser } from "../../desktop-components/kroki/command-parser/commandParser";
 import { krokiActions } from "../kroki";
+import { testCommandThunk } from "./testCommandThunk";
 
 const executeActionsThunk = () => (dispatch, getState) => {
   let state = getState().kroki;
@@ -26,14 +27,7 @@ const executeActionsThunk = () => (dispatch, getState) => {
   dispatch(krokiActions.updateStateAndPatches(newStateAndPatches));
 
   // Run next command
-  state = getState().kroki;
-  const transformedData = state.pointDataArr.map(
-    (id) => state.pointDataObj[id]
-  );
-  const newActions = commandParser(transformedData);
-
-  // Add actions to store
-  newActions && dispatch(krokiActions.updateActions(newActions));
+  dispatch(testCommandThunk());
 };
 
 export default executeActionsThunk;

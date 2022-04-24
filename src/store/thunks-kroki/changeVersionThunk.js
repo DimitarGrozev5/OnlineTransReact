@@ -1,17 +1,13 @@
 import { applyPatches } from "@reduxjs/toolkit/node_modules/immer";
-import { commandParser } from "../../desktop-components/kroki/command-parser/commandParser";
 import { krokiActions } from "../kroki";
+import { testCommandThunk } from "./testCommandThunk";
 
 const changeVersionThunk = (target) => (dispatch, getState) => {
   let state = getState().kroki;
 
   // Apply inverse patch to get new state
   const versionIndex = state.versionIndex;
-  const versionStack = state.versionStack; /*.slice(
-    Math.min(target, versionIndex),
-    Math.max(target, versionIndex) + 1
-  );*/
-  console.log(target, versionIndex, versionStack);
+  const versionStack = state.versionStack;
 
   let prop = "patch";
   let releventPatches = versionStack.slice(
@@ -27,8 +23,6 @@ const changeVersionThunk = (target) => (dispatch, getState) => {
       .reverse();
   }
 
-  console.log(releventPatches);
-
   const currState = { ...state };
 
   const newState = releventPatches.reduce((st, patches) => {
@@ -41,15 +35,8 @@ const changeVersionThunk = (target) => (dispatch, getState) => {
   // Update state
   dispatch(krokiActions.updateStateAndPointer([newState, target]));
 
-  // Run command
-  state = getState().kroki;
-  const transformedData = state.pointDataArr.map(
-    (id) => state.pointDataObj[id]
-  );
-  const newActions = commandParser(transformedData);
-
-  // Add actions to store
-  newActions && dispatch(krokiActions.updateActions(newActions));
+  // Run next command
+  dispatch(testCommandThunk());
 };
 
 export default changeVersionThunk;
