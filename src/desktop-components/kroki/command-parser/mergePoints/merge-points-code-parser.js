@@ -1,4 +1,3 @@
-import P from "parsimmon";
 import {
   createDeletePointCommand,
   createUpdatePointCommand,
@@ -73,5 +72,5 @@ export const mergePoints = (points) => {
   const createdActions = points.reduce(reducer, [baseParser, []]);
   return createdActions[1].length
     ? [createMergeMultiplePointsCommand(createdActions[1])]
-    : [];
+    : null;
 };
