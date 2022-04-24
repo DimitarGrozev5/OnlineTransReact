@@ -7,19 +7,27 @@ const changeVersionThunk = (target) => (dispatch, getState) => {
 
   // Apply inverse patch to get new state
   const versionIndex = state.versionIndex;
-  const versionStack = state.versionStack.slice(
+  const versionStack = state.versionStack; /*.slice(
     Math.min(target, versionIndex),
     Math.max(target, versionIndex) + 1
-  );
+  );*/
+  console.log(target, versionIndex, versionStack);
 
   let prop = "patch";
-  let releventPatches = versionStack.slice(versionIndex, target + 1);
+  let releventPatches = versionStack.slice(
+    Math.max(versionIndex, 0),
+    target + 1
+  );
   if (target === versionIndex) {
     return;
   } else if (target < versionIndex) {
     prop = "reversePatch";
-    releventPatches = versionStack.slice(target, versionIndex + 1);
+    releventPatches = versionStack
+      .slice(target + 1, versionIndex + 1)
+      .reverse();
   }
+
+  console.log(releventPatches);
 
   const currState = { ...state };
 
