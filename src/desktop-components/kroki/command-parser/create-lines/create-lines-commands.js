@@ -4,6 +4,15 @@ import {
   updatePoint,
 } from "../common/common-commands";
 
+// Create line
+export const createLineCommand = (lineId, commands) => ({
+  type: "CREATE_LINE",
+  data: {
+    id: lineId,
+    commands,
+  },
+});
+
 // Add point to line
 export const addPointToLineCommand = (ptId, lineId) => ({
   type: "ADD_POINT_TO_LINE",

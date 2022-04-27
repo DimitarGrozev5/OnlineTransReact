@@ -7,6 +7,7 @@ import { reservedCodes } from "../reserved-codes";
 import {
   addPointToLineCommand,
   closeLineCommand,
+  createLineCommand,
   createMultipleLinesCommand,
 } from "./create-lines-commands";
 
@@ -98,9 +99,26 @@ function baseParser([pt, lines]) {
 export const createLines = (points) => {
   const reducer = ([parser, lines], currPt) => parser([currPt, lines]);
   const createdActions = points.reduce(reducer, [baseParser, []]);
-  // TODO: convert lines to commands
-  console.log(createdActions[1]);
-  return createdActions[1].length
-    ? [createMultipleLinesCommand(createdActions[1])]
-    : [];
+
+  const pointAndLineActions = createdActions[1].flatMap((line) => {
+    const [ptActions, linActions] = line.commands.reduce(
+      ([pt, lin], cmd) => {
+        switch (cmd.type) {
+          case "UPDATE_SINGLE_POINT":
+          case "CREATE_SINGLE_POINT":
+          case "DELETE_SINGLE_POINT":
+            return [[...pt, cmd], lin];
+          case "ADD_POINT_TO_LINE":
+          case "CLOSE_LINE":
+            return [pt, [...lin, cmd]];
+          default:
+            return [pt, lin];
+        }
+      },
+      [[], []]
+    );
+    return [...ptActions, createLineCommand(line.id, linActions)];
+  });
+
+  return pointAndLineActions.length ? pointAndLineActions : [];
 };
