@@ -1,6 +1,10 @@
 import P from "parsimmon";
 import { createDeletePointCommand } from "../common/common-commands";
-import { createDeleteMultiplePointsCommand } from "./delete-points-commands";
+import {
+  createDeleteCommandAndTargetCommand,
+  createDeleteCommandCommand,
+  createDeleteMultiplePointsCommand,
+} from "./delete-points-commands";
 
 //// Command that deletes a point
 /// Syntax:
@@ -27,18 +31,22 @@ const delNearestParser = P.string(".del.n");
 const delPrevHandler = (parser, pts) => (intermediate, pt, index) => {
   const delPrevConfirmed = parser.parse(pt.c).status;
   if (delPrevConfirmed) {
-    const action = [createDeletePointCommand(pt.id)];
+    const cmdPt = createDeletePointCommand(pt.id);
+    let targetPt = null;
 
     const targetIndex = 2 * intermediate.pointer - index - 1;
     if (targetIndex >= 0) {
       const targetId = pts[targetIndex].id;
-      action.push(createDeletePointCommand(targetId));
+      targetPt = createDeletePointCommand(targetId);
     }
+
+    let action = createDeleteCommandCommand(cmdPt);
+    if (targetPt) {
+      action = createDeleteCommandAndTargetCommand(cmdPt, targetPt);
+    }
+
     const pointer = targetIndex;
-    return createIntermediateValue(pointer, [
-      ...intermediate.actions,
-      ...action,
-    ]);
+    return createIntermediateValue(pointer, [...intermediate.actions, action]);
   } else {
     return null;
   }
@@ -46,19 +54,22 @@ const delPrevHandler = (parser, pts) => (intermediate, pt, index) => {
 const delNearestHandler = (parser, pts) => (intermediate, pt, index) => {
   const delNearConfirmed = parser.parse(pt.c).status;
   if (delNearConfirmed) {
-    const action = [createDeletePointCommand(pt.id)];
+    const cmdPt = createDeletePointCommand(pt.id);
+    let targetPt = null;
 
     const targetIndex = nearest(pts, pt);
     if (targetIndex[0] !== null && targetIndex[0] >= 0) {
       const targetId = pts[targetIndex[0]].id;
-      action.push(createDeletePointCommand(targetId));
+      targetPt = createDeletePointCommand(targetId);
+    }
+
+    let action = createDeleteCommandCommand(cmdPt);
+    if (targetPt) {
+      action = createDeleteCommandAndTargetCommand(cmdPt, targetPt);
     }
 
     const pointer = intermediate.pointer;
-    return createIntermediateValue(pointer, [
-      ...intermediate.actions,
-      ...action,
-    ]);
+    return createIntermediateValue(pointer, [...intermediate.actions, action]);
   } else {
     return null;
   }

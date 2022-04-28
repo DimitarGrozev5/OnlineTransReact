@@ -21,18 +21,18 @@ const KrokiBody = () => {
   const currentActions = useSelector((state) => state.kroki.actions);
 
   // Extract point actions
-  const pointActions = currentActions.flatMap((action) =>
-    action.data.filter((action) => {
-      switch (action.type) {
-        case "DELETE_SINGLE_POINT":
-        case "UPDATE_SINGLE_POINT":
-        case "CREATE_SINGLE_POINT":
-          return true;
-        default:
-          return false;
+  const drill = (prop) => (obj) => {
+    if ("group" in obj) {
+      return obj.group.reduce((cmds, cmd) => [...cmds, ...drill(prop)(cmd)], []);
+    } else {
+      if (prop in obj) {
+        return obj[prop];
       }
-    })
-  );
+    }
+  };
+  const drillForPointCmds = drill("pointCommands");
+  const pointActions = currentActions.flatMap((c) => drillForPointCmds(c));
+  console.log(pointActions);
 
   // On load check if there are points
   // If no, load them from the output data

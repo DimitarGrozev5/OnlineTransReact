@@ -1,9 +1,10 @@
 import { produceWithPatches } from "@reduxjs/toolkit/node_modules/immer";
+import { cmds } from "./command-names";
 
 ////////////////////////////////////////////////////////////////////////////////////
 // Creates a command that deletes a single point
 export const createDeletePointCommand = (id) => ({
-  type: "DELETE_SINGLE_POINT",
+  type: cmds.DELETE_SINGLE_POINT,
   data: id,
 });
 // Execute delete point command on the state
@@ -24,7 +25,7 @@ export const deletePoint = (draft, command) => {
 ////////////////////////////////////////////////////////////////////////////////////
 // Creates a command that updates a single point
 export const createUpdatePointCommand = (updatedPt) => ({
-  type: "UPDATE_SINGLE_POINT",
+  type: cmds.UPDATE_SINGLE_POINT,
   data: updatedPt,
 });
 // Execute update point command on the state
