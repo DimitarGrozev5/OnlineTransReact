@@ -44,7 +44,7 @@ export const createDeleteMultiplePointsCommand = (commands) => ({
 export const deleteMultiplePointsFromCommand = executeCommand(
   (draft, command) => {
     // Loop trough delete single point commands and execute them
-    const commands = command.data;
+    const commands = command.group.flatMap((c) => c.pointCommands);
 
     commands.forEach((cmd) => {
       deletePoint(draft, cmd);

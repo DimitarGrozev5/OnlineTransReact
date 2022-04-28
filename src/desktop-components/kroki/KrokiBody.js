@@ -23,16 +23,18 @@ const KrokiBody = () => {
   // Extract point actions
   const drill = (prop) => (obj) => {
     if ("group" in obj) {
-      return obj.group.reduce((cmds, cmd) => [...cmds, ...drill(prop)(cmd)], []);
+      return obj.group.reduce(
+        (cmds, cmd) => [...cmds, ...drill(prop)(cmd)],
+        []
+      );
+    } else if (prop in obj) {
+      return obj[prop];
     } else {
-      if (prop in obj) {
-        return obj[prop];
-      }
+      return [];
     }
   };
   const drillForPointCmds = drill("pointCommands");
   const pointActions = currentActions.flatMap((c) => drillForPointCmds(c));
-  console.log(pointActions);
 
   // On load check if there are points
   // If no, load them from the output data

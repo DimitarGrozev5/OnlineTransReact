@@ -13,6 +13,7 @@ const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
   };
 
   // Modify points to visualize active actions
+  console.log(actions);
   const dActions = actions.filter((a) => a.type === "DELETE_SINGLE_POINT");
   const uActions = actions.filter((a) => a.type === "UPDATE_SINGLE_POINT");
   const intersection = points.map((pt) => {
