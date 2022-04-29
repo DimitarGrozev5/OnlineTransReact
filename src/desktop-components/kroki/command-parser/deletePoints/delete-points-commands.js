@@ -9,7 +9,7 @@ export const createDeleteCommandAndTargetCommand = (cmdPt, targetPt) => ({
   type: cmds.DELETE_COMMAND_AND_TARGET,
   meta: {
     caption: "Delete command point and target point",
-    desc: `Points ${cmdPt.n} & ${targetPt.n} will be deleted`,
+    desc: `Points ${cmdPt} & ${targetPt} will be deleted`, // The generated text is meaningless
     points: { cmdPt, targetPt },
   },
   pointCommands: [cmdPt, targetPt],
@@ -23,7 +23,7 @@ export const createDeleteCommandCommand = (cmdPt) => ({
   type: cmds.DELETE_COMMAND,
   meta: {
     caption: "Delete command point",
-    desc: `Point ${cmdPt.n} will be deleted. The command points to an unvalid point`,
+    desc: `Point ${cmdPt} will be deleted. The command points to an unvalid point`, // The generated text is meaningless
   },
   pointCommands: [cmdPt],
 });

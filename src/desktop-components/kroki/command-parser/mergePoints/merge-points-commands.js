@@ -1,8 +1,19 @@
+import { cmds } from "../common/command-names";
 import {
   deletePoint,
   executeCommand,
   updatePoint,
 } from "../common/common-commands";
+
+// Creates a command that removes the Height of a point
+export const createRemoveHCommand = (ptData) => ({
+  type: cmds.REMOVE_INVALID_H,
+  meta: {
+    caption: "One point has only coordinate data",
+    desc: `Point ${ptData.n} has only coordinate data`,
+  },
+  pointCommands: [ptData],
+});
 
 // Creates a command that merges multiple points
 export const createMergeMultiplePointsCommand = (commands) => ({
