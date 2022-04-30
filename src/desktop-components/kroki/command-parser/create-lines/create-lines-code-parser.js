@@ -5,8 +5,6 @@ import {
 } from "../common/common-commands";
 import { reservedCodes } from "../reserved-codes";
 import {
-  addPointToLineCommand,
-  closeLineCommand,
   createLineCommand,
   createMultipleLinesCommand,
 } from "./create-lines-commands";
@@ -42,34 +40,35 @@ const isAcceptedLineCode = isLineCode(reservedCodes);
 const newLine = (cmdId) => ({
   id: nanoid(),
   cmdId,
-  commands: [],
+  segments: [],
 });
 
 // Parser chain
+const lineSegmentParser =
+  ([pt1, lines1]) =>
+  ([pt2, lines2]) => {
+    return [lineSegmentParser([pt2, lines2]), lines2];
+  };
 
 function baseParser([pt, lines]) {
   let nextParser = [baseParser, lines];
-
+  
   const lineCode = isAcceptedLineCode(pt.c);
   if (lineCode) {
     let nextLines = [...lines];
     const [lineLabel, lineNum, code] = lineCode;
     let nextCode = code;
     const lineId = "" + lineLabel + lineNum;
-
     // Check if the line is added to the actionsSoFar
     let targetLine = lines.find((l) => l.cmdId === lineId);
-
     // If no add the line
     if (!targetLine) {
       targetLine = newLine(lineId);
       nextLines = [...lines, targetLine];
     }
-
     // Add the new point to the line
     const newPoint = addPointToLineCommand(pt.id, targetLine.id);
     targetLine.commands.push(newPoint);
-
     // Parse the rest of the code and continue
     if (code === "e") {
       targetLine.cmdId = null;
@@ -80,18 +79,15 @@ function baseParser([pt, lines]) {
       targetLine.commands.push(closeLineCommand(targetLine.id));
       nextCode = "";
     }
-
     // Update code of points
     const updatedPoint = createUpdatePointCommand({
       ...pt,
       code: "" + lineLabel + nextCode,
     });
     targetLine.commands.push(updatedPoint);
-
     // Update return value
     nextParser = [baseParser, nextLines];
   }
-
   return nextParser;
 }
 
