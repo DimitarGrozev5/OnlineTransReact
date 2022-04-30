@@ -1,5 +1,7 @@
 import { cmds } from "../common/command-names";
 import {
+  createDeletePointCommand,
+  createUpdatePointCommand,
   deletePoint,
   executeCommand,
   updatePoint,
@@ -12,17 +14,23 @@ export const createRemoveHCommand = (ptData) => ({
     caption: "One point has only coordinate data",
     desc: `Point ${ptData.n} has only coordinate data`,
   },
-  pointCommands: [ptData],
+  pointCommands: [createUpdatePointCommand(ptData)],
 });
 
 // Creates a command that combines coordinates from one point and height from another
-export const createMergeTwoPointsCommand = (updateFirstPoint, deleteSecondPoint) => ({
+export const createMergeTwoPointsCommand = (
+  updateFirstPoint,
+  deleteSecondPoint
+) => ({
   type: cmds.MERGE_TWO_POINTS,
   meta: {
     caption: "Merge two points",
     desc: `Point ${updateFirstPoint.n} will be updated. The next point will be removed`,
   },
-  pointCommands: [updateFirstPoint, deleteSecondPoint],
+  pointCommands: [
+    createUpdatePointCommand(updateFirstPoint),
+    createDeletePointCommand(deleteSecondPoint),
+  ],
 });
 
 // Creates a command that merges multiple points

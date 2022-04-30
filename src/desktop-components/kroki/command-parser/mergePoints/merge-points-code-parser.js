@@ -2,7 +2,11 @@ import {
   createDeletePointCommand,
   createUpdatePointCommand,
 } from "../common/common-commands";
-import { createMergeMultiplePointsCommand } from "./merge-points-commands";
+import {
+  createMergeMultiplePointsCommand,
+  createMergeTwoPointsCommand,
+  createRemoveHCommand,
+} from "./merge-points-commands";
 
 //// Command that merges coordinates and height from two points
 /// Syntax:
@@ -24,7 +28,7 @@ import { createMergeMultiplePointsCommand } from "./merge-points-commands";
 const hIgnore = ([pt, actionsSoFar]) => {
   const newCode = pt.c.substring(0, pt.c.length - 3);
   const updatedPoint = { ...pt, h: -1000, c: newCode };
-  const updateCommand = createUpdatePointCommand(updatedPoint);
+  const updateCommand = createRemoveHCommand(updatedPoint);
   return [baseParser, [...actionsSoFar, updateCommand]];
 };
 
@@ -34,9 +38,8 @@ const thenH =
     if (pt2.c.endsWith(".xyh")) {
       const newCode = pt1.c.substring(0, pt1.c.length - 4);
       const updatedPoint = { ...pt1, x: pt1.x, y: pt1.y, h: pt2.h, c: newCode };
-      const updateCommand = [createUpdatePointCommand(updatedPoint)];
-      updateCommand.push(createDeletePointCommand(pt2.id));
-      return [baseParser, [...actionsSoFar, ...updateCommand]];
+      const updateCommand = createMergeTwoPointsCommand(updatedPoint, pt2.id);
+      return [baseParser, [...actionsSoFar, updateCommand]];
     } else {
       return hIgnore([pt1, actionsSoFar]);
     }
@@ -49,9 +52,8 @@ const thenXY =
     if (pt2.c.endsWith(".hxy")) {
       const newCode = pt1.c.substring(0, pt1.c.length - 4);
       const updatedPoint = { ...pt1, x: pt2.x, y: pt2.y, h: pt1.h, c: newCode };
-      const updateCommand = [createUpdatePointCommand(updatedPoint)];
-      updateCommand.push(createDeletePointCommand(pt2.id));
-      return [baseParser, [...actionsSoFar, ...updateCommand]];
+      const updateCommand = createMergeTwoPointsCommand(updatedPoint, pt2.id);
+      return [baseParser, [...actionsSoFar, updateCommand]];
     } else {
       return baseParser([pt2, actionsSoFar]);
     }
