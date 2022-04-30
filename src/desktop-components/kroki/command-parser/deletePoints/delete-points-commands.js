@@ -1,9 +1,13 @@
-import { deletePoint, executeCommand } from "../common/common-commands";
+import {
+  createDeletePointCommand,
+  deletePoint,
+  executeCommand,
+} from "../common/common-commands";
 import { cmds } from "../common/command-names";
 
 // Creates a command that deletes a command point and a target point
-// cmdPt: DELETE_SINGLE_POINT
-// -> targetPt: DELETE_SINGLE_POINT
+// cmdPt: pt id
+// -> targetPt: pt id
 // -> DELETE_COMMAND_AND_TARGET
 export const createDeleteCommandAndTargetCommand = (cmdPt, targetPt) => ({
   type: cmds.DELETE_COMMAND_AND_TARGET,
@@ -12,12 +16,15 @@ export const createDeleteCommandAndTargetCommand = (cmdPt, targetPt) => ({
     desc: `Points ${cmdPt} & ${targetPt} will be deleted`, // The generated text is meaningless
     points: { cmdPt, targetPt },
   },
-  pointCommands: [cmdPt, targetPt],
+  pointCommands: [
+    createDeletePointCommand(cmdPt),
+    createDeletePointCommand(targetPt),
+  ],
 });
 
 // Creates a command that deletes a command point
 // It's used when the target point doesn't exist
-// cmdPt: DELETE_SINGLE_POINT
+// cmdPt: pt id
 // -> DELETE_COMMAND
 export const createDeleteCommandCommand = (cmdPt) => ({
   type: cmds.DELETE_COMMAND,
@@ -25,7 +32,7 @@ export const createDeleteCommandCommand = (cmdPt) => ({
     caption: "Delete command point",
     desc: `Point ${cmdPt} will be deleted. The command points to an unvalid point`, // The generated text is meaningless
   },
-  pointCommands: [cmdPt],
+  pointCommands: [createDeletePointCommand(cmdPt)],
 });
 
 // Creates a command that deletes multiple points

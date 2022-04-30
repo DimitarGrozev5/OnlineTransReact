@@ -31,13 +31,13 @@ const delNearestParser = P.string(".del.n");
 const delPrevHandler = (parser, pts) => (intermediate, pt, index) => {
   const delPrevConfirmed = parser.parse(pt.c).status;
   if (delPrevConfirmed) {
-    const cmdPt = createDeletePointCommand(pt.id);
+    const cmdPt = pt.id;
     let targetPt = null;
 
     const targetIndex = 2 * intermediate.pointer - index - 1;
     if (targetIndex >= 0) {
       const targetId = pts[targetIndex].id;
-      targetPt = createDeletePointCommand(targetId);
+      targetPt = targetId;
     }
 
     let action = createDeleteCommandCommand(cmdPt);
@@ -54,13 +54,13 @@ const delPrevHandler = (parser, pts) => (intermediate, pt, index) => {
 const delNearestHandler = (parser, pts) => (intermediate, pt, index) => {
   const delNearConfirmed = parser.parse(pt.c).status;
   if (delNearConfirmed) {
-    const cmdPt = createDeletePointCommand(pt.id);
+    const cmdPt = pt.id;
     let targetPt = null;
 
     const targetIndex = nearest(pts, pt);
     if (targetIndex[0] !== null && targetIndex[0] >= 0) {
       const targetId = pts[targetIndex[0]].id;
-      targetPt = createDeletePointCommand(targetId);
+      targetPt = targetId;
     }
 
     let action = createDeleteCommandCommand(cmdPt);
