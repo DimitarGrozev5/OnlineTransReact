@@ -55,7 +55,10 @@ const thenXY =
       const updateCommand = createMergeTwoPointsCommand(updatedPoint, pt2.id);
       return [baseParser, [...actionsSoFar, updateCommand]];
     } else {
-      return baseParser([pt2, actionsSoFar]);
+      const newCode = pt1.c.substring(0, pt1.c.length - 4);
+      const updatedPoint = { ...pt1, x: pt1.x, y: pt1.y, h: -1000, c: newCode };
+      const updateCommand = createRemoveHCommand(updatedPoint);
+      return baseParser([pt2, [...actionsSoFar, updateCommand]]);
     }
   };
 const hThenXY = ([pt1, actionsSoFar]) => [thenXY(pt1), actionsSoFar];

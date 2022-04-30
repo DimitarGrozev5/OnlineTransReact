@@ -47,7 +47,7 @@ export const createMergeMultiplePointsCommand = (commands) => ({
 export const mergeMultiplePointsFromCommand = executeCommand(
   (draft, command) => {
     // Loop trough delete single point commands and execute them
-    const commands = command.data;
+    const commands = command.group.flatMap((c) => c.pointCommands);
 
     commands.forEach((cmd) => {
       switch (cmd.type) {
@@ -60,7 +60,7 @@ export const mergeMultiplePointsFromCommand = executeCommand(
         default:
           break;
       }
-      deletePoint(draft, cmd);
+      // deletePoint(draft, cmd);
     });
   }
 );
