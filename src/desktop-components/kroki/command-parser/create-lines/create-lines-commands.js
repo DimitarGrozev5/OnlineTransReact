@@ -8,9 +8,10 @@ import {
 // Create line
 // segments: SEGMENT COMMAND[]
 // -> CREATE_LINE
-export const createLineCommand = (...segments) => ({
+export const createLineCommand = (segmentCommands, pointCommands) => ({
   type: cmds.CREATE_LINE,
-  segmentCommands: [...segments],
+  segmentCommands,
+  pointCommands,
 });
 
 // Create linear segment to add to a polyline

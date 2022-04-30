@@ -5,6 +5,7 @@ import {
 } from "../common/common-commands";
 import { reservedCodes } from "../reserved-codes";
 import {
+  createLinearSegmentCommand,
   createLineCommand,
   createMultipleLinesCommand,
 } from "./create-lines-commands";
@@ -40,25 +41,75 @@ const isAcceptedLineCode = isLineCode(reservedCodes);
 const newLine = (cmdId) => ({
   id: nanoid(),
   cmdId,
-  segments: [],
+  segmentCommands: [],
+  pointCommands: [],
 });
 
 // Parser chain
-const lineSegmentParser =
-  ([pt1, lines1]) =>
-  ([pt2, lines2]) => {
-    return [lineSegmentParser([pt2, lines2]), lines2];
+const finishLineSegmentParser =
+  (pt1) =>
+  ([pt2, lines]) => {
+    // Base case for the return value
+    let nextParser = [finishLineSegmentParser(pt1), lines];
+
+    const lineCode = isAcceptedLineCode(pt2.c); // [text, number, more] OR null
+    if (lineCode) {
+      let nextLines = [...lines];
+      const [lineLabel, lineNum, code] = lineCode;
+      let nextCode = code;
+      const lineId = "" + lineLabel + lineNum;
+
+      // Get the target line from the actionsSoFar
+      // This parser is called only after the line is actually added
+      // so it should be found
+      let targetLine = lines.find((l) => l.cmdId === lineId);
+
+      // Parse end of line flag
+      if (code === "e") {
+        targetLine.cmdId = null;
+        nextCode = "";
+      }
+
+      // Create new segment command and add it to the targetLine
+      const newSegmentCmd = createLinearSegmentCommand(pt1, pt2);
+      targetLine.segmentCommands.push(newSegmentCmd);
+
+      // Parse close line flag
+      if (code === "c") {
+        targetLine.cmdId = null;
+
+        const firstPoint = targetLine.segmentCommands[0].data.pt1;
+        const newSegmentCmd = createLinearSegmentCommand(pt2, firstPoint);
+        targetLine.segmentCommands.push(newSegmentCmd);
+
+        nextCode = "";
+      }
+
+      // Update the code of the point
+      const updatedPoint = createUpdatePointCommand({
+        ...pt2,
+        code: "" + lineLabel + nextCode,
+      });
+      targetLine.pointCommands.push(updatedPoint);
+
+      // Update the return value with the finish line segment parser
+      nextParser = [finishLineSegmentParser(pt2), nextLines];
+    }
+
+    return nextParser;
   };
 
 function baseParser([pt, lines]) {
+  // Base case for the return value
   let nextParser = [baseParser, lines];
-  
-  const lineCode = isAcceptedLineCode(pt.c);
+
+  const lineCode = isAcceptedLineCode(pt.c); // [text, number, more] OR null
   if (lineCode) {
     let nextLines = [...lines];
     const [lineLabel, lineNum, code] = lineCode;
     let nextCode = code;
     const lineId = "" + lineLabel + lineNum;
+
     // Check if the line is added to the actionsSoFar
     let targetLine = lines.find((l) => l.cmdId === lineId);
     // If no add the line
@@ -66,27 +117,16 @@ function baseParser([pt, lines]) {
       targetLine = newLine(lineId);
       nextLines = [...lines, targetLine];
     }
-    // Add the new point to the line
-    const newPoint = addPointToLineCommand(pt.id, targetLine.id);
-    targetLine.commands.push(newPoint);
-    // Parse the rest of the code and continue
-    if (code === "e") {
-      targetLine.cmdId = null;
-      nextCode = "";
-    }
-    if (code === "c") {
-      targetLine.cmdId = null;
-      targetLine.commands.push(closeLineCommand(targetLine.id));
-      nextCode = "";
-    }
-    // Update code of points
+
+    // Update the code of the point
     const updatedPoint = createUpdatePointCommand({
       ...pt,
       code: "" + lineLabel + nextCode,
     });
-    targetLine.commands.push(updatedPoint);
-    // Update return value
-    nextParser = [baseParser, nextLines];
+    targetLine.pointCommands.push(updatedPoint);
+
+    // Update return value with the finish line segment parser
+    nextParser = [finishLineSegmentParser(pt), nextLines];
   }
   return nextParser;
 }
