@@ -20,7 +20,7 @@ import {
 ///
 /// On two consecutive rows
 /// Takes h from the first and xy from the second
-/// If the second row is missing, the command is ignored
+/// If the second row is missing, the command is parsed as .xy
 /// [code?].hxy
 /// |> [code?].hxy
 
