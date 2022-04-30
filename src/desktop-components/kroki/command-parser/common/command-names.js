@@ -10,4 +10,6 @@ export const cmds = {
 
   // Merge points commands
   REMOVE_INVALID_H: "REMOVE_INVALID_H",
+  MERGE_TWO_POINTS: "MERGE_TWO_POINTS",
+  MERGE_MULTIPLE_POINTS: "MERGE_MULTIPLE_POINTS",
 };

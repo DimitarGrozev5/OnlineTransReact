@@ -15,14 +15,24 @@ export const createRemoveHCommand = (ptData) => ({
   pointCommands: [ptData],
 });
 
+// Creates a command that combines coordinates from one point and height from another
+export const createMergeTwoPointsCommand = (updateFirstPoint, deleteSecondPoint) => ({
+  type: cmds.MERGE_TWO_POINTS,
+  meta: {
+    caption: "Merge two points",
+    desc: `Point ${updateFirstPoint.n} will be updated. The next point will be removed`,
+  },
+  pointCommands: [updateFirstPoint, deleteSecondPoint],
+});
+
 // Creates a command that merges multiple points
 export const createMergeMultiplePointsCommand = (commands) => ({
-  type: "MERGE_MULTIPLE_POINTS",
+  type: cmds.MERGE_MULTIPLE_POINTS,
   meta: {
     caption: "Merge multiple points",
     desc: `${commands.length} points will be merged on execution`,
   },
-  data: [...commands],
+  group: [...commands],
 });
 
 // Executes a command for merging multiple points11
