@@ -37,20 +37,12 @@ const isLineCode = (reservedCodes) => (code) => {
 };
 const isAcceptedLineCode = isLineCode(reservedCodes);
 
-// Create line object
-const newLine = (cmdId) => ({
-  id: nanoid(),
-  cmdId,
-  segmentCommands: [],
-  pointCommands: [],
-});
-
 // Parser chain
-const finishLineSegmentParser =
+const lineSegmentBuilder =
   (pt1) =>
   ([pt2, lines]) => {
     // Base case for the return value
-    let nextParser = [finishLineSegmentParser(pt1), lines];
+    let nextParser = [lineSegmentBuilder(pt1), lines];
 
     const lineCode = isAcceptedLineCode(pt2.c); // [text, number, more] OR null
     if (lineCode) {
@@ -93,25 +85,40 @@ const finishLineSegmentParser =
       targetLine.pointCommands.push(updatedPoint);
 
       // Update the return value with the finish line segment parser
-      nextParser = [finishLineSegmentParser(pt2), nextLines];
+      nextParser = [lineSegmentBuilder(pt2), nextLines];
     }
 
     return nextParser;
   };
 
-function baseParser([pt, lines]) {
+// Create line object
+const newLine = (cmdId, pt) => [
+  // Segment parser
+  lineSegmentBuilder,
+
+  // Line state object
+  {
+    id: nanoid(),
+    cmdId,
+    segmentCommands: [],
+    pointCommands: [],
+  },
+];
+
+const baseParser = (pt, lines) => {
   // Base case for the return value
-  let nextParser = [baseParser, lines];
+  let returnValue = lines;
 
   const lineCode = isAcceptedLineCode(pt.c); // [text, number, more] OR null
+  // If the current pt is representing a line vertex
   if (lineCode) {
     let nextLines = [...lines];
     const [lineLabel, lineNum, code] = lineCode;
     let nextCode = code;
     const lineId = "" + lineLabel + lineNum;
 
-    // Check if the line is added to the actionsSoFar
-    let targetLine = lines.find((l) => l.cmdId === lineId);
+    // Check if the line is added to the Lines So Far
+    let targetLine = lines.find((l) => l[1].cmdId === lineId);
     // If no add the line
     if (!targetLine) {
       targetLine = newLine(lineId);
@@ -123,20 +130,25 @@ function baseParser([pt, lines]) {
       ...pt,
       code: "" + lineLabel + nextCode,
     });
-    targetLine.pointCommands.push(updatedPoint);
+    targetLine[1].pointCommands.push(updatedPoint);
+
+    // Rung the segment builder for the line
+    const nextSegmentBuilder = targetLine[0](pt);
+    targetLine[0] = nextSegmentBuilder;
 
     // Update return value with the finish line segment parser
-    nextParser = [finishLineSegmentParser(pt), nextLines];
+    returnValue = nextLines;
   }
-  return nextParser;
-}
+  return returnValue;
+};
 
 // Execute command to generate actions
 export const createLines = (points) => {
-  const reducer = ([parser, lines], currPt) => parser([currPt, lines]);
+  // lines: [segmentBuilder, lineData][]
+  const reducer = (lines, currPt) => baseParser(currPt, lines);
   const createdActions = points.reduce(reducer, [baseParser, []]);
 
-  const pointAndLineActions = createdActions[1].flatMap((line) => {
+  const pointAndLineActions = createdActions.flatMap((line) => {
     const [ptActions, linActions] = line.commands.reduce(
       ([pt, lin], cmd) => {
         switch (cmd.type) {
