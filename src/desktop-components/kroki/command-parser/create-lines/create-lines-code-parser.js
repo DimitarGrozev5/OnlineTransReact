@@ -1,8 +1,5 @@
 import { nanoid } from "nanoid";
-import {
-  createUpdatePointCommand,
-  updatePoint,
-} from "../common/common-commands";
+import { createUpdatePointCommand } from "../common/common-commands";
 import { reservedCodes } from "../reserved-codes";
 import {
   createLinearSegmentCommand,
@@ -38,61 +35,14 @@ const isLineCode = (reservedCodes) => (code) => {
 const isAcceptedLineCode = isLineCode(reservedCodes);
 
 // Parser chain
-const lineSegmentBuilder =
-  (pt1) =>
-  ([pt2, lines]) => {
-    // Base case for the return value
-    let nextParser = [lineSegmentBuilder(pt1), lines];
-
-    const lineCode = isAcceptedLineCode(pt2.c); // [text, number, more] OR null
-    if (lineCode) {
-      let nextLines = [...lines];
-      const [lineLabel, lineNum, code] = lineCode;
-      let nextCode = code;
-      const lineId = "" + lineLabel + lineNum;
-
-      // Get the target line from the actionsSoFar
-      // This parser is called only after the line is actually added
-      // so it should be found
-      let targetLine = lines.find((l) => l.cmdId === lineId);
-
-      // Parse end of line flag
-      if (code === "e") {
-        targetLine.cmdId = null;
-        nextCode = "";
-      }
-
-      // Create new segment command and add it to the targetLine
-      const newSegmentCmd = createLinearSegmentCommand(pt1, pt2);
-      targetLine.segmentCommands.push(newSegmentCmd);
-
-      // Parse close line flag
-      if (code === "c") {
-        targetLine.cmdId = null;
-
-        const firstPoint = targetLine.segmentCommands[0].data.pt1;
-        const newSegmentCmd = createLinearSegmentCommand(pt2, firstPoint);
-        targetLine.segmentCommands.push(newSegmentCmd);
-
-        nextCode = "";
-      }
-
-      // Update the code of the point
-      const updatedPoint = createUpdatePointCommand({
-        ...pt2,
-        code: "" + lineLabel + nextCode,
-      });
-      targetLine.pointCommands.push(updatedPoint);
-
-      // Update the return value with the finish line segment parser
-      nextParser = [lineSegmentBuilder(pt2), nextLines];
-    }
-
-    return nextParser;
-  };
+const lineSegmentBuilder = (pt1) => (pt2) => {
+  // Create new segment command and add it to the targetLine
+  const newSegmentCmd = createLinearSegmentCommand(pt1, pt2);
+  return newSegmentCmd;
+};
 
 // Create line object
-const newLine = (cmdId, pt) => [
+const newLine = (cmdId) => [
   // Segment parser
   lineSegmentBuilder,
 
@@ -133,8 +83,50 @@ const baseParser = (pt, lines) => {
     targetLine[1].pointCommands.push(updatedPoint);
 
     // Rung the segment builder for the line
-    const nextSegmentBuilder = targetLine[0](pt);
-    targetLine[0] = nextSegmentBuilder;
+    const segmentBuilderResult = targetLine[0](pt);
+    if (segmentBuilderResult instanceof Function) {
+      targetLine[0] = segmentBuilderResult;
+    } else {
+      targetLine[1].segmentCommands.push(segmentBuilderResult);
+
+      //// Select next segment function based on point code
+      // Case end of line
+      const endRegex = /^e$|^e\..+$/;
+      if (endRegex.test(code)) {
+        targetLine[0] = () => {};
+        targetLine[1].cmdId = null;
+
+        const updatedPoint = createUpdatePointCommand({
+          ...pt,
+          code: "" + lineLabel + nextCode.substring(2),
+        });
+        targetLine[1].pointCommands.push(updatedPoint);
+
+        return nextLines;
+      }
+
+      // Case new line segment
+      targetLine[0] = lineSegmentBuilder(pt);
+
+      // Case close line
+      const closeRegex = /^c$|^c\..+$/;
+      if (closeRegex.test(code)) {
+        targetLine[0] = () => {};
+
+        const firstPoint = targetLine[1].segmentCommands[0].data.pt1;
+        const closingSegment = lineSegmentBuilder(pt)(firstPoint);
+        targetLine[1].segmentCommands.push(closingSegment);
+        targetLine[1].cmdId = null;
+
+        const updatedPoint = createUpdatePointCommand({
+          ...pt,
+          code: "" + lineLabel + nextCode.substring(2),
+        });
+        targetLine[1].pointCommands.push(updatedPoint);
+
+        return nextLines;
+      }
+    }
 
     // Update return value with the finish line segment parser
     returnValue = nextLines;
@@ -146,27 +138,10 @@ const baseParser = (pt, lines) => {
 export const createLines = (points) => {
   // lines: [segmentBuilder, lineData][]
   const reducer = (lines, currPt) => baseParser(currPt, lines);
-  const createdActions = points.reduce(reducer, [baseParser, []]);
+  const createdActions = points.reduce(reducer, []);
+  const createdLines = createdActions.map((a) =>
+    createLineCommand(a[1].segmentCommands, a[1].pointCommands)
+  );
 
-  const pointAndLineActions = createdActions.flatMap((line) => {
-    const [ptActions, linActions] = line.commands.reduce(
-      ([pt, lin], cmd) => {
-        switch (cmd.type) {
-          case "UPDATE_SINGLE_POINT":
-          case "CREATE_SINGLE_POINT":
-          case "DELETE_SINGLE_POINT":
-            return [[...pt, cmd], lin];
-          case "ADD_POINT_TO_LINE":
-          case "CLOSE_LINE":
-            return [pt, [...lin, cmd]];
-          default:
-            return [pt, lin];
-        }
-      },
-      [[], []]
-    );
-    return [...ptActions, createLineCommand(line.id, linActions)];
-  });
-
-  return pointAndLineActions.length ? pointAndLineActions : [];
+  return createdLines.length ? [createMultipleLinesCommand(createdLines)] : [];
 };

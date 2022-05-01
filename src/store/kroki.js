@@ -1,4 +1,4 @@
-import { createSlice, original } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const krokiSlice = createSlice({
   name: "kroki",

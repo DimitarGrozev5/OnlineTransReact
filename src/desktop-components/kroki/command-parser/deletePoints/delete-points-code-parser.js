@@ -1,5 +1,4 @@
 import P from "parsimmon";
-import { createDeletePointCommand } from "../common/common-commands";
 import {
   createDeleteCommandAndTargetCommand,
   createDeleteCommandCommand,

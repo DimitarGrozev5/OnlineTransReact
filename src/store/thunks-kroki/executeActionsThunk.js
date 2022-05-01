@@ -1,5 +1,4 @@
 import { commandExecutor } from "../../desktop-components/kroki/command-parser/commandExecutor";
-import { commandParser } from "../../desktop-components/kroki/command-parser/commandParser";
 import { krokiActions } from "../kroki";
 import { testCommandThunk } from "./testCommandThunk";
 

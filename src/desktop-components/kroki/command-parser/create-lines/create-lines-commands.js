@@ -1,9 +1,4 @@
 import { cmds } from "../common/command-names";
-import {
-  deletePoint,
-  executeCommand,
-  updatePoint,
-} from "../common/common-commands";
 
 // Create line
 // segments: SEGMENT COMMAND[]
@@ -24,7 +19,7 @@ export const createLinearSegmentCommand = (pt1, pt2) => ({
 });
 
 // Creates a command that bundles mulitple lines
-export const createMultipleLinesCommand = (...lineCommands) => ({
+export const createMultipleLinesCommand = (lineCommands) => ({
   type: "CREATE_MULTIPLE_LINES",
   meta: {
     caption: "Create multiple lines",

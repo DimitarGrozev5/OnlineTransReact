@@ -1,8 +1,4 @@
 import {
-  createDeletePointCommand,
-  createUpdatePointCommand,
-} from "../common/common-commands";
-import {
   createMergeMultiplePointsCommand,
   createMergeTwoPointsCommand,
   createRemoveHCommand,

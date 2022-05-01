@@ -14,8 +14,8 @@ const KrokiActions = ({ actions }) => {
         <ul>
           {actions.map((action, index) => (
             <li key={index}>
-              {/* <h3>{action.meta.caption}</h3>
-              {action.meta.desc} */}
+              <h3>{action.meta.caption}</h3>
+              {action.meta.desc}
             </li>
           ))}
         </ul>
