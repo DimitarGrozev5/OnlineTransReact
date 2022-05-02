@@ -1,11 +1,13 @@
 import { useEffect, useReducer, useRef, useState } from "react";
+import { cmds } from "../command-parser/common/command-names";
 import { clearCanvas } from "./drawing-objects/clear-canvas";
+import { drawLineSegment } from "./drawing-objects/line-segment";
 import { drawPoint } from "./drawing-objects/p-point";
 import styles from "./KrokiCanvas.module.css";
 import { zoomExtends } from "./utils/bounding-box";
 import { scaleCPoint, translatePt, wcsToCanvasCS } from "./utils/transform-pts";
 
-const KrokiCanvas = ({ points, pointActions }) => {
+const KrokiCanvas = ({ points, pointActions, lineSegmentActions }) => {
   const containerRef = useRef();
   const canvasRef = useRef();
 
@@ -91,8 +93,12 @@ const KrokiCanvas = ({ points, pointActions }) => {
       ctx.beginPath();
 
       // TODO: The following part needs to be refactored
-      const dActions = pointActions.filter((a) => a.type === "DELETE_SINGLE_POINT");
-      const uActions = pointActions.filter((a) => a.type === "UPDATE_SINGLE_POINT");
+      const dActions = pointActions.filter(
+        (a) => a.type === "DELETE_SINGLE_POINT"
+      );
+      const uActions = pointActions.filter(
+        (a) => a.type === "UPDATE_SINGLE_POINT"
+      );
       const drawPtWithCtx = (pt) => {
         let style = "none";
         if (dActions?.find((a) => a.data === pt.id)) {
@@ -111,6 +117,26 @@ const KrokiCanvas = ({ points, pointActions }) => {
       }
 
       cPoints_.forEach(drawPtWithCtx);
+
+      // Draw line segments
+      const segments = lineSegmentActions.map((s) => {
+        let pts = [];
+
+        switch (s.type) {
+          case cmds.LINEAR_SEGMENT:
+            pts = [s.data.pt1.id, s.data.pt2.id];
+            break;
+          default:
+            pts = [0, 0];
+        }
+
+        const trPt1 = cPoints_.find((p) => p.id === pts[0]);
+        const trPt2 = cPoints_.find((p) => p.id === pts[1]);
+
+        return [trPt1, trPt2];
+      });
+
+      segments.forEach((s) => drawLineSegment(ctx, "insert")(s[0], s[1]));
 
       ctx.stroke();
     }

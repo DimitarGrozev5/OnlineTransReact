@@ -17,7 +17,7 @@ export const drawPoint =
     ctx.font = "12px sans-serif";
     ctx.fillText(pt.n, pt.x + 5, pt.y);
     ctx.fillText(pt.h.toFixed(3), pt.x + 5, pt.y + 14);
-    // ctx.fillText(pt.c, pt.x + 5, pt.y + 28);
+    ctx.fillText(pt.c, pt.x + 5, pt.y + 28);
 
     ctx.restore();
   };

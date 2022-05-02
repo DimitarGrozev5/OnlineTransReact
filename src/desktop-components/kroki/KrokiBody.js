@@ -35,6 +35,10 @@ const KrokiBody = () => {
   };
   const drillForPointCmds = drill("pointCommands");
   const pointActions = currentActions.flatMap((c) => drillForPointCmds(c));
+  const drillForLineSegmentCmds = drill("segmentCommands");
+  const lineSegmentActions = currentActions.flatMap((c) =>
+    drillForLineSegmentCmds(c)
+  );
 
   // On load check if there are points
   // If no, load them from the output data
@@ -59,7 +63,11 @@ const KrokiBody = () => {
         />
       </div>
       <div className={styles["canvas"]}>
-        <KrokiCanvas points={currentPoints} pointActions={pointActions} />
+        <KrokiCanvas
+          points={currentPoints}
+          pointActions={pointActions}
+          lineSegmentActions={lineSegmentActions}
+        />
       </div>
     </div>
   );
