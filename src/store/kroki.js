@@ -9,8 +9,15 @@ const krokiSlice = createSlice({
     pointDataObj: {},
     pointDataArr: [],
 
-    resections: [],
+    // lines: Line[]
+    // Line: Segment[]
+    // Segment: LineSegment
+    // LineSegment: {
+    //   pt1: PointDataObj - id
+    //   pt2: PointDataObj - id
+    // }
     lines: [],
+    resections: [],
 
     actions: [],
   },
@@ -32,6 +39,7 @@ const krokiSlice = createSlice({
       const s = action.payload[0];
       state.pointDataObj = s.pointDataObj;
       state.pointDataArr = s.pointDataArr;
+      state.lines = s.lines;
 
       state.versionStack = [
         ...state.versionStack.slice(0, state.versionIndex + 1),

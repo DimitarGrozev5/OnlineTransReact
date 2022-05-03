@@ -13,6 +13,7 @@ const executeActionsThunk = () => (dispatch, getState) => {
     {
       pointDataObj: state.pointDataObj,
       pointDataArr: state.pointDataArr,
+      lines: state.lines,
     },
     [],
   ];

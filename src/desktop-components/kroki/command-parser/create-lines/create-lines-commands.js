@@ -1,4 +1,5 @@
 import { cmds } from "../common/command-names";
+import { executeCommand, executePointCommand } from "../common/common-commands";
 
 // Create line
 // segments: SEGMENT COMMAND[]
@@ -20,7 +21,7 @@ export const createLinearSegmentCommand = (pt1, pt2) => ({
 
 // Creates a command that bundles mulitple lines
 export const createMultipleLinesCommand = (lineCommands) => ({
-  type: "CREATE_MULTIPLE_LINES",
+  type: cmds.CREATE_MULTIPLE_LINES,
   meta: {
     caption: "Create multiple lines",
     desc: `${lineCommands.length} lines will be created on execution`,
@@ -28,24 +29,27 @@ export const createMultipleLinesCommand = (lineCommands) => ({
   group: [...lineCommands],
 });
 
-// Executes a command for merging multiple points11
-// export const mergeMultiplePointsFromCommand = executeCommand(
-//   (draft, command) => {
-//     // Loop trough delete single point commands and execute them
-//     const commands = command.data;
+// Executes a command creating a single line
+// The function is executed in a produceWithPatches and it mutates the draft object
+const createSingleLineFromCommand = (draft, cmd) => {
+  const pointCommands = cmd.pointCommands;
+  const segmentCommands = cmd.segmentCommands;
 
-//     commands.forEach((cmd) => {
-//       switch (cmd.type) {
-//         case "DELETE_SINGLE_POINT":
-//           deletePoint(draft, cmd);
-//           break;
-//         case "UPDATE_SINGLE_POINT":
-//           updatePoint(draft, cmd);
-//           break;
-//         default:
-//           break;
-//       }
-//       deletePoint(draft, cmd);
-//     });
-//   }
-// );
+  // Execute pointCommands
+  pointCommands.forEach((cmdPt) => executePointCommand(draft, cmdPt));
+
+  // Create new line
+  
+};
+
+// Executes a command creating mulitple lines
+export const createMultipleLinesFromCommand = executeCommand(
+  (draft, command) => {
+    // Loop trough create line commands
+    const commands = command.group;
+
+    commands.forEach((line) =>
+      line.forEach((lineCmd) => createSingleLineFromCommand(draft, lineCmd))
+    );
+  }
+);

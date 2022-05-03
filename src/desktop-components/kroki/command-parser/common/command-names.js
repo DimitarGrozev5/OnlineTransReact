@@ -16,4 +16,5 @@ export const cmds = {
   // Line commands
   CREATE_LINE: "CREATE_LINE",
   LINEAR_SEGMENT: "LINEAR_SEGMENT",
+  CREATE_MULTIPLE_LINES: "CREATE_MULTIPLE_LINES",
 };

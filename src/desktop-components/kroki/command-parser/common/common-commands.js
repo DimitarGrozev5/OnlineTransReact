@@ -57,3 +57,18 @@ export const executeCommand = (cmdAction) => (state, command) => {
   // Return new state
   return [newStateAndPatches[0], reverseCommand];
 };
+
+// Get point command and execute it
+export const executePointCommand = (draft, command) => {
+  switch (command.type) {
+    case cmds.DELETE_SINGLE_POINT:
+      deletePoint(draft, command);
+      break;
+    case cmds.UPDATE_SINGLE_POINT:
+      deletePoint(draft, command);
+      break;
+
+    default:
+      break;
+  }
+};
