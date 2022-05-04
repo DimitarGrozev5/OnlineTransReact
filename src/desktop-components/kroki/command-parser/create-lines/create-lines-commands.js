@@ -35,11 +35,11 @@ const createSingleLineFromCommand = (draft, cmd) => {
   const pointCommands = cmd.pointCommands;
   const segmentCommands = cmd.segmentCommands;
 
-  // Execute pointCommands
+  // Execute pointCommands and update the state
   pointCommands.forEach((cmdPt) => executePointCommand(draft, cmdPt));
 
   // Create new line
-  
+  return segmentCommands;
 };
 
 // Executes a command creating mulitple lines
@@ -48,8 +48,15 @@ export const createMultipleLinesFromCommand = executeCommand(
     // Loop trough create line commands
     const commands = command.group;
 
-    commands.forEach((line) =>
-      line.forEach((lineCmd) => createSingleLineFromCommand(draft, lineCmd))
+    const lines = commands.reduce(
+      (newLines, lineCmd) => [
+        ...newLines,
+        createSingleLineFromCommand(draft, lineCmd),
+      ],
+      []
     );
+
+    // Update state
+    draft.lines = [...draft.lines, ...lines];
   }
 );
