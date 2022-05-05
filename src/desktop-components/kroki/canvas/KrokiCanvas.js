@@ -215,14 +215,15 @@ const KrokiCanvas = ({ points, lines, pointActions, lineSegmentActions }) => {
         return [pt1, pt2];
       });
 
-      const lineCmd =
-        "pline " +
-        ptToAcad(coordinatedLineSegments[0][0]) +
-        " " +
-        coordinatedLineSegments
-          .map((segment) => ptToAcad(segment[1]))
-          .join(" ") +
-        " ";
+      const lineCmd = coordinatedLineSegments.length
+        ? "pline " +
+          ptToAcad(coordinatedLineSegments[0][0]) +
+          " " +
+          coordinatedLineSegments
+            .map((segment) => ptToAcad(segment[1]))
+            .join(" ") +
+          " "
+        : "";
 
       return lineCmd;
     };

@@ -5,8 +5,8 @@ import { mergePoints } from "./mergePoints/merge-points-code-parser";
 export const commandParser = (points) => {
   // List of all commands
   // Each command is of type points -> actions
-  const commands = [createLines];
-  // const commands = [deletePoints, mergePoints, createLines];
+  // const commands = [createLines];
+  const commands = [deletePoints, mergePoints, createLines];
 
   // The parser runs every command in sequence
   // If a command yealds a result, it skips the rest

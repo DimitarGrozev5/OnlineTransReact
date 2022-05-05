@@ -8,7 +8,7 @@ export const testCommandThunk = () => (dispatch, getState) => {
     (id) => state.pointDataObj[id]
   );
   const newActions = commandParser(transformedData);
-  console.log(newActions);
+  // console.log(newActions);
 
   // Add actions to store
   newActions && dispatch(krokiActions.updateActions(newActions));
