@@ -5,7 +5,7 @@ const KrokiResults = ({ lines }) => {
   const tabs = [
     {
       title: "Линии",
-      content: lines.toString(),
+      content: <p>{`${lines.length} Lines are drawn`}</p>,
     },
     {
       title: "test",
@@ -22,7 +22,7 @@ const KrokiResults = ({ lines }) => {
       <nav>
         <ul>
           {tabs.map((tab, index) => (
-            <li className={index === activeTab ? styles["active-tab"] : ""}>
+            <li key={index} className={index === activeTab ? styles["active-tab"] : ""}>
               <button onClick={changeTabHandler(index)}>{tab.title}</button>
             </li>
           ))}
