@@ -5,6 +5,7 @@ import KrokiActions from "./actions-component/KrokiActions";
 import KrokiCanvas from "./canvas/KrokiCanvas";
 import styles from "./KrokiBody.module.css";
 import KrokiPoints from "./points/KrokiPoints";
+import KrokiResults from "./results-component/KrokiResults";
 
 const KrokiBody = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ const KrokiBody = () => {
   // Get versioning
   const versionStack = useSelector((state) => state.kroki.versionStack);
   const versionIndex = useSelector((state) => state.kroki.versionIndex);
+  // Get Lines
+  const currentLines = useSelector((state) => state.kroki.lines);
 
   // Get action data
   const currentActions = useSelector((state) => state.kroki.actions);
@@ -53,7 +56,9 @@ const KrokiBody = () => {
       <div className={styles["actions"]}>
         <KrokiActions actions={currentActions} />
       </div>
-      <div className={styles["results"]}>results</div>
+      <div className={styles["results"]}>
+        <KrokiResults lines={currentLines} />
+      </div>
       <div className={styles["points-container"]}>
         <KrokiPoints
           points={currentPoints}
@@ -65,6 +70,7 @@ const KrokiBody = () => {
       <div className={styles["canvas"]}>
         <KrokiCanvas
           points={currentPoints}
+          lines={currentLines}
           pointActions={pointActions}
           lineSegmentActions={lineSegmentActions}
         />

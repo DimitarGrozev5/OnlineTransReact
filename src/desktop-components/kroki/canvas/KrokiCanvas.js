@@ -7,7 +7,7 @@ import styles from "./KrokiCanvas.module.css";
 import { zoomExtends } from "./utils/bounding-box";
 import { scaleCPoint, translatePt, wcsToCanvasCS } from "./utils/transform-pts";
 
-const KrokiCanvas = ({ points, pointActions, lineSegmentActions }) => {
+const KrokiCanvas = ({ points, lines, pointActions, lineSegmentActions }) => {
   const containerRef = useRef();
   const canvasRef = useRef();
 
@@ -119,7 +119,11 @@ const KrokiCanvas = ({ points, pointActions, lineSegmentActions }) => {
       cPoints_.forEach(drawPtWithCtx);
 
       // Draw line segments
-      const segments = lineSegmentActions.map((s) => {
+      const allLines = [
+        ...lines.flatMap((line) => line.segmentCommands),
+        ...lineSegmentActions,
+      ];
+      const segments = allLines.map((s) => {
         let pts = [];
 
         switch (s.type) {
