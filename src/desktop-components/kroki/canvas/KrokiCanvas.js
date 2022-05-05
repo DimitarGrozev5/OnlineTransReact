@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { cmds } from "../command-parser/common/command-names";
 import { clearCanvas } from "./drawing-objects/clear-canvas";
 import { drawLineSegment } from "./drawing-objects/line-segment";
@@ -8,6 +9,8 @@ import { zoomExtends } from "./utils/bounding-box";
 import { scaleCPoint, translatePt, wcsToCanvasCS } from "./utils/transform-pts";
 
 const KrokiCanvas = ({ points, lines, pointActions, lineSegmentActions }) => {
+  const pointsRefs = useSelector((state) => state.kroki.pointDataObj);
+
   const containerRef = useRef();
   const canvasRef = useRef();
 
@@ -201,8 +204,37 @@ const KrokiCanvas = ({ points, lines, pointActions, lineSegmentActions }) => {
     }
   };
 
+  const copyAcadCommands = () => {
+    const ptToAcad = (pt) => `${pt.y},${pt.x}`;
+
+    const convertLineToCommand = (line) => {
+      const coordinatedLineSegments = line.segmentCommands.map((segment) => {
+        const pt1 = pointsRefs[segment.data.pt1];
+        const pt2 = pointsRefs[segment.data.pt2];
+
+        return [pt1, pt2];
+      });
+
+      const lineCmd =
+        "pline " +
+        ptToAcad(coordinatedLineSegments[0][0]) +
+        " " +
+        coordinatedLineSegments
+          .map((segment) => ptToAcad(segment[1]))
+          .join(" ") +
+        " ";
+
+      return lineCmd;
+    };
+
+    const acadCommands = lines.map(convertLineToCommand).join("\n") + "\n";
+
+    navigator.clipboard.writeText(acadCommands);
+  };
+
   return (
     <div ref={containerRef} className={styles.container}>
+      <button onClick={copyAcadCommands}>Copy AutoCAD commands</button>
       <canvas
         className={styles.canvas}
         ref={canvasRef}

@@ -25,9 +25,18 @@ const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
     }
   });
 
+  const copyPointsHandler = () => {
+    const output = points
+      .map((pt) => [pt.n, pt.x, pt.y, pt.h, pt.c].join("\t"))
+      .join("\n");
+
+    navigator.clipboard.writeText(output);
+  };
+
   return (
     <div>
       <div>
+        <button onClick={copyPointsHandler}>Copy current points</button>
         <h4>Rollback</h4>
         <ul>
           <li>

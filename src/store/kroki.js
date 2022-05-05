@@ -52,6 +52,7 @@ const krokiSlice = createSlice({
       const s = action.payload[0];
       state.pointDataObj = s.pointDataObj;
       state.pointDataArr = s.pointDataArr;
+      state.lines = s.lines;
 
       state.versionIndex = action.payload[1];
     },
