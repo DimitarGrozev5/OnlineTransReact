@@ -65,7 +65,7 @@ export const executePointCommand = (draft, command) => {
       deletePoint(draft, command);
       break;
     case cmds.UPDATE_SINGLE_POINT:
-      deletePoint(draft, command);
+      updatePoint(draft, command);
       break;
 
     default:

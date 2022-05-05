@@ -35,9 +35,9 @@ const isLineCode = (reservedCodes) => (code) => {
 const isAcceptedLineCode = isLineCode(reservedCodes);
 
 // Parser chain
-const lineSegmentBuilder = (pt1) => (pt2) => {
+const lineSegmentBuilder = (pt1Id) => (pt2Id) => {
   // Create new segment command and add it to the targetLine
-  const newSegmentCmd = createLinearSegmentCommand(pt1, pt2);
+  const newSegmentCmd = createLinearSegmentCommand(pt1Id, pt2Id);
   return newSegmentCmd;
 };
 
@@ -78,12 +78,12 @@ const baseParser = (pt, lines) => {
     // Update the code of the point
     const updatedPoint = createUpdatePointCommand({
       ...pt,
-      code: "" + lineLabel + nextCode,
+      c: "" + lineLabel + nextCode,
     });
     targetLine[1].pointCommands.push(updatedPoint);
 
-    // Rung the segment builder for the line
-    const segmentBuilderResult = targetLine[0](pt);
+    // Run the segment builder for the line
+    const segmentBuilderResult = targetLine[0](pt.id);
     if (segmentBuilderResult instanceof Function) {
       targetLine[0] = segmentBuilderResult;
     } else {
@@ -98,7 +98,7 @@ const baseParser = (pt, lines) => {
 
         const updatedPoint = createUpdatePointCommand({
           ...pt,
-          code: "" + lineLabel + nextCode.substring(2),
+          c: "" + lineLabel + nextCode.substring(2),
         });
         targetLine[1].pointCommands.push(updatedPoint);
 
@@ -106,7 +106,7 @@ const baseParser = (pt, lines) => {
       }
 
       // Case new line segment
-      targetLine[0] = lineSegmentBuilder(pt);
+      targetLine[0] = lineSegmentBuilder(pt.id);
 
       // Case close line
       const closeRegex = /^c$|^c\..+$/;
@@ -114,13 +114,13 @@ const baseParser = (pt, lines) => {
         targetLine[0] = () => {};
 
         const firstPoint = targetLine[1].segmentCommands[0].data.pt1;
-        const closingSegment = lineSegmentBuilder(pt)(firstPoint);
+        const closingSegment = lineSegmentBuilder(pt.id)(firstPoint);
         targetLine[1].segmentCommands.push(closingSegment);
         targetLine[1].cmdId = null;
 
         const updatedPoint = createUpdatePointCommand({
           ...pt,
-          code: "" + lineLabel + nextCode.substring(2),
+          c: "" + lineLabel + nextCode.substring(2),
         });
         targetLine[1].pointCommands.push(updatedPoint);
 

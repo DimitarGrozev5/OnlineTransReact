@@ -14,9 +14,9 @@ export const createLineCommand = (segmentCommands, pointCommands) => ({
 // pt1: Object {x, y}
 // -> pt2: Object {x, y}
 // -> LINEAR_SEGMENT
-export const createLinearSegmentCommand = (pt1, pt2) => ({
+export const createLinearSegmentCommand = (pt1Id, pt2Id) => ({
   type: cmds.LINEAR_SEGMENT,
-  data: { pt1, pt2 },
+  data: { pt1: pt1Id, pt2: pt2Id },
 });
 
 // Creates a command that bundles mulitple lines
@@ -29,34 +29,22 @@ export const createMultipleLinesCommand = (lineCommands) => ({
   group: [...lineCommands],
 });
 
-// Executes a command creating a single line
-// The function is executed in a produceWithPatches and it mutates the draft object
-const createSingleLineFromCommand = (draft, cmd) => {
-  const pointCommands = cmd.pointCommands;
-  const segmentCommands = cmd.segmentCommands;
-
-  // Execute pointCommands and update the state
-  pointCommands.forEach((cmdPt) => executePointCommand(draft, cmdPt));
-
-  // Create new line
-  return segmentCommands;
-};
-
 // Executes a command creating mulitple lines
 export const createMultipleLinesFromCommand = executeCommand(
   (draft, command) => {
-    // Loop trough create line commands
-    const commands = command.group;
+    // Loop extract CREATE_LINE commands from CREATE_MULTIPLE_LINES
+    const lineCommands = command.group;
 
-    const lines = commands.reduce(
-      (newLines, lineCmd) => [
-        ...newLines,
-        createSingleLineFromCommand(draft, lineCmd),
-      ],
+    // Update state with lines
+    draft.lines = [...draft.lines, ...lineCommands];
+
+    // Extract point commands
+    const pointCommands = lineCommands.reduce(
+      (cmds, cmd) => [...cmds, ...cmd.pointCommands],
       []
     );
 
-    // Update state
-    draft.lines = [...draft.lines, ...lines];
+    // Execute pointCommands and update the state
+    pointCommands.forEach((cmdPt) => executePointCommand(draft, cmdPt));
   }
 );

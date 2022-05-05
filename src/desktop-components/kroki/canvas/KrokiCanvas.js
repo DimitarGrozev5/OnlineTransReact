@@ -124,7 +124,7 @@ const KrokiCanvas = ({ points, pointActions, lineSegmentActions }) => {
 
         switch (s.type) {
           case cmds.LINEAR_SEGMENT:
-            pts = [s.data.pt1.id, s.data.pt2.id];
+            pts = [s.data.pt1, s.data.pt2];
             break;
           default:
             pts = [0, 0];
