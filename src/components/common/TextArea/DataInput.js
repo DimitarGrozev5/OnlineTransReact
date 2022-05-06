@@ -118,15 +118,14 @@ const DataInput = (props) => {
 
   // Open file handler
   const openFileHandler = (files) => {
-    const arrFiles = Array.from(files).filter(
-      (file) => file.type === "text/plain"
-    );
-
-    if (arrFiles.length !== files.length) {
-      dispatch(addMessageThunk("Приемат се само текстови файлове", null));
+    if (files.length > 1) {
+      dispatch(addMessageThunk("Приема се само един файл наведнъж", null));
     }
 
-    arrFiles.forEach((file) => {
+    const file = files[0];
+
+    // Handle text file
+    if (file.type === "text/plain") {
       ReadFileAsText(file)
         .then((res) => {
           dispatch(
@@ -143,7 +142,34 @@ const DataInput = (props) => {
             })
           )
         );
-    });
+    }
+    // Handle dxf file
+    else if (file.name.split(".").pop() === "dxf") {
+      // ReadFileAsText(file)
+      //   .then((res) => {
+      //     dispatch(
+      //       pasteThunk(
+      //         allowedDividers.filter((div) => div.on),
+      //         res
+      //       )
+      //     );
+      //   })
+      //   .catch(() =>
+      //     dispatch(
+      //       addMessageThunk({
+      //         msg: "Проблем при отваряне на файл " + file.name,
+      //       })
+      //     )
+      //   );
+    }
+    // Handle other formats
+    else {
+      dispatch(
+        addMessageThunk({
+          msg: "Приемат се само .txt и .dxf файлове",
+        })
+      );
+    }
   };
 
   return (
