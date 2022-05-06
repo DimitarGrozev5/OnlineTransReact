@@ -9,6 +9,7 @@ import guessCsThunk from "../../../store/thunks-hint/guess-cs";
 import Draggable from "./Draggable";
 import addMessageThunk from "../../../store/thunks-messages/add-message";
 import pasteThunk from "../../../store/thunks/textarea-thunks/paste";
+import readDxfThunk from "../../../store/thunks/textarea-thunks/readDxfThunk";
 
 // Function that reads a text file and returns a promise
 const ReadFileAsText = (file) =>
@@ -144,23 +145,24 @@ const DataInput = (props) => {
         );
     }
     // Handle dxf file
-    else if (file.name.split(".").pop() === "dxf") {
-      // ReadFileAsText(file)
-      //   .then((res) => {
-      //     dispatch(
-      //       pasteThunk(
-      //         allowedDividers.filter((div) => div.on),
-      //         res
-      //       )
-      //     );
-      //   })
-      //   .catch(() =>
-      //     dispatch(
-      //       addMessageThunk({
-      //         msg: "Проблем при отваряне на файл " + file.name,
-      //       })
-      //     )
-      //   );
+    else if (file.name.split(".").pop().toLowerCase() === "dxf") {
+      ReadFileAsText(file)
+        .then((res) => {
+          dispatch(readDxfThunk(res));
+        })
+        .catch(() =>
+          dispatch(
+            addMessageThunk({
+              msg: "Проблем при отваряне на файл " + file.name,
+            })
+          )
+        );
+      dispatch(
+        addMessageThunk({
+          msg: "Все още не се трансформират DXF файлове",
+          timeout: 2000,
+        })
+      );
     }
     // Handle other formats
     else {

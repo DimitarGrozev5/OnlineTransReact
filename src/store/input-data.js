@@ -30,6 +30,7 @@ const inputDataSlice = createSlice({
       collapsed: undefined,
     },
     data: [[""]],
+    dxfData: null,
     undo: {
       undoStack: [],
       undoStackPointer: -1,
