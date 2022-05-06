@@ -1,13 +1,11 @@
-import { goToEntities } from "./dxfParsers/dxfGoToEntities";
-import { readGroup } from "./dxfParsers/dxfReadGroup";
+import { createDxfReader } from "./dxfParsers/dxfCreateReader";
+import { notSection } from "./dxfParsers/dxfNotGroup";
 
 const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const dxfLines = dxfStr.split(/\n|\r|\n\r|\r\n/);
-  const initPointer = 0;
-  
-  const [dxfEntLines, entPointer] = goToEntities(dxfLines, initPointer);
-  console.log("trest")
-  console.log(entPointer)
+  const initDxfReader = createDxfReader(dxfLines, 0);
+
+  console.log(notSection(initDxfReader));
 };
 
 export default readDxfThunk;

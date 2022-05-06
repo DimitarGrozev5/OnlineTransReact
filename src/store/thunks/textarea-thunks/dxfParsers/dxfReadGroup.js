@@ -9,7 +9,7 @@ const createGroup = (dxfReader, group) => ({
 // Read group
 // Group consists of two lines
 export const readGroup = (dxfReader) => {
-  if (pointer >= lines.length - 2) {
+  if (dxfReader.pointer >= dxfReader.dxf.length - 2) {
     return createGroup(dxfReader, null);
   }
   const { dxf, pointer } = dxfReader;
