@@ -150,19 +150,23 @@ const DataInput = (props) => {
         .then((res) => {
           dispatch(readDxfThunk(res));
         })
-        .catch(() =>
+        .catch((err) =>
           dispatch(
             addMessageThunk({
-              msg: "Проблем при отваряне на файл " + file.name,
+              msg:
+                "Проблем при отваряне на файл " +
+                file.name +
+                "\n" +
+                err.message,
             })
           )
         );
-      dispatch(
-        addMessageThunk({
-          msg: "Все още не се трансформират DXF файлове",
-          timeout: 2000,
-        })
-      );
+      // dispatch(
+      //   addMessageThunk({
+      //     msg: "Все още не се трансформират DXF файлове",
+      //     timeout: 2000,
+      //   })
+      // );
     }
     // Handle other formats
     else {
