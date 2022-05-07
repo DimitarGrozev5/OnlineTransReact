@@ -19,3 +19,10 @@ export const readGroup = (dxfReader) => {
 
   return createGroup(nextDxfReader, [nextCode, nextValue]);
 };
+
+// Backtrack one group
+export const revertDxfReader = (dxfReader) => {
+  if (dxfReader.pointer <= 1) {
+    return createDxfReader(dxfReader.dxf, 0);
+  }
+};

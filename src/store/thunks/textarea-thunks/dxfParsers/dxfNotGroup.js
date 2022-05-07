@@ -2,7 +2,6 @@ import { readGroup } from "./dxfReadGroup";
 
 const notCodeValue = (code, value) => (dxfReader) => {
   const nextGroup = readGroup(dxfReader);
-
   if (!nextGroup.group) {
     return null;
   }
