@@ -10,6 +10,7 @@ import Draggable from "./Draggable";
 import addMessageThunk from "../../../store/thunks-messages/add-message";
 import pasteThunk from "../../../store/thunks/textarea-thunks/paste";
 import readDxfThunk from "../../../store/thunks/textarea-thunks/readDxfThunk";
+import DxfOverview from "./DxfOverview";
 
 // Function that reads a text file and returns a promise
 const ReadFileAsText = (file) =>
@@ -190,8 +191,9 @@ const DataInput = (props) => {
         allowedDividers={allowedDividers}
         onToggleDivider={toggleDividerHandler}
       />
-      {true && (
-        <Draggable onDrop={openFileHandler}>
+
+      <Draggable onDrop={openFileHandler}>
+        {!dxfData && (
           <TextAreaWraper cs={selected.xy} hs={selected.h}>
             <table>
               <thead>
@@ -210,8 +212,9 @@ const DataInput = (props) => {
               />
             </table>
           </TextAreaWraper>
-        </Draggable>
-      )}
+        )}
+        {dxfData && <DxfOverview data={dxfData} />}
+      </Draggable>
     </React.Fragment>
   );
 };

@@ -87,7 +87,6 @@ const readLWPolyline = (dxfLines, pointer) => {
   const elevationPoint = !!firstPt
     ? readLineElevation(dxfLines, pointer)(firstPt.x, firstPt.y)
     : [];
-  console.log("test");
 
   return [...allPoints, ...elevationPoint];
 };

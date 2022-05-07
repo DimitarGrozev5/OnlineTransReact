@@ -13,6 +13,10 @@ import applyUndoableCommand, {
   undoCommand,
 } from "./history-manages/history-manager";
 import handlePaste from "./commands/handlePaste";
+import {
+  clearDxfState,
+  updateDxfState,
+} from "./thunks/textarea-thunks/dxf-commands";
 enablePatches();
 
 const inputDataSlice = createSlice({
@@ -39,13 +43,10 @@ const inputDataSlice = createSlice({
   reducers: {
     // DXF Reducers
     updateDxfData(state, action) {
-      const updateState = (state, action) => () => {
-        state.dxfData = { ...action.payload };
-      };
-      return applyUndoableCommand(state, updateState(state, action));
+      return applyUndoableCommand(state, updateDxfState(action));
     },
     clearDxfData(state) {
-      return applyUndoableCommand(state, () => (state.dxfData = null));
+      return applyUndoableCommand(state, clearDxfState);
     },
 
     // Text Input Reducers
