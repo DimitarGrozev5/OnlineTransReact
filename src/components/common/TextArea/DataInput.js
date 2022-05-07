@@ -25,6 +25,9 @@ const ReadFileAsText = (file) =>
 const DataInput = (props) => {
   const selected = useSelector((state) => state.systems.selectedSystems.input);
   const firstLine = useSelector((state) => state.inputData.data[0]);
+
+  const dxfData = useSelector((state) => state.inputData.dxfData);
+
   const dispatch = useDispatch();
 
   // Saving the first line on typing
@@ -146,21 +149,20 @@ const DataInput = (props) => {
     }
     // Handle dxf file
     else if (file.name.split(".").pop().toLowerCase() === "dxf") {
-      ReadFileAsText(file)
-        .then((res) => {
-          dispatch(readDxfThunk(res));
-        })
-        // .catch((err) =>
-        //   dispatch(
-        //     addMessageThunk({
-        //       msg:
-        //         "Проблем при отваряне на файл " +
-        //         file.name +
-        //         "\n" +
-        //         err.message,
-        //     })
-        //   )
-        // );
+      ReadFileAsText(file).then((res) => {
+        dispatch(readDxfThunk(res));
+      });
+      // .catch((err) =>
+      //   dispatch(
+      //     addMessageThunk({
+      //       msg:
+      //         "Проблем при отваряне на файл " +
+      //         file.name +
+      //         "\n" +
+      //         err.message,
+      //     })
+      //   )
+      // );
       // dispatch(
       //   addMessageThunk({
       //     msg: "Все още не се трансформират DXF файлове",
@@ -188,26 +190,28 @@ const DataInput = (props) => {
         allowedDividers={allowedDividers}
         onToggleDivider={toggleDividerHandler}
       />
-      <Draggable onDrop={openFileHandler}>
-        <TextAreaWraper cs={selected.xy} hs={selected.h}>
-          <table>
-            <thead>
-              <TextAreaRow
+      {true && (
+        <Draggable onDrop={openFileHandler}>
+          <TextAreaWraper cs={selected.xy} hs={selected.h}>
+            <table>
+              <thead>
+                <TextAreaRow
+                  wrap={wrap}
+                  header
+                  dataSource="input"
+                  displayMode={textareaDisplayMode}
+                />
+              </thead>
+              <TextArea
                 wrap={wrap}
-                header
-                dataSource="input"
                 displayMode={textareaDisplayMode}
+                allowedDividers={allowedDividers.filter((div) => div.on)}
+                dataSource="input"
               />
-            </thead>
-            <TextArea
-              wrap={wrap}
-              displayMode={textareaDisplayMode}
-              allowedDividers={allowedDividers.filter((div) => div.on)}
-              dataSource="input"
-            />
-          </table>
-        </TextAreaWraper>
-      </Draggable>
+            </table>
+          </TextAreaWraper>
+        </Draggable>
+      )}
     </React.Fragment>
   );
 };

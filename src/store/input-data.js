@@ -37,6 +37,18 @@ const inputDataSlice = createSlice({
     },
   },
   reducers: {
+    // DXF Reducers
+    updateDxfData(state, action) {
+      const updateState = (state, action) => () => {
+        state.dxfData = { ...action.payload };
+      };
+      return applyUndoableCommand(state, updateState(state, action));
+    },
+    clearDxfData(state) {
+      return applyUndoableCommand(state, () => (state.dxfData = null));
+    },
+
+    // Text Input Reducers
     updateRange(state, action) {
       state.range = {
         ...state.range,

@@ -1,5 +1,6 @@
 import { readGroup } from "./readDxfHelpers/dxfReadGroup";
 import { getEntities } from "./readDxfHelpers/dxfGetEntities";
+import { inputDataActions } from "../../input-data";
 
 const revertGroup = (pointer) => {
   if (pointer < 0) {
@@ -70,7 +71,7 @@ const readLineElevation = (dxfLines, pointer) => (x, y) => {
     return [ptMap];
   }
   while (code !== 0 && nextPointer) {
-    [code, value, nextPointer] = readGroup_(pointer);
+    [code, value, nextPointer] = readGroup_(nextPointer);
     if (code === "38") {
       const ptMap = newPointMap(nextPointer + 1, +y, +x, value, true);
       return [ptMap];
@@ -86,6 +87,7 @@ const readLWPolyline = (dxfLines, pointer) => {
   const elevationPoint = !!firstPt
     ? readLineElevation(dxfLines, pointer)(firstPt.x, firstPt.y)
     : [];
+  console.log("test");
 
   return [...allPoints, ...elevationPoint];
 };
@@ -95,7 +97,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
 
   const pointersToEntities = getEntities(dxfLines);
 
-  const supportedEntities = {
+  const supportedEntitiesParsers = {
     LWPOLYLINE: readLWPolyline,
   };
 
@@ -103,17 +105,25 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
     const pointer = revertGroup(entityPointer);
     const [code, entityName] = readGroup(dxfLines)(pointer);
 
-    if (!(entityName in supportedEntities)) {
+    if (!(entityName in supportedEntitiesParsers)) {
       return pointsMap;
     }
 
-    const newPointsMap = supportedEntities[entityName](dxfLines, pointer);
+    const newPointsMap = supportedEntitiesParsers[entityName](
+      dxfLines,
+      pointer
+    );
 
     return [...pointsMap, ...newPointsMap];
   };
 
   const entityPointsMap = pointersToEntities.reduce(reducer, []);
-  console.log(entityPointsMap);
+
+  const dxfDataUpdate = {
+    dxfFileArr: dxfLines,
+    entityPointsMap,
+  };
+  dispatch(inputDataActions.updateDxfData(dxfDataUpdate));
 };
 
 export default readDxfThunk;
