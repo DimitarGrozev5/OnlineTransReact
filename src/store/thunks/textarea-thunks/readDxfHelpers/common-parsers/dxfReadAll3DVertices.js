@@ -1,7 +1,7 @@
 import { readGroup } from "../dxfReadGroup";
 import { newPointMap } from "../dxfCreatePointMap";
 
-export const read3DVertecies = (dxfLines, pointer, baseCode = 10) => {
+export const read3DVertices = (dxfLines, pointer, baseCode = 10) => {
   const readGroup_ = readGroup(dxfLines);
   const allPoints = [];
 

@@ -3,6 +3,7 @@ import { revertGroup } from "./readDxfHelpers/dxfRevertGroup";
 import { getEntities } from "./readDxfHelpers/dxfGetEntities";
 import { inputDataActions } from "../../input-data";
 import { readLWPolyline } from "./readDxfHelpers/dxfLWPolylineParser.js/dxfReadLWPolyline";
+import { read3DFace } from "./readDxfHelpers/entety-parsers/dxfRead3DFace";
 
 const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const dxfLines = dxfStr.split(/\n\r|\r\n|\n|\r/).map((s) => s.trim());
@@ -11,6 +12,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
 
   const supportedEntitiesParsers = {
     LWPOLYLINE: readLWPolyline,
+    "3DFACE": read3DFace,
   };
 
   const reducer = (pointsMap, entityPointer) => {
