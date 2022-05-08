@@ -34,7 +34,6 @@ const transformInputDataThunk = () => (dispatch, getState) => {
   let reformatedData = {};
 
   if (dxfData) {
-    console.log(dxfData.entityPointsMap);
     if (!dxfData.entityPointsMap.length) {
       dispatch(systemsActions.setTransformedData(null));
       return;
@@ -131,7 +130,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
 
         const transformedData = dataArr.map((row) => {
           const fields = [];
-          if (row["#"]) {
+          if (row["#"] !== undefined) {
             fields.push(row["#"]);
           }
           if (row["X"]) {
