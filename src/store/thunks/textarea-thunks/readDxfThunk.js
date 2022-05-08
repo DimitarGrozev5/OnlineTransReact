@@ -38,6 +38,7 @@ const readVertexes = (dxfLines, pointer) => {
   const allPoints = [];
 
   let [code, value, nextPointer] = readGroup_(pointer);
+  console.log(value);
   if (code === "10") {
     const xLineIndex = nextPointer;
     const y = +value;
@@ -48,13 +49,13 @@ const readVertexes = (dxfLines, pointer) => {
     allPoints.push(ptMap);
   }
 
-  while (code !== 0 && nextPointer) {
+  while (code !== "0" && nextPointer) {
     [code, value, nextPointer] = readGroup_(nextPointer);
     if (code === "10") {
       const xLineIndex = nextPointer + 1;
-      const x = +value;
-      [code, value, nextPointer] = readGroup_(nextPointer);
       const y = +value;
+      [code, value, nextPointer] = readGroup_(nextPointer);
+      const x = +value;
 
       const ptMap = newPointMap(xLineIndex, x, y);
       allPoints.push(ptMap);
@@ -67,13 +68,13 @@ const readLineElevation = (dxfLines, pointer) => (x, y) => {
   const readGroup_ = readGroup(dxfLines);
   let [code, value, nextPointer] = readGroup_(pointer);
   if (code === "38") {
-    const ptMap = newPointMap(nextPointer + 1, +y, +x, value, true);
+    const ptMap = newPointMap(nextPointer + 1, +x, +y, value, true);
     return [ptMap];
   }
   while (code !== 0 && nextPointer) {
     [code, value, nextPointer] = readGroup_(nextPointer);
     if (code === "38") {
-      const ptMap = newPointMap(nextPointer + 1, +y, +x, value, true);
+      const ptMap = newPointMap(nextPointer + 1, +x, +y, value, true);
       return [ptMap];
     }
   }
@@ -102,7 +103,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
 
   const reducer = (pointsMap, entityPointer) => {
     const pointer = revertGroup(entityPointer);
-    const [code, entityName] = readGroup(dxfLines)(pointer);
+    const [code, entityName, nextPointer] = readGroup(dxfLines)(pointer);
 
     if (!(entityName in supportedEntitiesParsers)) {
       return pointsMap;
@@ -110,7 +111,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
 
     const newPointsMap = supportedEntitiesParsers[entityName](
       dxfLines,
-      pointer
+      nextPointer
     );
 
     return [...pointsMap, ...newPointsMap];

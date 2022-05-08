@@ -29,35 +29,55 @@ const transformInputDataThunk = () => (dispatch, getState) => {
 
   // If the input data is not transformed get the input data
   const rawInputData = getState().inputData.data;
+  const dxfData = getState().inputData.dxfData;
 
-  // If the input text is empty skip
-  if (
-    rawInputData.length === 1 &&
-    rawInputData[0].length === 1 &&
-    rawInputData[0][0].value === ""
-  ) {
-    dispatch(systemsActions.setTransformedData(null));
-    return;
+  let reformatedData = {};
+
+  if (dxfData) {
+    console.log(dxfData.entityPointsMap);
+    if (!dxfData.entityPointsMap.length) {
+      dispatch(systemsActions.setTransformedData(null));
+      return;
+    }
+    // Reformat the data to be sendable to the server
+    reformatedData = dxfData.entityPointsMap.reduce((output, row, i) => {
+      const rowContents = { "#": i, X: row.x, Y: row.y };
+      if (row.h) {
+        rowContents.H = row.h;
+      }
+
+      return [...output, rowContents];
+    }, []);
+  } else {
+    // If the input text is empty skip
+    if (
+      rawInputData.length === 1 &&
+      rawInputData[0].length === 1 &&
+      rawInputData[0][0] === ""
+    ) {
+      dispatch(systemsActions.setTransformedData(null));
+      return;
+    }
+
+    // Reformat the data to be sendable to the server
+    reformatedData = rawInputData.reduce((output, row) => {
+      const headers = ["#", "X", "Y", "H", "Code"];
+
+      const rowContents = row.reduce((dataPoint, field, i) => {
+        const key = headers.length ? headers.shift() : `var${i}`;
+        return { ...dataPoint, [key]: field };
+      }, {});
+
+      return [...output, rowContents];
+    }, []);
   }
-
-  // Reformat the data to be sendable to the server
-  const reformatedData = rawInputData.reduce((output, row) => {
-    const headers = ["#", "X", "Y", "H", "Code"];
-
-    const rowContents = row.reduce((dataPoint, field, i) => {
-      const key = headers.length ? headers.shift() : `var${i}`;
-      return { ...dataPoint, [key]: field };
-    }, {});
-
-    return [...output, rowContents];
-  }, []);
 
   const postData = {
     systems: selectedSystems,
     data: reformatedData,
   };
 
-  // console.log(postData);
+  console.log(postData);
 
   dispatch(
     systemsActions.setTransformedData({
@@ -146,7 +166,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
           }
           return fields;
         });
-
+        // console.log(transformedData);
         dispatch(systemsActions.setTransformedData(transformedData));
       }
     })

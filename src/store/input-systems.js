@@ -60,7 +60,7 @@ const systemsSlice = createSlice({
     selectedSystems: {
       input: {
         xy: "bgs",
-        variant: 'cad',
+        variant: "cad",
         h: "geo",
       },
       output: {
@@ -78,8 +78,9 @@ const systemsSlice = createSlice({
       // If the user changes the system, remove the transformation data
       if (state.selectedSystems[inputOrOutput][system] !== newValue) {
         state.transformedData = null;
-        if (system === 'xy') {
-          state.selectedSystems[inputOrOutput].variant = newValue === 'bgs' ? 'cad' : null;
+        if (system === "xy") {
+          state.selectedSystems[inputOrOutput].variant =
+            newValue === "bgs" ? "cad" : null;
         }
       }
 
@@ -89,11 +90,12 @@ const systemsSlice = createSlice({
       };
     },
     setTransformedData(state, action) {
-      if (action.payload.error) {
-        state.transformedData = action.payload;
-      } else {
-        state.transformedData = action.payload;
-      }
+      state.transformedData = action.payload;
+      // if (action.payload.error) {
+      //   state.transformedData = action.payload;
+      // } else {
+      //   state.transformedData = action.payload;
+      // }
     },
   },
 });
