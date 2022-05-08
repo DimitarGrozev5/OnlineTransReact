@@ -1,8 +1,8 @@
 import { readLineElevation } from "./dxfReadLineElevation";
-import { read2DVertecies } from "../common-parsers/dxfReadAll2DVertecies";
+import { read2DVertices } from "../common-parsers/dxfReadAll2DVertices";
 
 export const readLWPolyline = (dxfLines, pointer) => {
-  const allPoints = read2DVertecies(dxfLines, pointer);
+  const allPoints = read2DVertices(dxfLines, pointer);
 
   const firstPt = allPoints.length ? allPoints[0] : null;
   const elevationPoint = !!firstPt
