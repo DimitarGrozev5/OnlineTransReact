@@ -75,7 +75,7 @@ const DataOutput = () => {
       trPt.x = transformedData[i][2];
       trPt.y = transformedData[i][1];
       if ("h" in dxfPt) {
-        trPt.h = transformedData[3].H;
+        trPt.h = transformedData[i][3];
       }
       return trPt;
     });

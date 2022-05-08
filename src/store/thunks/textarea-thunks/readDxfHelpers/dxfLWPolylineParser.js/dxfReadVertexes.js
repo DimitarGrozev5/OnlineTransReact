@@ -6,7 +6,6 @@ export const readVertexes = (dxfLines, pointer) => {
   const allPoints = [];
 
   let [code, value, nextPointer] = readGroup_(pointer);
-  console.log(value);
   if (code === "10") {
     const xLineIndex = nextPointer;
     const y = +value;

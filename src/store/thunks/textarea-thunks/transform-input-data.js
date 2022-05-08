@@ -76,8 +76,6 @@ const transformInputDataThunk = () => (dispatch, getState) => {
     data: reformatedData,
   };
 
-  console.log(postData);
-
   dispatch(
     systemsActions.setTransformedData({
       error: "Loading...",
