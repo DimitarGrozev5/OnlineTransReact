@@ -5,6 +5,7 @@ import { inputDataActions } from "../../input-data";
 import { readLWPolyline } from "./readDxfHelpers/dxfLWPolylineParser.js/dxfReadLWPolyline";
 import { read3DFace } from "./readDxfHelpers/entity-parsers/dxfRead3DFace";
 import { readArc } from "./readDxfHelpers/entity-parsers/dxfReadArc";
+import { readCircle } from "./readDxfHelpers/entity-parsers/dxfReadCircle";
 
 const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const dxfLines = dxfStr.split(/\n\r|\r\n|\n|\r/).map((s) => s.trim());
@@ -15,6 +16,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
     LWPOLYLINE: readLWPolyline,
     "3DFACE": read3DFace,
     ARC: readArc,
+    CIRCLE: readCircle,
   };
 
   const reducer = (pointsMap, entityPointer) => {

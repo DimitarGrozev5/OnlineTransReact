@@ -72,6 +72,7 @@ const DataOutput = () => {
     // Map transformed data to dxfData Points Map
     let i = 0;
     const transformationSteps = dxfData.entityPointsMap.flatMap((dxfPt) => {
+      // console.log(transformedData[i]);
       switch (dxfPt.type) {
         case dxfPointTypes.dxf2D:
           return [
@@ -86,6 +87,7 @@ const DataOutput = () => {
           ];
 
         case dxfPointTypes.dxf3D:
+          // console.log(transformedData[i]);
           return [
             {
               line: dxfPt.lineIndex,
@@ -112,8 +114,10 @@ const DataOutput = () => {
         case dxfPointTypes.dxfDist:
           const dist = Math.sqrt(
             (transformedData[i + 1][1] - transformedData[i][1]) ** 2 +
-              (transformedData[i + 1][2] - transformedData[i++][2]) ** 2
+              (transformedData[i + 1][2] - transformedData[i][2]) ** 2
           );
+          i++;
+          i++;
           return [
             {
               line: dxfPt.lineIndex,

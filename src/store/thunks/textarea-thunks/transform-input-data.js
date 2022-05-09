@@ -89,7 +89,6 @@ const transformInputDataThunk = () => (dispatch, getState) => {
       if ("h" in row) {
         rowContents.H = row.h;
       }
-      // console.log(row);
 
       return [...output, rowContents];
     }, []);
