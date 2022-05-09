@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import {
+  dxfPointTypes,
+  new2DPointMap,
+  new3DPointMap,
+  newHPointMap,
+} from "../../../store/thunks/textarea-thunks/readDxfHelpers/dxfCreatePointMap";
 import DataOutputControls from "./DataOutputControls";
 import TextArea from "./TextArea";
 import TextAreaRow from "./TextAreaRow";
@@ -64,34 +70,65 @@ const DataOutput = () => {
   // If there is a dxf file loaded
   if (transformedData && !transformedData.error && dxfData) {
     // Map transformed data to dxfData Points Map
-    const tranformedEntityPoints = dxfData.entityPointsMap.map((dxfPt, i) => {
-      const trPt = {};
-      if ("xLineIndex" in dxfPt) {
-        trPt.xLineIndex = dxfPt.xLineIndex;
+    let i = 0;
+    const transformationSteps = dxfData.entityPointsMap.flatMap((dxfPt, i) => {
+      switch (dxfPt.type) {
+        case dxfPointTypes.dxf2D:
+          return [
+            {
+              line: dxfPt.lineIndex,
+              value: transformedData[i][2],
+            },
+            {
+              line: dxfPt.lineIndex + 2,
+              value: transformedData[i++][1],
+            },
+          ];
+
+        case dxfPointTypes.dxf3D:
+          return [
+            {
+              line: dxfPt.lineIndex,
+              value: transformedData[i][2],
+            },
+            {
+              line: dxfPt.lineIndex + 2,
+              value: transformedData[i][1],
+            },
+            {
+              line: dxfPt.lineIndex + 4,
+              value: transformedData[i++][3],
+            },
+          ];
+
+        case dxfPointTypes.dxfH:
+          return [
+            {
+              line: dxfPt.lineIndex,
+              value: transformedData[i++][3],
+            },
+          ];
+
+        case dxfPointTypes.dxfDist:
+          const dist = Math.sqrt(
+            (transformedData[i][1] - transformedData[i][1]) ** 2 +
+              (transformedData[i][2] - transformedData[i++][2]) ** 2
+          );
+          return [
+            {
+              line: dxfPt.lineIndex,
+              value: dist,
+            },
+          ];
+
+        default:
+          return dxfPt;
       }
-      if ("zLineIndex" in dxfPt) {
-        trPt.zLineIndex = dxfPt.zLineIndex;
-      }
-      trPt.x = transformedData[i][2];
-      trPt.y = transformedData[i][1];
-      if ("h" in dxfPt) {
-        trPt.h = transformedData[i][3];
-      }
-      return trPt;
     });
 
     const trDxfFileArr = [...dxfData.dxfFileArr];
-    tranformedEntityPoints.forEach((pt) => {
-      if ("xLineIndex" in pt) {
-        trDxfFileArr[pt.xLineIndex] = pt.x;
-        trDxfFileArr[pt.xLineIndex + 2] = pt.y;
-        if ("h" in pt) {
-          trDxfFileArr[pt.xLineIndex + 4] = pt.h;
-        }
-      }
-      if ("zLineIndex" in pt) {
-        trDxfFileArr[pt.zLineIndex] = pt.h;
-      }
+    transformationSteps.forEach((step) => {
+      trDxfFileArr[step.line] = step.value;
     });
 
     const saveToFile = () => {

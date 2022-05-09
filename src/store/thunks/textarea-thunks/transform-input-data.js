@@ -1,4 +1,5 @@
 import { systemsActions } from "../../input-systems";
+import { dxfPointTypes } from "./readDxfHelpers/dxfCreatePointMap";
 
 const transformInputDataThunk = () => (dispatch, getState) => {
   // const transformedData = getState().systems.transformedData;
@@ -38,9 +39,52 @@ const transformInputDataThunk = () => (dispatch, getState) => {
       dispatch(systemsActions.setTransformedData(null));
       return;
     }
+
+    // Extract all points from the Point Maps
+    const extractPts = (pt) => {
+      switch (pt.type) {
+        case dxfPointTypes.dxf2D:
+          return {
+            id: pt.id,
+            x: pt.x,
+            y: pt.y,
+          };
+        case dxfPointTypes.dxf3D:
+          return {
+            id: pt.id,
+            x: pt.x,
+            y: pt.y,
+            h: pt.h,
+          };
+        case dxfPointTypes.dxfH:
+          return {
+            id: pt.id,
+            x: pt.x,
+            y: pt.y,
+            h: pt.h,
+          };
+        case dxfPointTypes.dxfDist:
+          return [
+            {
+              id: pt.id1,
+              x: pt.x1,
+              y: pt.y1,
+            },
+            {
+              id: pt.id2,
+              x: pt.x2,
+              y: pt.y2,
+            },
+          ];
+        default:
+          return [];
+      }
+    };
+    const dxfPts = dxfData.entityPointsMap.flatMap(extractPts);
+
     // Reformat the data to be sendable to the server
-    reformatedData = dxfData.entityPointsMap.reduce((output, row, i) => {
-      const rowContents = { "#": i, X: row.x, Y: row.y };
+    reformatedData = dxfPts.reduce((output, row) => {
+      const rowContents = { "#": row.id, X: row.x, Y: row.y };
       if ("h" in row) {
         rowContents.H = row.h;
       }
