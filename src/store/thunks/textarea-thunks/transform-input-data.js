@@ -41,10 +41,10 @@ const transformInputDataThunk = () => (dispatch, getState) => {
     // Reformat the data to be sendable to the server
     reformatedData = dxfData.entityPointsMap.reduce((output, row, i) => {
       const rowContents = { "#": i, X: row.x, Y: row.y };
-      if (row.h) {
+      if ("h" in row) {
         rowContents.H = row.h;
       }
-      console.log(row)
+      // console.log(row);
 
       return [...output, rowContents];
     }, []);
