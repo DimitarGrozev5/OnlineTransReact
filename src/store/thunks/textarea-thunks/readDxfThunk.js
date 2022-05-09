@@ -14,7 +14,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const supportedEntitiesParsers = {
     LWPOLYLINE: readLWPolyline,
     "3DFACE": read3DFace,
-    ARC: readArc,
+    // ARC: readArc,
   };
 
   const reducer = (pointsMap, entityPointer) => {

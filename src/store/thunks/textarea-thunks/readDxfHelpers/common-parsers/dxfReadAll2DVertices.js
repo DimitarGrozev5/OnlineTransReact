@@ -1,5 +1,5 @@
 import { readGroup } from "../dxfReadGroup";
-import { newPointMap } from "../dxfCreatePointMap";
+import { new2DPointMap } from "../dxfCreatePointMap";
 
 export const read2DVertices = (dxfLines, pointer, baseCode = 10) => {
   const readGroup_ = readGroup(dxfLines);
@@ -12,7 +12,7 @@ export const read2DVertices = (dxfLines, pointer, baseCode = 10) => {
     [code, value, nextPointer] = readGroup_(nextPointer);
     const x = +value;
 
-    const ptMap = newPointMap(xLineIndex, x, y);
+    const ptMap = new2DPointMap(xLineIndex, x, y);
     allPoints.push(ptMap);
   }
 
@@ -24,7 +24,7 @@ export const read2DVertices = (dxfLines, pointer, baseCode = 10) => {
       [code, value, nextPointer] = readGroup_(nextPointer);
       const x = +value;
 
-      const ptMap = newPointMap(xLineIndex, x, y);
+      const ptMap = new2DPointMap(xLineIndex, x, y);
       allPoints.push(ptMap);
     }
   }
