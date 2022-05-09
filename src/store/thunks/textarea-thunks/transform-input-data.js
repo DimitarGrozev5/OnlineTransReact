@@ -81,6 +81,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
       }
     };
     const dxfPts = dxfData.entityPointsMap.flatMap(extractPts);
+    // console.log(dxfPts);
 
     // Reformat the data to be sendable to the server
     reformatedData = dxfPts.reduce((output, row) => {
