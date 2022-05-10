@@ -1,11 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  dxfPointTypes,
-  new2DPointMap,
-  new3DPointMap,
-  newHPointMap,
-} from "../../../store/thunks/textarea-thunks/readDxfHelpers/dxfCreatePointMap";
+import { dxfPointTypes } from "../../../store/thunks/textarea-thunks/readDxfHelpers/dxfCreatePointMap";
 import DataOutputControls from "./DataOutputControls";
 import TextArea from "./TextArea";
 import TextAreaRow from "./TextAreaRow";
@@ -122,6 +117,22 @@ const DataOutput = () => {
             {
               line: dxfPt.lineIndex,
               value: dist,
+            },
+          ];
+
+        case dxfPointTypes.dxfRel:
+          const relX = transformedData[i + 1][1] - transformedData[i][1];
+          const relY = transformedData[i + 1][2] - transformedData[i][2];
+          i++;
+          i++;
+          return [
+            {
+              line: dxfPt.lineIndex,
+              value: relX,
+            },
+            {
+              line: dxfPt.lineIndex + 2,
+              value: relY,
             },
           ];
 

@@ -1,7 +1,7 @@
 import { readGroup } from "./dxfReadGroup";
 import { getPointerToNextSection } from "./dxfPointerToNextSection";
 
-export const getPointerToEntitiesSection = (dxfLines) => (pointer) => {
+export const getPointerToEntitiesSection = (dxfLines) => () => {
   const readGroup_ = readGroup(dxfLines);
 
   let nextSectionPointer = getPointerToNextSection(dxfLines)(-2);

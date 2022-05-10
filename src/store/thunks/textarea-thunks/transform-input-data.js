@@ -76,6 +76,19 @@ const transformInputDataThunk = () => (dispatch, getState) => {
               y: pt.y2,
             },
           ];
+        case dxfPointTypes.dxfRel:
+          return [
+            {
+              id: pt.id1,
+              x: pt.x1,
+              y: pt.y1,
+            },
+            {
+              id: pt.id2,
+              x: pt.x2,
+              y: pt.y2,
+            },
+          ];
         default:
           return [];
       }

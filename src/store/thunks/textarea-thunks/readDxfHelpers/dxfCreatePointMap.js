@@ -45,6 +45,7 @@ export const dxfPointTypes = {
   dxf3D: "3D point",
   dxfH: "H point",
   dxfDist: "Distance value",
+  dxfRel: "Relative point",
 };
 
 // Standart 2D point
@@ -89,4 +90,18 @@ export const newDistanceMap = (lineIndex, x, y, dist) => ({
   id2: mapPtId.next().value,
   x2: x + dist,
   y2: y,
+});
+
+// Realative point
+// Two points are stored
+// One is a base point, the other is relative to the first
+export const newRelativePointMap = (lineIndex, x, y, dx, dy) => ({
+  type: dxfPointTypes.dxfRel,
+  lineIndex,
+  id1: mapPtId.next().value,
+  x1: x,
+  y1: y,
+  id2: mapPtId.next().value,
+  x2: x + dx,
+  y2: y + dy,
 });
