@@ -8,6 +8,13 @@ import { readArc } from "./readDxfHelpers/entity-parsers/dxfReadArc";
 import { readCircle } from "./readDxfHelpers/entity-parsers/dxfReadCircle";
 import { readDimension } from "./readDxfHelpers/entity-parsers/dxfReadDimension";
 import { readEllipse } from "./readDxfHelpers/entity-parsers/dxfReadEllipse";
+import { readInsertBlock } from "./readDxfHelpers/entity-parsers/dxfReadInsertBlock";
+import { readLeader } from "./readDxfHelpers/entity-parsers/dxfReadLeader";
+import { readLine } from "./readDxfHelpers/entity-parsers/dxfReadLine";
+import { readMLine } from "./readDxfHelpers/entity-parsers/dxfReadMLine";
+import { readMText } from "./readDxfHelpers/entity-parsers/dxfReadMtext";
+import { read3DVertices } from "./readDxfHelpers/common-parsers/dxfReadAll3DVertices";
+import { read3D10Vertices } from "./readDxfHelpers/common-parsers/dxfRead3D10Vertices";
 
 const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const dxfLines = dxfStr.split(/\n\r|\r\n|\n|\r/).map((s) => s.trim());
@@ -15,8 +22,6 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const pointersToEntities = getEntities(dxfLines);
 
   const supportedEntitiesParsers = {
-    LWPOLYLINE: readLWPolyline,
-
     "3DFACE": read3DFace,
 
     ARC: readArc,
@@ -28,6 +33,20 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
     // LARGE_RADIAL_DIMENSION: readDimension,
 
     ELLIPSE: readEllipse,
+
+    INSERT: readInsertBlock,
+
+    LEADER: readLeader,
+
+    LINE: readLine,
+
+    LWPOLYLINE: readLWPolyline,
+
+    MLINE: readMLine,
+
+    MTEXT: read3D10Vertices,
+
+    POINT: read3D10Vertices,
   };
 
   const reducer = (pointsMap, entityPointer) => {
