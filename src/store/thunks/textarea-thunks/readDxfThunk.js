@@ -6,6 +6,7 @@ import { readLWPolyline } from "./readDxfHelpers/dxfLWPolylineParser.js/dxfReadL
 import { read3DFace } from "./readDxfHelpers/entity-parsers/dxfRead3DFace";
 import { readArc } from "./readDxfHelpers/entity-parsers/dxfReadArc";
 import { readCircle } from "./readDxfHelpers/entity-parsers/dxfReadCircle";
+import { readDimension } from "./readDxfHelpers/entity-parsers/dxfReadDimension";
 
 const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const dxfLines = dxfStr.split(/\n\r|\r\n|\n|\r/).map((s) => s.trim());
@@ -14,9 +15,16 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
 
   const supportedEntitiesParsers = {
     LWPOLYLINE: readLWPolyline,
+
     "3DFACE": read3DFace,
+
     ARC: readArc,
+
     CIRCLE: readCircle,
+
+    // DIMENSION: readDimension,
+    // ARC_DIMENSION: readDimension,
+    // LARGE_RADIAL_DIMENSION: readDimension,
   };
 
   const reducer = (pointsMap, entityPointer) => {
