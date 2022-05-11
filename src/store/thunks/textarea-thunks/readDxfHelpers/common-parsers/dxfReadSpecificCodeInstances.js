@@ -7,7 +7,7 @@ export const readCode = (dxfLines, pointer, code) => {
 
   let [code, value, nextPointer] = readGroup_(pointer);
   if (code === code.toString()) {
-    const xLineIndex = nextPointer;
+    const xLineIndex = nextPointer + 1;
     const y = +value;
     [code, value, nextPointer] = readGroup_(nextPointer);
     const x = +value;

@@ -1,13 +1,7 @@
-import { readLineElevation } from "./dxfReadLineElevation";
-import { read2DVertices } from "../common-parsers/dxfReadAll2DVertices";
+import { readHFromPoint } from "../common-parsers/dxfReadHFromPoint";
 
-export const readPolyline = (dxfLines, pointer) => {
-  const allPoints = read2DVertices(dxfLines, pointer);
+export const readPolyline = (x, y) => (dxfLines, pointer) => {
+  const elevationPoint = readHFromPoint(dxfLines, pointer, x, y, 10);
 
-  const firstPt = allPoints.length ? allPoints[0] : null;
-  const elevationPoint = !!firstPt
-    ? readLineElevation(dxfLines, pointer)(firstPt.x, firstPt.y)
-    : [];
-
-  return [...allPoints, ...elevationPoint];
+  return [...elevationPoint];
 };

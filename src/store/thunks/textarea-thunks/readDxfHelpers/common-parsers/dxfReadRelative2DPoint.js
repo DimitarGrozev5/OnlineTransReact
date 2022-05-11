@@ -13,7 +13,7 @@ export const readRelative2DPoint = (
 
   let [code, value, nextPointer] = readGroup_(pointer);
   if (code === targetCode.toString()) {
-    const xLineIndex = nextPointer;
+    const xLineIndex = nextPointer + 1;
     const y = +value;
     [code, value, nextPointer] = readGroup_(nextPointer);
     const x = +value;

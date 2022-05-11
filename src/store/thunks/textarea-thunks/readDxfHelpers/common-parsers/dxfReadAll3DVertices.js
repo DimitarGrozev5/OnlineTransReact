@@ -7,7 +7,7 @@ export const read3DVertices = (dxfLines, pointer, baseCode = 10) => {
 
   let [code, value, nextPointer] = readGroup_(pointer);
   if (code === baseCode.toString()) {
-    const xLineIndex = nextPointer;
+    const xLineIndex = nextPointer + 1;
     const y = +value;
     [code, value, nextPointer] = readGroup_(nextPointer);
     const x = +value;

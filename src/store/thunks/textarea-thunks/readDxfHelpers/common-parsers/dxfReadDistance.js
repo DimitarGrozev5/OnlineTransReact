@@ -7,7 +7,7 @@ export const readDistance = (dxfLines, pointer, x, y, targetCode) => {
 
   let [code, value, nextPointer] = readGroup_(pointer);
   if (code === targetCode.toString()) {
-    const lineIndex = nextPointer;
+    const lineIndex = nextPointer + 1;
     const val = +value;
 
     const ptMap = newDistanceMap(lineIndex, x, y, val);
