@@ -6,14 +6,12 @@ import { readLWPolyline } from "./readDxfHelpers/dxfLWPolylineParser.js/dxfReadL
 import { read3DFace } from "./readDxfHelpers/entity-parsers/dxfRead3DFace";
 import { readArc } from "./readDxfHelpers/entity-parsers/dxfReadArc";
 import { readCircle } from "./readDxfHelpers/entity-parsers/dxfReadCircle";
-import { readDimension } from "./readDxfHelpers/entity-parsers/dxfReadDimension";
+// import { readDimension } from "./readDxfHelpers/entity-parsers/dxfReadDimension";
 import { readEllipse } from "./readDxfHelpers/entity-parsers/dxfReadEllipse";
 import { readInsertBlock } from "./readDxfHelpers/entity-parsers/dxfReadInsertBlock";
 import { readLeader } from "./readDxfHelpers/entity-parsers/dxfReadLeader";
 import { readLine } from "./readDxfHelpers/entity-parsers/dxfReadLine";
 import { readMLine } from "./readDxfHelpers/entity-parsers/dxfReadMLine";
-import { readMText } from "./readDxfHelpers/entity-parsers/dxfReadMtext";
-import { read3DVertices } from "./readDxfHelpers/common-parsers/dxfReadAll3DVertices";
 import { read3D10Vertices } from "./readDxfHelpers/common-parsers/dxfRead3D10Vertices";
 import { dxfPointTypes } from "./readDxfHelpers/dxfCreatePointMap";
 import { readPolyline } from "./readDxfHelpers/entity-parsers/dxfReadPolyline";
@@ -21,6 +19,8 @@ import { readSpline } from "./readDxfHelpers/entity-parsers/dxfReadSpline";
 
 const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const dxfLines = dxfStr.split(/\n\r|\r\n|\n|\r/).map((s) => s.trim());
+  // console.timeLog();
+  // console.log("dxf broken in lines");
 
   const pointersToEntities = getEntities(dxfLines);
 
@@ -50,7 +50,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   // Define reducer and get map points from dxf lines
   const reducer = (pointsMap, entityPointer) => {
     const pointer = revertGroup(entityPointer);
-    const [code, entityName, nextPointer] = readGroup(dxfLines)(pointer);
+    const [, entityName, nextPointer] = readGroup(dxfLines)(pointer);
 
     if (!(entityName in supportedEntitiesParsers)) {
       return pointsMap;
@@ -75,7 +75,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   };
   const plineReducer = (pointsMap, entityPointer) => {
     const pointer = revertGroup(entityPointer);
-    const [code, entityName, nextPointer] = readGroup(dxfLines)(pointer);
+    const [, entityName, nextPointer] = readGroup(dxfLines)(pointer);
 
     if (!(entityName in plineParser)) {
       return pointsMap;
@@ -95,6 +95,7 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
     dxfFileArr: dxfLines,
     entityPointsMap: allEntityPointsMap,
   };
+
   dispatch(inputDataActions.updateDxfData(dxfDataUpdate));
 };
 

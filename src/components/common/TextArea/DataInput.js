@@ -150,20 +150,21 @@ const DataInput = (props) => {
     }
     // Handle dxf file
     else if (file.name.split(".").pop().toLowerCase() === "dxf") {
-      ReadFileAsText(file).then((res) => {
-        dispatch(readDxfThunk(res));
-      });
-      // .catch((err) =>
-      //   dispatch(
-      //     addMessageThunk({
-      //       msg:
-      //         "Проблем при отваряне на файл " +
-      //         file.name +
-      //         "\n" +
-      //         err.message,
-      //     })
-      //   )
-      // );
+      ReadFileAsText(file)
+        .then((res) => {
+          dispatch(readDxfThunk(res));
+        })
+        .catch((err) =>
+          dispatch(
+            addMessageThunk({
+              msg:
+                "Проблем при отваряне на файл " +
+                file.name +
+                "\n" +
+                err.message,
+            })
+          )
+        );
       // dispatch(
       //   addMessageThunk({
       //     msg: "Все още не се трансформират DXF файлове",

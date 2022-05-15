@@ -11,7 +11,7 @@ const PickSystem = (props) => {
     props.onChangeVariant(event.target.id);
   };
 
-  const categories = props.categories.map((category, i) => {
+  const categories = props.categories.map((category) => {
     const categoryIsSelected =
       category.handle === props.selectedCategory
         ? classes["selected-category"]
