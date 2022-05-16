@@ -1,0 +1,17 @@
+.dxf-container {
+  text-align: left;
+  width: 100%;
+  padding: 1rem;
+}
+
+.dxf-container h1 {
+  font-size: large;
+}
+
+.dxf-container ul {
+  list-style: none;
+}
+
+.dxf-container div {
+  padding-bottom: 1rem;
+}

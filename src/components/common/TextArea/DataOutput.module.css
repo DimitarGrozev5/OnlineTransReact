@@ -1,0 +1,28 @@
+.dxf-button {
+  padding: 1rem;
+}
+
+.dxf-button button {
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.cs70 button {
+  background-color: var(--cs70-color-base);
+  border: var(--cs70-color-base);
+  cursor: pointer;
+}
+
+.cs70 button:hover {
+  filter: brightness(130%);
+}
+
+.bgs button {
+  background-color: var(--bgs-color-base);
+  border: var(--bgs-color-base);
+  cursor: pointer;
+}
+
+.bgs button:hover {
+  filter: brightness(105%);
+}

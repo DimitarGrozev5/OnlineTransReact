@@ -184,18 +184,20 @@ const DataInput = (props) => {
 
   return (
     <React.Fragment>
-      <DataInputControls
-        onOpenFile={openFileHandler}
-        wrap={wrap}
-        displayMode={textareaDisplayMode}
-        onChangeWrap={changeWrapHandler}
-        allowedDividers={allowedDividers}
-        onToggleDivider={toggleDividerHandler}
-      />
+      {!dxfData && (
+        <DataInputControls
+          onOpenFile={openFileHandler}
+          wrap={wrap}
+          displayMode={textareaDisplayMode}
+          onChangeWrap={changeWrapHandler}
+          allowedDividers={allowedDividers}
+          onToggleDivider={toggleDividerHandler}
+        />
+      )}
 
       <Draggable onDrop={openFileHandler}>
-        {!dxfData && (
-          <TextAreaWraper cs={selected.xy} hs={selected.h}>
+        <TextAreaWraper cs={selected.xy} hs={selected.h}>
+          {!dxfData && (
             <table>
               <thead>
                 <TextAreaRow
@@ -212,9 +214,9 @@ const DataInput = (props) => {
                 dataSource="input"
               />
             </table>
-          </TextAreaWraper>
-        )}
-        {dxfData && <DxfOverview data={dxfData} />}
+          )}
+          {dxfData && <DxfOverview data={dxfData} />}
+        </TextAreaWraper>
       </Draggable>
     </React.Fragment>
   );

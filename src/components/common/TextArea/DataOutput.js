@@ -5,6 +5,7 @@ import DataOutputControls from "./DataOutputControls";
 import TextArea from "./TextArea";
 import TextAreaRow from "./TextAreaRow";
 import TextAreaWraper from "./TextAreaWraper";
+import styles from "./DataOutput.module.css";
 
 const DataOutput = () => {
   const transformedData = useSelector((state) => state.systems.transformedData);
@@ -157,18 +158,24 @@ const DataOutput = () => {
       saveHref.current.click();
     };
 
+    const classes = ["dxf-button", selected.xy, selected.h]
+      .map((c) => styles[c])
+      .join(" ");
+    console.log(selected);
     output = (
-      <>
-        <button onClick={saveToFile}>Save DXF file</button>
-        <a
-          href="/"
-          ref={saveHref}
-          style={{ display: "none" }}
-          // className={style["save-link"]}
-        >
-          save
-        </a>
-      </>
+      <TextAreaWraper cs={selected.xy} hs={selected.h}>
+        <div className={classes}>
+          <button onClick={saveToFile}>Save DXF file</button>
+          <a
+            href="/"
+            ref={saveHref}
+            style={{ display: "none" }}
+            // className={style["save-link"]}
+          >
+            save
+          </a>
+        </div>
+      </TextAreaWraper>
     );
   }
 
