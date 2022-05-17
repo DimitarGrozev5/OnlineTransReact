@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { produceWithPatches } from "@reduxjs/toolkit/node_modules/immer";
 
 const krokiSlice = createSlice({
   name: "kroki",
@@ -34,6 +35,29 @@ const krokiSlice = createSlice({
     },
     updateActions(state, action) {
       state.actions = [...action.payload];
+    },
+    renamePoints(state) {
+      const [newState, patch, reversePatch] = produceWithPatches(
+        state,
+        (draft) => {
+          draft.pointDataArr.forEach(
+            (ptId, i) => (draft.pointDataObj[ptId].n = i + 1)
+          );
+        }
+      );
+      state.pointDataObj = { ...newState.pointDataObj };
+      const p = {
+        caption: "Rename points",
+        patch,
+        reversePatch,
+      };
+
+      state.versionStack = [
+        ...state.versionStack.slice(0, state.versionIndex + 1),
+        [p],
+      ];
+
+      state.versionIndex++;
     },
     updateStateAndPatches(state, action) {
       const s = action.payload[0];

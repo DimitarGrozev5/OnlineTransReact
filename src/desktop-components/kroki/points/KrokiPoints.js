@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { krokiActions } from "../../../store/kroki";
 import changeVersionThunk from "../../../store/thunks-kroki/changeVersionThunk";
 import styles from "./KrokiPoints.module.css";
 
@@ -32,11 +33,15 @@ const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {
 
     navigator.clipboard.writeText(output);
   };
+  const renamePointsHandler = () => {
+    dispatch(krokiActions.renamePoints());
+  };
 
   return (
     <div>
       <div>
         <button onClick={copyPointsHandler}>Copy current points</button>
+        <button onClick={renamePointsHandler}>Rename points 1,2...n</button>
         <h4>Rollback</h4>
         <ul>
           <li>
