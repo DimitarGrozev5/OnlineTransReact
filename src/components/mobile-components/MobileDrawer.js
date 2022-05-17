@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import FAQ from "../common/info/FAQ";
+import AccordionViewer from "../common/info/AccordionViewer";
+import { FAQ_content } from "../common/info/faq-data";
 import classes from "./MobileDrawer.module.css";
 
 const MobileDrawer = (props) => {
@@ -39,7 +40,10 @@ const MobileDrawer = (props) => {
       )}
       {activePage === 1 && (
         <div className={classes.container}>
-          <FAQ onOpen={addActionToBackStack} />
+          <AccordionViewer
+            onOpen={addActionToBackStack}
+            content={FAQ_content}
+          />
         </div>
       )}
     </React.Fragment>

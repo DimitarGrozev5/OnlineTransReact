@@ -17,6 +17,10 @@
   padding-left: 0.5rem;
 }
 
+.question__content div {
+  padding-bottom: 1rem;
+}
+
 .question__content table {
   border-collapse: collapse;
 }

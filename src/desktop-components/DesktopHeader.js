@@ -1,18 +1,23 @@
 import { useState } from "react";
-import FAQ from "../components/common/info/FAQ";
+import AccordionViewer from "../components/common/info/AccordionViewer";
+import { autoKroki_content } from "../components/common/info/auto-kroki-data";
+import { FAQ_content } from "../components/common/info/faq-data";
 import Modal from "../components/common/modal/Modal";
 import styles from "./DesktopHeader.module.css";
 
 const DesktopHeader = (props) => {
+  // popUpIsOpen === "faq" -> Open FAQ
+  // popUpIsOpen === "auto-kroki" -> Open AutoKroki Info
   const [popUpIsOpen, setPopUpIsOpen] = useState(false);
 
-  const openMenuHandler = () => {
-    setPopUpIsOpen(true);
+  const openMenuHandler = (window) => () => {
+    setPopUpIsOpen(window);
   };
 
   const closeMenuHandler = () => {
     setPopUpIsOpen(false);
   };
+
   return (
     <div className={styles.header}>
       <h1>OnlineTrans</h1>
@@ -20,16 +25,30 @@ const DesktopHeader = (props) => {
         {popUpIsOpen && (
           <Modal onClose={closeMenuHandler}>
             <div className={styles["close-pop-up"]}>
-              <button className={styles["close-pop-up__button"]} onClick={closeMenuHandler}>X</button>
+              <button
+                className={styles["close-pop-up__button"]}
+                onClick={closeMenuHandler}
+              >
+                X
+              </button>
             </div>
             <div className={styles["modal-content"]}>
-              <FAQ />
+              {popUpIsOpen === "faq" ? (
+                <AccordionViewer content={FAQ_content} />
+              ) : (
+                <AccordionViewer content={autoKroki_content} />
+              )}
             </div>
           </Modal>
         )}
         <ul className={styles.navigation}>
           <li>
-            <button onClick={openMenuHandler}>Често задавани въпроси</button>
+            <button onClick={openMenuHandler("faq")}>
+              Често задавани въпроси
+            </button>
+          </li>
+          <li>
+            <button onClick={openMenuHandler("auto-kroki")}>АвтоКроки</button>
           </li>
         </ul>
       </nav>

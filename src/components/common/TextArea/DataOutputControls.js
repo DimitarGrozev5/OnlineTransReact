@@ -39,7 +39,7 @@ const DataOutputControls = (props) => {
 
   return (
     <div className={classes.controls}>
-      <button onClick={openKrokiHandler}>Крокирай</button>
+      <button onClick={openKrokiHandler}>АвтоКрокирай (бета)</button>
       <button onClick={copyAllHandler}>Копирай всичко</button>
       <button onClick={copyFirstHandler}>Копирай първите пет колони</button>
       <button onClick={props.onChangeWrap}>
