@@ -105,6 +105,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
 
       return [...output, rowContents];
     }, []);
+    // console.log(reformatedData)
   } else {
     // If the input text is empty skip
     if (
