@@ -161,7 +161,7 @@ const DataOutput = () => {
     const classes = ["dxf-button", selected.xy, selected.h]
       .map((c) => styles[c])
       .join(" ");
-    console.log(selected);
+      
     output = (
       <TextAreaWraper cs={selected.xy} hs={selected.h}>
         <div className={classes}>
