@@ -141,8 +141,8 @@ const transformInputDataThunk = () => (dispatch, getState) => {
     })
   );
   // Fetch data
-  // fetch("http://127.0.0.1/online-trans-api/transform.php", {
-  fetch("online-trans-api/transform.php", {
+  fetch("http://127.0.0.1/online-trans-api/transform.php", {
+  // fetch("online-trans-api/transform.php", {
     method: "POST",
     mode: "cors",
     body: JSON.stringify(postData),
@@ -151,10 +151,10 @@ const transformInputDataThunk = () => (dispatch, getState) => {
     },
   })
     .then((res) => {
-      // res
-      //   .clone()
-      //   .text()
-      //   .then((t) => console.log(t));
+      res
+        .clone()
+        .text()
+        .then((t) => console.log(t));
       if (res.ok) {
         return res.json();
       } else {
