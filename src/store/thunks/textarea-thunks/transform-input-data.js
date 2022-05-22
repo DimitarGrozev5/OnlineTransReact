@@ -151,10 +151,10 @@ const transformInputDataThunk = () => (dispatch, getState) => {
     },
   })
     .then((res) => {
-      res
-        .clone()
-        .text()
-        .then((t) => console.log(t));
+      // res
+      //   .clone()
+      //   .text()
+      //   .then((t) => console.log(t));
       if (res.ok) {
         return res.json();
       } else {
