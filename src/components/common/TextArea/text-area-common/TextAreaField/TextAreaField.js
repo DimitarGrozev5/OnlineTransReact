@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { constructFieldId } from "../../../store/helpers/deconstruct-id";
+import { constructFieldId } from "../../../../../store/helpers/deconstruct-id";
 import classes from "./TextAreaField.module.css";
 // import cssDisplayModes from "./TextAreaFieldDisplayModes.module.css";
 
@@ -21,36 +21,27 @@ const TextAreaField = (props) => {
       selector(state)
   );
 
+  const thClasses = [
+    classes.field,
+    classes.header,
+    classes[selected.xy],
+    classes[selected.h],
+    classes[props.displayMode],
+  ];
+
+  const tdClasses = [
+    classes.field,
+    classes[selected.xy],
+    classes[selected.h],
+    classes[props.displayMode],
+  ];
+
   return (
     <React.Fragment>
-      {props.header && (
-        <th
-          className={
-            classes.field +
-            " " +
-            classes.header +
-            " " +
-            classes[selected.xy] +
-            " " +
-            classes[selected.h] +
-            " " +
-            classes[props.displayMode]
-          }
-        >
-          {props.value}
-        </th>
-      )}
+      {props.header && <th className={thClasses.join(" ")}>{props.value}</th>}
       {!props.header && (
         <td
-          className={
-            classes.field +
-            " " +
-            classes[selected.xy] +
-            " " +
-            classes[selected.h] +
-            " " +
-            classes[props.displayMode]
-          }
+          className={tdClasses.join(" ")}
           id={constructFieldId(props.rowIndex, props.fieldIndex)}
           data-id={constructFieldId(props.rowIndex, props.fieldIndex)}
         >

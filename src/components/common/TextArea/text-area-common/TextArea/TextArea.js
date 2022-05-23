@@ -1,21 +1,22 @@
 import React, { useRef } from "react";
 import classes from "./TextArea.module.css";
-import TextAreaRow from "./text-area-common/TextAreaRow/TextAreaRow";
+import TextAreaRow from "../TextAreaRow/TextAreaRow";
 import { useSelector } from "react-redux";
-import { useMouseEvents } from "../../../hooks/use-mouse-events";
-import useApplySelection from "../../../hooks/use-apply-selection";
-import useManageInput from "../../../hooks/use-input";
+import { useMouseEvents } from "./use-mouse-events";
+import useApplySelection from "./use-apply-selection";
+import useManageInput from "./use-input";
 
 const TextArea = (props) => {
+  // Dynamically change useState selector based on requested data source
   const selector =
     props.dataSource === "input"
       ? (state) => state.inputData.data
       : (state) => state.systems.transformedData;
-  const rows = useSelector(selector);
-  const textAreaRef = useRef();
 
-  // Test selection change
-  // useDocumentSelection(textAreaRef);
+  // Get data from store
+  const rows = useSelector(selector);
+
+  const textAreaRef = useRef();
 
   //Hook that changes the ctx.inputData.range when the document selection changes
   useApplySelection(props.dataSource);
@@ -25,7 +26,7 @@ const TextArea = (props) => {
     textAreaRef
   );
 
-  //TextArea click handler
+  // TextArea click handler
   const clickHandler = (event) => {
     if (event.target === textAreaRef.current) {
       //console.log("click");

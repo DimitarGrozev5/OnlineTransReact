@@ -1,4 +1,4 @@
-import TextAreaField from "../../TextAreaField";
+import TextAreaField from "../TextAreaField/TextAreaField";
 import classes from "./TextAreaRow.module.css";
 
 const TextAreaRowHeader = (props) => {

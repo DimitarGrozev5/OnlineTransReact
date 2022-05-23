@@ -80,7 +80,7 @@ export const useTextAreaDividers = (setTextareaDisplayMode) => {
     }, 1000);
 
     return () => clearTimeout(saveDividers);
-  }, [allowedDividers]);
+  }, [allowedDividers, setTextareaDisplayMode]);
 
   return [allowedDividers, toggleDividerHandler];
 };

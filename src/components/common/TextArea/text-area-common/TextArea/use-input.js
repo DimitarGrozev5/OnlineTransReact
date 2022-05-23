@@ -1,20 +1,20 @@
 import { useDispatch } from "react-redux";
-import { inputDataActions } from "../store/input-data";
-import copyOutputSelectionThunk from "../store/thunks/textarea-thunks/copy-output";
-import copySelectionThunk from "../store/thunks/textarea-thunks/copy-selection";
-import getSelectionThunk from "../store/thunks/textarea-thunks/get-selection";
-import goHomeThunk from "../store/thunks/textarea-thunks/go-home";
-import goToEndThunk from "../store/thunks/textarea-thunks/go-to-end";
-import moveCaretDownThunk from "../store/thunks/textarea-thunks/move-caret-down";
-import moveCaretLeftThunk from "../store/thunks/textarea-thunks/move-caret-left";
-import moveCaretRightThunk from "../store/thunks/textarea-thunks/move-caret-right";
-import moveCaretUpThunk from "../store/thunks/textarea-thunks/move-caret-up";
-import pasteThunk from "../store/thunks/textarea-thunks/paste";
-import selectAllThunk from "../store/thunks/textarea-thunks/select-all";
-import shiftSelectDownThunk from "../store/thunks/textarea-thunks/shift-select-down";
-import shiftSelectLeftThunk from "../store/thunks/textarea-thunks/shift-select-left";
-import shiftSelectRightThunk from "../store/thunks/textarea-thunks/shift-select-right";
-import shiftSelectUpThunk from "../store/thunks/textarea-thunks/shift-select-up";
+import { inputDataActions } from "../../../../../store/input-data";
+import copyOutputSelectionThunk from "../../../../../store/thunks/textarea-thunks/copy-output";
+import copySelectionThunk from "../../../../../store/thunks/textarea-thunks/copy-selection";
+import getSelectionThunk from "../../../../../store/thunks/textarea-thunks/get-selection";
+import goHomeThunk from "../../../../../store/thunks/textarea-thunks/go-home";
+import goToEndThunk from "../../../../../store/thunks/textarea-thunks/go-to-end";
+import moveCaretDownThunk from "../../../../../store/thunks/textarea-thunks/move-caret-down";
+import moveCaretLeftThunk from "../../../../../store/thunks/textarea-thunks/move-caret-left";
+import moveCaretRightThunk from "../../../../../store/thunks/textarea-thunks/move-caret-right";
+import moveCaretUpThunk from "../../../../../store/thunks/textarea-thunks/move-caret-up";
+import pasteThunk from "../../../../../store/thunks/textarea-thunks/paste";
+import selectAllThunk from "../../../../../store/thunks/textarea-thunks/select-all";
+import shiftSelectDownThunk from "../../../../../store/thunks/textarea-thunks/shift-select-down";
+import shiftSelectLeftThunk from "../../../../../store/thunks/textarea-thunks/shift-select-left";
+import shiftSelectRightThunk from "../../../../../store/thunks/textarea-thunks/shift-select-right";
+import shiftSelectUpThunk from "../../../../../store/thunks/textarea-thunks/shift-select-up";
 
 const useManageInput = (dataSource, dividers, textAreaRef) => {
   //useEffect(() => {

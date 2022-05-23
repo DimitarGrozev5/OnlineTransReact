@@ -2,10 +2,10 @@ import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { dxfPointTypes } from "../../../store/thunks/textarea-thunks/readDxfHelpers/dxfCreatePointMap";
 import DataOutputControls from "./DataOutputControls";
-import TextArea from "./TextArea";
 import TextAreaRow from "./text-area-common/TextAreaRow/TextAreaRow";
 import TextAreaWraper from "./TextAreaWraper/TextAreaWraper";
 import styles from "./DataOutput.module.css";
+import TextArea from "./text-area-common/TextArea/TextArea";
 
 const DataOutput = () => {
   const transformedData = useSelector((state) => state.systems.transformedData);
