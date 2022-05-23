@@ -34,6 +34,7 @@ export const useTextAreaOpenFile = (allowedDividers) => {
           )
         );
     }
+
     // Handle dxf file
     else if (file.name.split(".").pop().toLowerCase() === "dxf") {
       ReadFileAsText(file)
@@ -51,14 +52,8 @@ export const useTextAreaOpenFile = (allowedDividers) => {
             })
           )
         );
-      // dispatch(
-      //   addMessageThunk({
-      //     msg: "Все още не се трансформират DXF файлове",
-      //     timeout: 2000,
-      //   })
-      // );
     }
-    // Handle other formats
+    // Reject other formats
     else {
       dispatch(
         addMessageThunk({
