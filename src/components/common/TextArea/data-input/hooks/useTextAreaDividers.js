@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useTextAreaDividers = () => {
+export const useTextAreaDividers = (setTextareaDisplayMode) => {
   // Initial dividers
   let initDividers = [
     {
@@ -56,6 +56,31 @@ export const useTextAreaDividers = () => {
       }
     }
   }, []);
+
+  // The display mode changes automatically if only one divider is selected
+  useEffect(() => {
+    const dividersOn = allowedDividers
+      .filter((div) => div.on)
+      .map((div) => div.name);
+
+    if (dividersOn.length === 1) {
+      setTextareaDisplayMode(dividersOn[0]);
+    } else {
+      setTextareaDisplayMode("mode-tab");
+    }
+
+    // Save new dividers to localStorage if the user approved cookies
+    // The timeout provides a buffer for multiple divider changes
+    // before the state is saved to local storage
+    // The Effect clears the timeout if the component is rebuild
+    const saveDividers = setTimeout(() => {
+      if (localStorage.getItem("Cookie confirmed") === "confirmed") {
+        localStorage.setItem("Dividers", JSON.stringify(allowedDividers));
+      }
+    }, 1000);
+
+    return () => clearTimeout(saveDividers);
+  }, [allowedDividers]);
 
   return [allowedDividers, toggleDividerHandler];
 };

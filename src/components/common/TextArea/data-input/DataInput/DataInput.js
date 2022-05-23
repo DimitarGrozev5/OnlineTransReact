@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import classes from "./DataInput.module.css";
 import DataInputControls from "../../DataInputControls";
 import TextArea from "../../TextArea";
 import TextAreaWraper from "../../TextAreaWraper";
@@ -7,14 +6,11 @@ import TextAreaRow from "../../TextAreaRow";
 import { useDispatch, useSelector } from "react-redux";
 import guessCsThunk from "../../../../../store/thunks-hint/guess-cs";
 import Draggable from "../../Draggable";
-import addMessageThunk from "../../../../../store/thunks-messages/add-message";
-import pasteThunk from "../../../../../store/thunks/textarea-thunks/paste";
-import readDxfThunk from "../../../../../store/thunks/textarea-thunks/readDxfThunk";
 import DxfOverview from "../../DxfOverview";
-import { ReadFileAsText } from "../../../../../utils/read-file-as-text";
 import { useTextAreaDividers } from "../hooks/useTextAreaDividers";
+import { useTextAreaOpenFile } from "../hooks/useTextAreaOpenFile";
 
-const DataInput = (props) => {
+const DataInput = () => {
   const dispatch = useDispatch();
 
   // Getting the selected cs and hs for styling purposes
@@ -39,98 +35,22 @@ const DataInput = (props) => {
     setWrap((prevState) => !prevState);
   };
 
-  // Set state for dividers setting
-  // Allowed dividers setting: The input text area uses different dividers
-  const [allowedDividers, toggleDividerHandler] = useTextAreaDividers();
-
   // Set display mode
+  // The display mode change the divider between text area cells
   const [textareaDisplayMode, setTextareaDisplayMode] = useState("mode-tab");
 
-  // The display mode changes automatically if only one divider is selected
-  useEffect(() => {
-    const dividersOn = allowedDividers
-      .filter((div) => div.on)
-      .map((div) => div.name);
-
-    if (dividersOn.length === 1) {
-      setTextareaDisplayMode(dividersOn[0]);
-    } else {
-      setTextareaDisplayMode("mode-tab");
-    }
-
-    // Save new dividers to localStorage if the user approved cookies
-    const saveDividers = setTimeout(() => {
-      if (localStorage.getItem("Cookie confirmed") === "confirmed") {
-        localStorage.setItem("Dividers", JSON.stringify(allowedDividers));
-      }
-    }, 1000);
-
-    return () => clearTimeout(saveDividers);
-  }, [allowedDividers]);
+  // Set state for dividers setting
+  // Allowed dividers setting: The input text area uses different dividers
+  // If only one divider is selected, the display mode changes
+  const [allowedDividers, toggleDividerHandler] = useTextAreaDividers(
+    setTextareaDisplayMode
+  );
 
   // Open file handler
-  const openFileHandler = (files) => {
-    if (files.length > 1) {
-      dispatch(addMessageThunk("Приема се само един файл наведнъж", null));
-    }
-
-    const file = files[0];
-
-    // Handle text file
-    if (file.type === "text/plain") {
-      ReadFileAsText(file)
-        .then((res) => {
-          dispatch(
-            pasteThunk(
-              allowedDividers.filter((div) => div.on),
-              res
-            )
-          );
-        })
-        .catch(() =>
-          dispatch(
-            addMessageThunk({
-              msg: "Проблем при отваряне на файл " + file.name,
-            })
-          )
-        );
-    }
-    // Handle dxf file
-    else if (file.name.split(".").pop().toLowerCase() === "dxf") {
-      ReadFileAsText(file)
-        .then((res) => {
-          dispatch(readDxfThunk(res));
-        })
-        .catch((err) =>
-          dispatch(
-            addMessageThunk({
-              msg:
-                "Проблем при отваряне на файл " +
-                file.name +
-                "\n" +
-                err.message,
-            })
-          )
-        );
-      // dispatch(
-      //   addMessageThunk({
-      //     msg: "Все още не се трансформират DXF файлове",
-      //     timeout: 2000,
-      //   })
-      // );
-    }
-    // Handle other formats
-    else {
-      dispatch(
-        addMessageThunk({
-          msg: "Приемат се само .txt и .dxf файлове",
-        })
-      );
-    }
-  };
+  const openFileHandler = useTextAreaOpenFile(allowedDividers);
 
   return (
-    <React.Fragment>
+    <>
       {!dxfData && (
         <DataInputControls
           onOpenFile={openFileHandler}
@@ -165,7 +85,7 @@ const DataInput = (props) => {
           {dxfData && <DxfOverview data={dxfData} />}
         </TextAreaWraper>
       </Draggable>
-    </React.Fragment>
+    </>
   );
 };
 
