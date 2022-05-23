@@ -5,7 +5,7 @@ import KrokiBody from "../desktop-components/kroki/KrokiBody";
 import { pages } from "../store/page";
 import styles from "./DesktopLandscapeApp.module.css";
 
-const DesktopLandscapeApp = (props) => {
+const DesktopLandscapeApp = () => {
   const activePage = useSelector((state) => state.activePage.name);
 
   let content = <DesktopBody />;
