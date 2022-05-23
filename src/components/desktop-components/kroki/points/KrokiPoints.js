@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { krokiActions } from "../../../store/kroki";
-import changeVersionThunk from "../../../store/thunks-kroki/changeVersionThunk";
+import { krokiActions } from "../../../../store/kroki";
+import changeVersionThunk from "../../../../store/thunks-kroki/changeVersionThunk";
 import styles from "./KrokiPoints.module.css";
 
 const KrokiPoints = ({ points, actions, versionStack, versionIndex }) => {

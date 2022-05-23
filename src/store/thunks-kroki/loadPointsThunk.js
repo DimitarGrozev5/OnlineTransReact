@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { commandParser } from "../../desktop-components/kroki/command-parser/commandParser";
+import { commandParser } from "../../components/desktop-components/kroki/command-parser/commandParser";
 import { krokiActions } from "../kroki";
 
 const loadPointsThunk = () => (dispatch, getState) => {

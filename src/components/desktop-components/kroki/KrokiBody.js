@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import loadPointsThunk from "../../store/thunks-kroki/loadPointsThunk";
+import loadPointsThunk from "../../../store/thunks-kroki/loadPointsThunk";
 import KrokiActions from "./actions-component/KrokiActions";
 import KrokiCanvas from "./canvas/KrokiCanvas";
 import styles from "./KrokiBody.module.css";

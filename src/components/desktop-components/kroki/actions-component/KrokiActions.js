@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import executeActionsThunk from "../../../store/thunks-kroki/executeActionsThunk";
+import executeActionsThunk from "../../../../store/thunks-kroki/executeActionsThunk";
 
 const KrokiActions = ({ actions }) => {
   const dispatch = useDispatch();

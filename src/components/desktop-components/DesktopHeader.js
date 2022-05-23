@@ -1,8 +1,8 @@
 import { useState } from "react";
-import AccordionViewer from "../components/common/info/AccordionViewer";
-import { autoKroki_content } from "../components/common/info/auto-kroki-data";
-import { FAQ_content } from "../components/common/info/faq-data";
-import Modal from "../components/common/modal/Modal";
+import AccordionViewer from "../common/info/AccordionViewer";
+import { autoKroki_content } from "../common/info/auto-kroki-data";
+import { FAQ_content } from "../common/info/faq-data";
+import Modal from "../common/modal/Modal";
 import styles from "./DesktopHeader.module.css";
 
 const DesktopHeader = (props) => {

@@ -1,4 +1,4 @@
-import { commandParser } from "../../desktop-components/kroki/command-parser/commandParser";
+import { commandParser } from "../../components/desktop-components/kroki/command-parser/commandParser";
 import { krokiActions } from "../kroki";
 
 export const testCommandThunk = () => (dispatch, getState) => {

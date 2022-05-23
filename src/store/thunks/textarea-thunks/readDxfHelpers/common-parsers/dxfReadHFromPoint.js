@@ -1,5 +1,5 @@
 import { readGroup } from "../dxfReadGroup";
-import { new3DPointMap, newHPointMap } from "../dxfCreatePointMap";
+import { newHPointMap } from "../dxfCreatePointMap";
 
 export const readHFromPoint = (dxfLines, pointer, x, y, baseCode = 10) => {
   const readGroup_ = readGroup(dxfLines);

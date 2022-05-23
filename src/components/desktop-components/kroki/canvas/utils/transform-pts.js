@@ -1,4 +1,4 @@
-import { pipe } from "../../../../utils/pipe";
+import { pipe } from "../../../../../utils/pipe";
 
 // Translate and reverse translate points
 export const translatePt = (translation) => (pt) => ({
