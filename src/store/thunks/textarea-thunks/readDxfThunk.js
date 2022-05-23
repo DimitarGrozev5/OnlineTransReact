@@ -16,6 +16,7 @@ import { read3D10Vertices } from "./readDxfHelpers/common-parsers/dxfRead3D10Ver
 import { dxfPointTypes } from "./readDxfHelpers/dxfCreatePointMap";
 import { readPolyline } from "./readDxfHelpers/entity-parsers/dxfReadPolyline";
 import { readSpline } from "./readDxfHelpers/entity-parsers/dxfReadSpline";
+import { readExtents } from "./readDxfHelpers/dxfExtentParser";
 
 const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const dxfLines = dxfStr.split(/\n\r|\r\n|\n|\r/).map((s) => s.trim());
@@ -89,6 +90,10 @@ const readDxfThunk = (dxfStr) => (dispatch, getState) => {
   const allEntityPointsMap = pointersToEntities.reduce(plineReducer, [
     ...entityPointsMap,
   ]);
+
+  // TODO: Sometimes extents are zero for some random DXF format reason and I cant't be bothered to fix it at the moment
+  // Get View Extents
+  // const extents = readExtents(dxfLines);
 
   // Setup dispatch payload
   const dxfDataUpdate = {

@@ -94,7 +94,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
       }
     };
     const dxfPts = dxfData.entityPointsMap.flatMap(extractPts);
-    // console.log(dxfPts.filter((pt) => pt.h));
+    // console.log(dxfPts);
 
     // Reformat the data to be sendable to the server
     reformatedData = dxfPts.reduce((output, row) => {
@@ -141,8 +141,8 @@ const transformInputDataThunk = () => (dispatch, getState) => {
     })
   );
   // Fetch data
-  // fetch("http://127.0.0.1/online-trans-api/transform.php", {
-  fetch("online-trans-api/transform.php", {
+  fetch("http://127.0.0.1/online-trans-api/transform.php", {
+  // fetch("online-trans-api/transform.php", {
     method: "POST",
     mode: "cors",
     body: JSON.stringify(postData),
@@ -187,10 +187,10 @@ const transformInputDataThunk = () => (dispatch, getState) => {
 
         const transformedData = dataArr.map((row) => {
           const fields = [];
-          if (row["#"] !== undefined) {
+          if ("#" in row) {
             fields.push(row["#"]);
           }
-          if (row["X"]) {
+          if ("X" in row) {
             let x = +row["X"];
             if (isNaN(x)) {
               fields.push(row["X"]);
@@ -198,7 +198,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
               fields.push(x.toFixed(3));
             }
           }
-          if (row["Y"]) {
+          if ("Y" in row) {
             let y = +row["Y"];
             if (isNaN(y)) {
               fields.push(row["Y"]);
@@ -206,7 +206,7 @@ const transformInputDataThunk = () => (dispatch, getState) => {
               fields.push(y.toFixed(3));
             }
           }
-          if (row["H"]) {
+          if ("H" in row) {
             let h = +row["H"];
             if (isNaN(h)) {
               fields.push(row["H"]);
@@ -214,10 +214,10 @@ const transformInputDataThunk = () => (dispatch, getState) => {
               fields.push(h.toFixed(3));
             }
           }
-          if (row["Code"]) {
+          if ("Code" in row) {
             fields.push(row["Code"]);
           }
-          if (row["var"]) {
+          if ("var" in row) {
             fields.push(...row["var"]);
           }
           return fields;
