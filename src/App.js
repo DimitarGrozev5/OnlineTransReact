@@ -13,16 +13,18 @@ import cancelMessageThunk from "./store/thunks-messages/cancel-message";
 function App() {
   const dispatch = useDispatch();
 
-  // eslint-disable-next-line
+  // Hook that watches for window size changes
   const windowSize = useWindowSize();
 
-  //Mobile portrait app
+  // Mobile portrait layout
   let content = <MobilePortraitApp />;
+
+  // Desktop landscape layout
   if (windowSize.isDesktop) {
     content = <DesktopLandscapeApp />;
   }
 
-  // Setup messages
+  // Setup messages pop-up
   const messages = useSelector((state) => [...state.messages.messages]);
   const currentMessage = messages.length ? messages.shift() : null;
   const confirmMessageHandler = () => {
@@ -37,7 +39,9 @@ function App() {
     const saveCookiePreference = () => {
       localStorage.setItem("Cookie confirmed", "confirmed");
     };
+
     if (localStorage.getItem("Cookie confirmed") !== "confirmed") {
+      // If the cookie confirmation is not set, dispatch a prompt
       dispatch(
         addMessageThunk({
           msg: "Този сайт използва курабийки, за да запазва потребителски настройки",
@@ -47,30 +51,6 @@ function App() {
       );
     }
   }, [dispatch]);
-
-  // Get geolocation confirmation
-  // const askedForGeolocationPermission = useSelector(
-  //   (state) => state.messages.askedForGeolocationPermission
-  // );
-  // useState(() => {
-  //   if ("geolocation" in navigator && "permissions" in navigator) {
-  //     navigator.permissions.query({ name: "geolocation" }).then((result) => {
-  //       console.log(result.state === "prompt");
-  //       console.log(!askedForGeolocationPermission)
-  //       if (result.state === "prompt" && !askedForGeolocationPermission) {
-  //         dispatch(messagesActions.askedForGeolocationPermission());
-  //         dispatch(
-  //           addMessageThunk(
-  //             "Приложението ще работи по-интелигентно, ако има достъп до локацията Ви. Данните за локацията не се записват и съхраняват никъде.",
-  //             () => {
-  //               navigator.geolocation.getCurrentPosition(() => {});
-  //             }
-  //           )
-  //         );
-  //       }
-  //     });
-  //   }
-  // }, []);
 
   return (
     <React.Fragment>

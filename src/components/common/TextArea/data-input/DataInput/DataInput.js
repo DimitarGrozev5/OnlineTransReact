@@ -1,100 +1,47 @@
 import React, { useEffect, useState } from "react";
 // import classes from "./DataInput.module.css";
-import DataInputControls from "./DataInputControls";
-import TextArea from "./TextArea";
-import TextAreaWraper from "./TextAreaWraper";
-import TextAreaRow from "./TextAreaRow";
+import DataInputControls from "../../DataInputControls";
+import TextArea from "../../TextArea";
+import TextAreaWraper from "../../TextAreaWraper";
+import TextAreaRow from "../../TextAreaRow";
 import { useDispatch, useSelector } from "react-redux";
-import guessCsThunk from "../../../store/thunks-hint/guess-cs";
-import Draggable from "./Draggable";
-import addMessageThunk from "../../../store/thunks-messages/add-message";
-import pasteThunk from "../../../store/thunks/textarea-thunks/paste";
-import readDxfThunk from "../../../store/thunks/textarea-thunks/readDxfThunk";
-import DxfOverview from "./DxfOverview";
-
-// Function that reads a text file and returns a promise
-const ReadFileAsText = (file) =>
-  new Promise((resolve, reject) => {
-    const promise = new FileReader();
-    promise.addEventListener("load", (event) => {
-      resolve(event.target.result);
-    });
-    promise.addEventListener("error", () => reject());
-    promise.readAsText(file);
-  });
+import guessCsThunk from "../../../../../store/thunks-hint/guess-cs";
+import Draggable from "../../Draggable";
+import addMessageThunk from "../../../../../store/thunks-messages/add-message";
+import pasteThunk from "../../../../../store/thunks/textarea-thunks/paste";
+import readDxfThunk from "../../../../../store/thunks/textarea-thunks/readDxfThunk";
+import DxfOverview from "../../DxfOverview";
+import { ReadFileAsText } from "../../../../../utils/read-file-as-text";
+import { useTextAreaDividers } from "../hooks/useTextAreaDividers";
 
 const DataInput = (props) => {
-  const selected = useSelector((state) => state.systems.selectedSystems.input);
-  const firstLine = useSelector((state) => state.inputData.data[0]);
-
-  const dxfData = useSelector((state) => state.inputData.dxfData);
-
   const dispatch = useDispatch();
 
-  // Saving the first line on typing
+  // Getting the selected cs and hs for styling purposes
+  const selected = useSelector((state) => state.systems.selectedSystems.input);
+
+  // Getting the first line of the text field
+  // It's used for making hints
+  const firstLine = useSelector((state) => state.inputData.data[0]);
+
+  // When the first line changes, make a new cs guess
   useEffect(() => {
     dispatch(guessCsThunk(firstLine));
   }, [firstLine, dispatch]);
 
-  //Wrap setting: Makes a row of data wrap or no-wrap
+  // Getting the dxfData if a DXF file is loaded
+  const dxfData = useSelector((state) => state.inputData.dxfData);
+
+  // Set state for wrap setting:
+  // Makes a row of data wrap or no-wrap
   const [wrap, setWrap] = useState(true);
   const changeWrapHandler = () => {
     setWrap((prevState) => !prevState);
   };
 
-  //Allowed dividers setting: The input text area uses different dividers
-  // Get dividers from localStorage
-  let initDividers = [
-    {
-      regex: " ",
-      regexAlt: " ",
-      caption: "Интервал",
-      on: true,
-      name: "mode-space",
-    },
-    {
-      regex: "\\|",
-      regexAlt: "\\|",
-      caption: "Черта |",
-      on: true,
-      name: "mode-line",
-    },
-    {
-      regex: ",",
-      regexAlt: ",",
-      caption: "Запетая",
-      on: true,
-      name: "mode-comma",
-    },
-    {
-      regex: "Tab",
-      regexAlt: "\\t",
-      caption: "Таб",
-      on: true,
-      name: "mode-tab",
-    },
-  ];
-
-  const [allowedDividers, setAllowedDividers] = useState(initDividers);
-  const toggleDividerHandler = (index) => {
-    setAllowedDividers((dividers) => {
-      const divs = [...dividers];
-      divs[index] = { ...divs[index], on: !dividers[index].on };
-      return divs;
-    });
-  };
-
-  // On first load get saved dividers from localStorig
-  useEffect(() => {
-    const cookieDividers = localStorage.getItem("Dividers");
-    if (cookieDividers) {
-      try {
-        setAllowedDividers(JSON.parse(cookieDividers));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, []);
+  // Set state for dividers setting
+  // Allowed dividers setting: The input text area uses different dividers
+  const [allowedDividers, toggleDividerHandler] = useTextAreaDividers();
 
   // Set display mode
   const [textareaDisplayMode, setTextareaDisplayMode] = useState("mode-tab");

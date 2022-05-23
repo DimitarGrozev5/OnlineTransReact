@@ -16,6 +16,8 @@ const HintsBubbles = (props) => {
   }, [rawHints]);
 
   const setCSByHintHandler = (xy, variant, h) => () => {
+    // If the user selects cs70 but there is no selected variant
+    // provide hint bubbles for the four different variants for cs70
     if (xy === "cs70" && !variant) {
       const hint = { xy, h };
       setHints([
@@ -37,6 +39,7 @@ const HintsBubbles = (props) => {
         },
       ]);
     } else {
+      // Set new values in the store
       dispatch(
         setSystemThunk({
           inputOrOutput: source,

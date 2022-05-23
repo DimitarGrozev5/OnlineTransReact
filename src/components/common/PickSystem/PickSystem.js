@@ -11,6 +11,7 @@ const PickSystem = (props) => {
     props.onChangeVariant(event.target.id);
   };
 
+  // Map category list to category List Items
   const categories = props.categories.map((category) => {
     const categoryIsSelected =
       category.handle === props.selectedCategory
@@ -28,6 +29,7 @@ const PickSystem = (props) => {
     );
   });
 
+  // Map variants list to variant List Items
   let variants = null;
   if (props.showVariants) {
     variants = props.activeCategoryVariants.map((variant) => {

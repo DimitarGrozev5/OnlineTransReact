@@ -7,18 +7,22 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import transformInputDataThunk from "../store/thunks/textarea-thunks/transform-input-data";
 
-const MobilePortraitApp = (props) => {
+const MobilePortraitApp = () => {
   const dispatch = useDispatch();
 
+  // The mobile app has 4 pages
   const [activePage, setActivePage] = useState("1");
 
   const changeActivePageHandler = (target) => {
+    // When the user changes to the fourth page
+    // the app automaticaly tries to transform the input data
     if (target === "4") {
       dispatch(transformInputDataThunk());
     }
     setActivePage(target);
   };
 
+  // Setup css classes that reflect the selected cs and hs
   const selected = useSelector((state) => state.systems.selectedSystems);
 
   const inputCs = classes[`i-${selected.input.xy}`];

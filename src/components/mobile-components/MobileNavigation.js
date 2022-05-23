@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import HintsBubbles from "../common/hints/HintsBubbles";
+import HintsBubbles from "../common/HintsBubbles/HintsBubbles";
 
 import classes from "./MobileNavigation.module.css";
 

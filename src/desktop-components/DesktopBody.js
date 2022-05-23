@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import HintsBubbles from "../components/common/hints/HintsBubbles";
-import PickSystem from "../components/common/PickSystem";
-import DataInput from "../components/common/TextArea/DataInput";
+import HintsBubbles from "../components/common/HintsBubbles/HintsBubbles";
+import PickSystem from "../components/common/PickSystem/PickSystem";
+import DataInput from "../components/common/TextArea/data-input/DataInput/DataInput";
 import DataOutput from "../components/common/TextArea/DataOutput";
-import WidgetContainer from "../components/common/WidgetContainer";
+import WidgetContainer from "../components/common/WidgetContainer/WidgetContainer";
 import setSystemThunk from "../store/thunks-hint/set-system";
 import transformInputDataThunk from "../store/thunks/textarea-thunks/transform-input-data";
 import styles from "./DesktopBody.module.css";

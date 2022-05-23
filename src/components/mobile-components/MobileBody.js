@@ -1,9 +1,9 @@
 import React from "react";
-import PickSystem from "../common/PickSystem";
-import WidgetContainer from "../common/WidgetContainer";
+import PickSystem from "../common/PickSystem/PickSystem";
+import WidgetContainer from "../common/WidgetContainer/WidgetContainer";
 
 import classes from "./MobileBody.module.css";
-import DataInput from "../common/TextArea/DataInput";
+import DataInput from "../common/TextArea/data-input/DataInput/DataInput";
 import { useDispatch, useSelector } from "react-redux";
 import DataOutput from "../common/TextArea/DataOutput";
 import setSystemThunk from "../../store/thunks-hint/set-system";
