@@ -5,14 +5,10 @@ const useApplySelection = (dataSource) => {
   const range = useSelector((state) => state.inputData.range);
   const dispatch = useDispatch();
 
-  // console.log(range)
-
   useEffect(() => {
     if (dataSource === "output") {
       return;
     }
-    ////Set window selection
-    //Get active range
     const selection = window.getSelection();
     const activeRange = document.createRange();
 
@@ -22,19 +18,9 @@ const useApplySelection = (dataSource) => {
       range.startOffset !== undefined &&
       range.endOffset !== undefined;
     if (activeRange && notUndefined) {
-      // const startContainer = document.getElementById(range.startContainer);
-      // const endContainer = document.getElementById(range.endContainer);
       const anchorNode = document.getElementById(range.anchorNode);
       const focusNode = document.getElementById(range.focusNode);
 
-      // activeRange.setStart(
-      //   startContainer.firstChild || startContainer,
-      //   range.startOffset
-      // );
-      // activeRange.setEnd(
-      //   endContainer.firstChild || endContainer,
-      //   range.endOffset
-      // );
       activeRange.setStart(
         anchorNode.firstChild || anchorNode,
         range.anchorOffset
@@ -54,7 +40,7 @@ const useApplySelection = (dataSource) => {
     range.endContainer,
     range.startOffset,
     range.endOffset,
-    dataSource
+    dataSource,
   ]);
 };
 

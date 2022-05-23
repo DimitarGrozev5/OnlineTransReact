@@ -5,8 +5,8 @@ import WidgetContainer from "../common/WidgetContainer/WidgetContainer";
 import classes from "./MobileBody.module.css";
 import DataInput from "../common/TextArea/data-input/DataInput/DataInput";
 import { useDispatch, useSelector } from "react-redux";
-import DataOutput from "../common/TextArea/DataOutput";
 import setSystemThunk from "../../store/thunks-hint/set-system";
+import DataOutput from "../common/TextArea/data-output/DataOutput/DataOutput";
 
 const MobileBody = (props) => {
   const dispatch = useDispatch();

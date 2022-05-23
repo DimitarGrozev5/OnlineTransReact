@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HintsBubbles from "../components/common/HintsBubbles/HintsBubbles";
 import PickSystem from "../components/common/PickSystem/PickSystem";
 import DataInput from "../components/common/TextArea/data-input/DataInput/DataInput";
-import DataOutput from "../components/common/TextArea/DataOutput";
+import DataOutput from "../components/common/TextArea/data-output/DataOutput/DataOutput";
 import WidgetContainer from "../components/common/WidgetContainer/WidgetContainer";
 import setSystemThunk from "../store/thunks-hint/set-system";
 import transformInputDataThunk from "../store/thunks/textarea-thunks/transform-input-data";
