@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { constructFieldId } from "../../../store/helpers/deconstruct-id";
-import TextAreaField from "./TextAreaField";
+import { constructFieldId } from "../../../../../store/helpers/deconstruct-id";
+import TextAreaField from "../../TextAreaField";
 import classes from "./TextAreaRow.module.css";
 
 const TextAreaRow = (props) => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DataInputControls from "../../DataInputControls";
+import DataInputControls from "../DataInputControls/DataInputControls";
 import TextArea from "../../TextArea";
-import TextAreaWraper from "../../TextAreaWraper";
-import TextAreaRow from "../../TextAreaRow";
+import TextAreaWraper from "../../TextAreaWraper/TextAreaWraper";
+import TextAreaRow from "../../text-area-common/TextAreaRow/TextAreaRow";
 import { useDispatch, useSelector } from "react-redux";
 import guessCsThunk from "../../../../../store/thunks-hint/guess-cs";
-import Draggable from "../../Draggable";
+import Draggable from "../Draggable/Draggable";
 import DxfOverview from "../../DxfOverview";
 import { useTextAreaDividers } from "../hooks/useTextAreaDividers";
 import { useTextAreaOpenFile } from "../hooks/useTextAreaOpenFile";

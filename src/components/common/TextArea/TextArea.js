@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import classes from "./TextArea.module.css";
-import TextAreaRow from "./TextAreaRow";
+import TextAreaRow from "./text-area-common/TextAreaRow/TextAreaRow";
 import { useSelector } from "react-redux";
 import { useMouseEvents } from "../../../hooks/use-mouse-events";
 import useApplySelection from "../../../hooks/use-apply-selection";
