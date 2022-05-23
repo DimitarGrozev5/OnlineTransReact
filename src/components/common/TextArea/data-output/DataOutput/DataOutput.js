@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { dxfPointTypes } from "../../../../../store/thunks/textarea-thunks/readDxfHelpers/dxfCreatePointMap";
-import DataOutputControls from "../../DataOutputControls";
-import TextAreaRow from "../../text-area-common/TextAreaRow/TextAreaRow";
 import TextAreaWraper from "../../TextAreaWraper/TextAreaWraper";
 import styles from "./DataOutput.module.css";
-import TextArea from "../../text-area-common/TextArea/TextArea";
+import DataOutputCoords from "./DataOutputCoords";
 
 const DataOutput = () => {
   const transformedData = useSelector((state) => state.systems.transformedData);
@@ -34,32 +32,12 @@ const DataOutput = () => {
 
   if (transformedData && !transformedData.error && !dxfData) {
     output = (
-      <React.Fragment>
-        <DataOutputControls
-          data={transformedData}
-          systems={selected}
-          wrap={wrap}
-          onChangeWrap={changeWrapHandler}
-        />
-        <TextAreaWraper cs={selected.xy} hs={selected.h}>
-          <table>
-            <thead>
-              <TextAreaRow
-                wrap={wrap}
-                header
-                dataSource="output"
-                displayMode="mode-tab"
-              />
-            </thead>
-            <TextArea
-              wrap={wrap}
-              // allowedDividers={allowedDividers.filter((div) => div.on)}
-              dataSource="output"
-              displayMode="mode-tab"
-            />
-          </table>
-        </TextAreaWraper>
-      </React.Fragment>
+      <DataOutputCoords
+        transformedData={transformedData}
+        selected={selected}
+        wrap={wrap}
+        changeWrapHandler={changeWrapHandler}
+      />
     );
   }
 
@@ -161,7 +139,7 @@ const DataOutput = () => {
     const classes = ["dxf-button", selected.xy, selected.h]
       .map((c) => styles[c])
       .join(" ");
-      
+
     output = (
       <TextAreaWraper cs={selected.xy} hs={selected.h}>
         <div className={classes}>

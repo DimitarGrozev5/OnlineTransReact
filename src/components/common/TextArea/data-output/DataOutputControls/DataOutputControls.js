@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { activePageActions, pages } from "../../../store/page";
-import addMessageThunk from "../../../store/thunks-messages/add-message";
+import { activePageActions, pages } from "../../../../../store/page";
+import addMessageThunk from "../../../../../store/thunks-messages/add-message";
 import classes from "./DataOutputControls.module.css";
 
 const DataOutputControls = (props) => {
