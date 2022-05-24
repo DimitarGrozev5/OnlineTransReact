@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { inputDataActions } from "../../../../../store/input-data";
+import { inputDataActions } from "../../../../../store/inputDataSlice";
 import copyOutputSelectionThunk from "../../../../../store/thunks/textarea-thunks/copy-output";
 import copySelectionThunk from "../../../../../store/thunks/textarea-thunks/copy-selection";
 import getSelectionThunk from "../../../../../store/thunks/textarea-thunks/get-selection";

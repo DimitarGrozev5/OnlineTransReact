@@ -1,4 +1,4 @@
-import { hintsActions } from "../hints";
+import { hintsActions } from "../hintsSlice";
 
 const hintOutputsThunk = () => (dispatch, getState) => {
   const selectedSystems = getState().systems.selectedSystems;

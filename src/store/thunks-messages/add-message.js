@@ -1,4 +1,4 @@
-import { messagesActions } from "../messages";
+import { messagesActions } from "../messagesSlice";
 
 export const messageExecutables = [];
 

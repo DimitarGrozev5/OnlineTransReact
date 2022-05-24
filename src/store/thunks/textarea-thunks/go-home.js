@@ -2,7 +2,7 @@ import {
   constructFieldId,
   deconstructFieldId,
 } from "../../helpers/deconstruct-id";
-import { inputDataActions } from "../../input-data";
+import { inputDataActions } from "../../inputDataSlice";
 
 const goHomeThunk = () => (dispatch, getState) => {
   const range = getState().inputData.range;

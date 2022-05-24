@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
-import { inputDataActions } from "../../../../../store/input-data";
+import { inputDataActions } from "../../../../../store/inputDataSlice";
 import classes from "./DataInputControls.module.css";
 
 const DataInputControls = (props) => {

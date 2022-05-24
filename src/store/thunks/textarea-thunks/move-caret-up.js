@@ -1,4 +1,4 @@
-import { inputDataActions } from "../../input-data";
+import { inputDataActions } from "../../inputDataSlice";
 import moveOffsetUp from "../thunk-helpers/move-offset-up";
 
 const moveCaretUpThunk = () => (dispatch, getState) => {

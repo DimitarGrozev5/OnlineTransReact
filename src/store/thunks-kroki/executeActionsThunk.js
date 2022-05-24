@@ -1,5 +1,5 @@
 import { commandExecutor } from "../../components/desktop-components/kroki/command-parser/commandExecutor";
-import { krokiActions } from "../kroki";
+import { krokiActions } from "../krokiSlice";
 import { testCommandThunk } from "./testCommandThunk";
 
 const executeActionsThunk = () => (dispatch, getState) => {

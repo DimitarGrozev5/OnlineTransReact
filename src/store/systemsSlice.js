@@ -91,11 +91,6 @@ const systemsSlice = createSlice({
     },
     setTransformedData(state, action) {
       state.transformedData = action.payload;
-      // if (action.payload.error) {
-      //   state.transformedData = action.payload;
-      // } else {
-      //   state.transformedData = action.payload;
-      // }
     },
   },
 });

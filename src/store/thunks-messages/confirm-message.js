@@ -1,4 +1,4 @@
-import { messagesActions } from "../messages";
+import { messagesActions } from "../messagesSlice";
 import { messageExecutables } from "./add-message";
 
 const confirmMessageThunk = () => (dispatch, getState) => {

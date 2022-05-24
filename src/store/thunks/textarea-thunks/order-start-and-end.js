@@ -1,5 +1,5 @@
 import { deconstructFieldId } from "../../helpers/deconstruct-id";
-import { inputDataActions } from "../../input-data";
+import { inputDataActions } from "../../inputDataSlice";
 
 const orderStartAndEnd = (anchorNode, anchorOffset, focusNode, focusOffset) => (dispatch, getState) => {
   const [anchorRow, anchorField] = deconstructFieldId(anchorNode);

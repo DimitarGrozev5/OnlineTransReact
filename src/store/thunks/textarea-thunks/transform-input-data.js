@@ -1,4 +1,4 @@
-import { systemsActions } from "../../input-systems";
+import { systemsActions } from "../../systemsSlice";
 import { dxfPointTypes } from "./readDxfHelpers/dxfCreatePointMap";
 
 const transformInputDataThunk = () => (dispatch, getState) => {

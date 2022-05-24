@@ -1,5 +1,5 @@
-import { hintsActions } from "../hints";
-import { systemsActions } from "../input-systems";
+import { hintsActions } from "../hintsSlice";
+import { systemsActions } from "../systemsSlice";
 import hintInputsThunk from "./hint-inputs";
 import hintOutputsThunk from "./hint-outputs";
 

@@ -1,6 +1,6 @@
 import { constructFieldId } from "../../helpers/deconstruct-id";
 import { getFieldProp } from "../../helpers/field-prop";
-import { inputDataActions } from "../../input-data";
+import { inputDataActions } from "../../inputDataSlice";
 
 const selectAllThunk = () => (dispatch, getState) => {
   const state = getState().inputData;

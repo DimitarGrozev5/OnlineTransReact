@@ -3,7 +3,7 @@ import DataInputControls from "../DataInputControls/DataInputControls";
 import TextAreaWraper from "../../TextAreaWraper/TextAreaWraper";
 import TextAreaRow from "../../text-area-common/TextAreaRow/TextAreaRow";
 import { useDispatch, useSelector } from "react-redux";
-import guessCsThunk from "../../../../../store/thunks-hint/guess-cs";
+import guessCsThunk from "../../../../../store/thunks-hint/guess-cs-on-user-input";
 import Draggable from "../Draggable/Draggable";
 import DxfOverview from "../DxfOverview/DxfOverview";
 import { useTextAreaDividers } from "../hooks/useTextAreaDividers";

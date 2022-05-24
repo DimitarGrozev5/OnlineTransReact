@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import DesktopBody from "../components/desktop-components/DesktopBody";
 import DesktopHeader from "../components/desktop-components/DesktopHeader";
 import KrokiBody from "../components/desktop-components/kroki/KrokiBody";
-import { pages } from "../store/page";
+import { pages } from "../store/activePageSlice";
 import styles from "./DesktopLandscapeApp.module.css";
 
 const DesktopLandscapeApp = () => {

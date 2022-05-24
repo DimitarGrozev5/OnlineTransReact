@@ -1,7 +1,7 @@
 import { readGroup } from "./readDxfHelpers/dxfReadGroup";
 import { revertGroup } from "./readDxfHelpers/dxfRevertGroup";
 import { getEntities } from "./readDxfHelpers/dxfGetEntities";
-import { inputDataActions } from "../../input-data";
+import { inputDataActions } from "../../inputDataSlice";
 import { readLWPolyline } from "./readDxfHelpers/dxfLWPolylineParser.js/dxfReadLWPolyline";
 import { read3DFace } from "./readDxfHelpers/entity-parsers/dxfRead3DFace";
 import { readArc } from "./readDxfHelpers/entity-parsers/dxfReadArc";

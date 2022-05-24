@@ -1,4 +1,4 @@
-import { inputDataActions } from "../../input-data";
+import { inputDataActions } from "../../inputDataSlice";
 
 const getSelectionThunk = (textAreaRef, nextAction) => (dispatch, getState) => {
   //Get selection and update context

@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { commandParser } from "../../components/desktop-components/kroki/command-parser/commandParser";
-import { krokiActions } from "../kroki";
+import { krokiActions } from "../krokiSlice";
 
 const loadPointsThunk = () => (dispatch, getState) => {
   const state = getState();

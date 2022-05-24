@@ -1,5 +1,5 @@
 import { applyPatches } from "@reduxjs/toolkit/node_modules/immer";
-import { krokiActions } from "../kroki";
+import { krokiActions } from "../krokiSlice";
 import { testCommandThunk } from "./testCommandThunk";
 
 const changeVersionThunk = (target) => (dispatch, getState) => {

@@ -1,7 +1,4 @@
-// import { current } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-// import { modifyFieldProp } from "./helpers/field-prop";
-// import { deconstructFieldId } from "./helpers/deconstruct-id";
 import handleEnter from "./commands/handle-enter";
 import handleDivider from "./commands/handle-divider";
 import handleBackspace from "./commands/handle-backspace";
@@ -58,8 +55,6 @@ const inputDataSlice = createSlice({
           action.payload.startContainer === action.payload.endContainer &&
           action.payload.startOffset === action.payload.endOffset,
       };
-      // console.log(action.payload)
-      // console.log(current(state))
     },
     //////////////////////////////////////////////////////////////////////////////////////////////////////////// Undo/Redo
     undo(state) {
@@ -74,7 +69,6 @@ const inputDataSlice = createSlice({
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      //handleInput(state, action);
       const handleInputWithAction = handleInput(action);
       return applyUndoableCommand(state, handleInputWithAction);
     },
@@ -83,7 +77,6 @@ const inputDataSlice = createSlice({
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      // handleDivider(state);
       return applyUndoableCommand(state, handleDivider);
     },
     newEnter(state) {
@@ -91,7 +84,6 @@ const inputDataSlice = createSlice({
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      // handleEnter(state);
       return applyUndoableCommand(state, handleEnter);
     },
     newBackspace(state) {
@@ -99,7 +91,6 @@ const inputDataSlice = createSlice({
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      // handleBackspace(state);
       return applyUndoableCommand(state, handleBackspace);
     },
     newDelete(state) {
@@ -107,7 +98,6 @@ const inputDataSlice = createSlice({
       if (!state.range.startContainer || !state.range.endContainer) {
         return state;
       }
-      // handleDelete(state);
       return applyUndoableCommand(state, handleDelete);
     },
     newPaste(state, action) {
