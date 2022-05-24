@@ -9,18 +9,18 @@ const setSystemThunk = (data) => (dispatch, getState) => {
   dispatch(systemsActions.setSystem(data));
 
   if (data.inputOrOutput === "input") {
-    dispatch(hintsActions.setInput());
+    // dispatch(hintsActions.setInput());
     dispatch(hintsActions.setHints({ input: [] }));
   }
 
   if (data.inputOrOutput === "output") {
-    dispatch(hintsActions.setOutput());
+    // dispatch(hintsActions.setOutput());
     dispatch(hintsActions.setHints({ output: [] }));
   }
 
-  if (data.inputOrOutput === "input" && !hints.outputIsSet) {
+  if (data.inputOrOutput === "input" /* && !hints.outputIsSet */) {
     dispatch(hintOutputsThunk());
-  } else if (data.inputOrOutput === "output" && !hints.inputIsSet) {
+  } else if (data.inputOrOutput === "output" /* && !hints.inputIsSet */) {
     dispatch(hintInputsThunk());
   }
 };

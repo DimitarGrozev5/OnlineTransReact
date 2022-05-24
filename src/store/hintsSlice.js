@@ -7,7 +7,10 @@ const hintsSlice = createSlice({
       { xy: "bgs", h: "evrs" },
       { xy: "cs70", h: "balt" },
     ],
-    output: [{ xy: "bgs", h: "evrs" }],
+    output: [
+      { xy: "bgs", h: "evrs" },
+      { xy: "cs70", h: "balt" },
+    ],
     inputIsSet: false,
     outputIsSet: false,
     typingHintIsSet: false,
@@ -32,7 +35,7 @@ const hintsSlice = createSlice({
       state.typingHintIsSet = false;
       state.inputIsSet = false;
       state.outputIsSet = false;
-    }
+    },
   },
 });
 

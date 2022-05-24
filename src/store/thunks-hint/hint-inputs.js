@@ -1,7 +1,7 @@
 import { hintsActions } from "../hintsSlice";
 
 const hintInputsThunk = () => (dispatch, getState) => {
-  dispatch(hintsActions.setOutput());
+  // dispatch(hintsActions.setOutput());
   const selectedSystems = getState().systems.selectedSystems;
 
   let hints = [];
