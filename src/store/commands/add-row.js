@@ -1,5 +1,5 @@
 const addRow = (state, beforeRowIndex = null) => {
-  //Create new row object
+  //Create new row array
   const newRow = [];
 
   if (beforeRowIndex >= state.data.length) {

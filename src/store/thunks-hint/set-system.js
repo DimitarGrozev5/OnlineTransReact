@@ -9,7 +9,7 @@ import hintOutputsThunk from "./hint-outputs";
 // To return to the first version uncomment the lines below
 
 const setSystemThunk = (data) => (dispatch, getState) => {
-  const hints = getState().hints;
+  // const hints = getState().hints;
 
   dispatch(systemsActions.setSystem(data));
 

@@ -1,6 +1,4 @@
 //////Add Field
-////Inputs: row, before=null
-////Outputs: field
 
 const addField = (state, rowIndex, beforeFieldIndex = null, value = "") => {
   if (beforeFieldIndex === null) {

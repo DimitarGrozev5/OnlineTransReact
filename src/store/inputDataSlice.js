@@ -8,7 +8,7 @@ import { enablePatches } from "@reduxjs/toolkit/node_modules/immer";
 import applyUndoableCommand, {
   redoCommand,
   undoCommand,
-} from "./history-manages/history-manager";
+} from "./history-manager/history-manager";
 import handlePaste from "./commands/handlePaste";
 import {
   clearDxfState,
