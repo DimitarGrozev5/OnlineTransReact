@@ -30,11 +30,15 @@ A problem arises with entities that contain weird values - e.g.:
 All of these weird values get converted to point data by the **DXF Parser** - e.g. the _radius_ of a CIRCLE becomes two points - one is the center of the circle and the other point is calculated to be exactly one radius away from the first point.  
 After the transformation the coordinate data is used to recalculate and replace the desired value.
 
-4. 
+4. A custom **Command Language** build for facilitating geodetic survey tasks and a **Canvas** used for visualizing the data
+
+**_This section is mostly a proof of concept and is not production ready_**
+
+Geodetic Surveying usually happens by using a GPS receiver to measure the coordinates of individual points. After that the points are used to draw the actual object by using a CAD Software like AutoCAD. Some parts of this process can benefit from automation.
 
 ## Sample data
 
-1 4790817.978 697606.616 147.022  
+1 4790817.978 697606.616 147.022 ter
 2 4790805.915 697630.287 145.992 ter1  
 3 4790806.999 697627.288 145.977 ter1  
 4 4790808.349 697622.282 145.966 ter1  
