@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# Online Trans
+[Link to the site](https://bgstrans.online/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Sample data]
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 1	4790817.978	697606.616	147.022	
+2	4790805.915	697630.287	145.992	ter1
+3	4790806.999	697627.288	145.977	ter1
+4	4790808.349	697622.282	145.966	ter1
+5	4790809.520	697619.746	146.130	ter1
+6	4790805.655	697621.114	145.921	ter1
+7	4790804.038	697623.694	146.129	ter1
+8	4790802.641	697626.968	145.996	ter1
+9	4790803.731	697629.572	146.078	ter1.c
+10	4790802.153	697630.396	145.297	ter1
+11	4790798.364	697634.385	145.296	ter1
+12	4790794.953	697632.213	145.127	ter1
+13	4790793.998	697629.525	145.091	ter1
+14	4790794.372	697624.737	145.176	ter1
+15	4790803.278	697621.350	145.769	ter1
+16	4790801.759	697625.840	145.524	ter1
+17	4790801.089	697628.510	145.414	ter1.c
+18	4790806.805	697630.216	146.435	ter1
+19	4790809.896	697622.914	146.688	ter1
+20	4790810.736	697620.139	146.587	ter1
+21	4790818.331	697617.156	146.958	ter1
+22	4790825.157	697616.181	146.823	ter1
+23	4790831.515	697616.635	146.786	ter1
+24	4790837.090	697617.673	146.749	ter1
+25	4790842.092	697622.087	146.416	ter1
+26	4790843.686	697631.496	144.752	ter1
+27	4790844.238	697640.899	144.268	ter1
+28	4790843.481	697652.700	142.794	ter1.xyh
+29	4790841.797	697653.989	142.988	ter1.xyh
+30	4790840.159	697655.676	142.798	ter1
+31	4790835.244	697659.206	142.372	ter1
+32	4790826.303	697658.627	142.331	ter1
+33	4790822.437	697654.347	142.377	ter1
+34	4790820.391	697653.919	142.267	ter1
+35	4790820.494	697651.359	142.456	ter1
+36	4790819.096	697648.768	142.593	ter1
+37	4790818.949	697644.904	142.725	ter1
+38	4790813.146	697645.123	142.631	ter1
+39	4790802.881	697645.578	142.384	ter1
+40	4790794.474	697644.494	142.079	ter1
+41	4790793.404	697643.590	142.098	ter1
+42	4790794.938	697640.706	142.398	ter1
+43	4790796.594	697638.396	142.724	ter1
+44	4790800.621	697638.107	142.473	ter1
+45	4790805.370	697635.539	142.612	ter1
+46	4790811.324	697638.595	142.750	ter1
+47	4790815.320	697639.248	142.821	ter1
+48	4790818.096	697637.645	143.094	ter1
+49	4790821.721	697635.931	143.534	ter1
+50	4790826.334	697634.989	143.975	ter1
+51	4790829.598	697636.316	143.761	ter1
+52	4790832.593	697637.216	143.736	ter1
+53	4790833.138	697639.613	143.606	ter1
+54	4790833.710	697641.939	143.570	ter1
+55	4790834.215	697636.024	144.388	ter1
+56	4790834.369	697630.727	145.188	ter1
+57	4790832.992	697627.357	145.645	ter1
+58	4790829.752	697625.860	146.251	ter1
+59	4790826.362	697625.657	146.384	ter1
+60	4790821.793	697627.401	146.591	ter1
+61	4790818.329	697630.951	146.667	ter1
+62	4790814.135	697633.514	146.647	ter1.c
+63	4790815.707	697627.188	146.979	ter
+64	4790822.578	697623.535	146.648	ter
+65	4790834.375	697624.195	146.097	ter
+66	4790837.199	697629.003	145.455	ter
+67	4790838.897	697637.397	144.417	ter
+68	4790839.249	697645.097	143.691	ter
+69	4790836.899	697649.444	143.168	ter
+70	4790833.105	697656.965	142.462	ter
+71	4790833.723	697663.756	141.833	ter1
+72	4790832.921	697662.874	141.768	ter1
+73	4790828.418	697662.284	141.597	ter1
+74	4790825.087	697659.527	141.676	ter1
+75	4790821.472	697655.818	141.560	ter1
+76	4790819.209	697655.306	141.425	ter1
+77	4790818.783	697651.655	141.500	ter1
+78	4790817.338	697650.392	141.662	ter1
+79	4790817.728	697645.732	142.449	ter1
+80	4790813.163	697646.095	142.165	ter1
+81	4790809.884	697648.145	141.664	ter1
+82	4790803.453	697648.897	141.246	ter1
+83	4790800.865	697653.831	141.116	ter1
+84	4790807.470	697654.475	141.218	ter1
+85	4790809.726	697655.139	140.998	ter1
+86	4790805.917	697655.905	140.806	ter1
+87	4790801.172	697655.689	140.475	ter1
+88	4790802.004	697660.180	140.547	ter1
+89	4790812.200	697660.472	140.820	ter1
+90	4790821.598	697663.590	141.057	ter1
+91	4790825.390	697663.659	141.287	.del.p
+92	4790825.344	697663.767	141.284	ter1.c
+93	4790812.923	697652.449	141.238	ter
+94	4790824.592	697650.056	142.557	ter
+95	4790826.853	697643.262	143.222	ter
+96	4790823.808	697639.622	143.439	ter
+97	4790822.962	697641.954	143.022	ter
