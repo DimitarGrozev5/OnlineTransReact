@@ -34,11 +34,25 @@ After the transformation the coordinate data is used to recalculate and replace 
 
 **_This section is mostly a proof of concept and is not production ready_**
 
-Geodetic Surveying usually happens by using a GPS receiver to measure the coordinates of individual points. After that the points are used to draw the actual object by using a CAD Software like AutoCAD. Some parts of this process can benefit from automation.
+Geodetic Surveying usually happens by using a GPS receiver to measure the coordinates of individual points. After that the points are used to draw the actual object by using a CAD Software like AutoCAD. Some parts of this process can benefit from automation. All professional GPS receivers allow a short description to be added to every measured point. This is a perfect opportunity to introduce a simple command language.
+
+The Language **Interpreter** works in the following manner:
+
+- Commands have to be executed in a specific order - e.g. delete commands have to be executed before creating polylines, so the polylines don't use false points
+- The **main parser** has a queue with command parsers - one for each supported command
+- The **main parser** atempts to execute them one by one. If one of the parsers returns a result, the main parser skips the rest
+- **Command parsers** take the raw point data as input and output ***command objects*** that can be used directly to modify the app state
+- **Command objects** have all the data needed to Create, Update or Delete points or polylines - e.g. The raw *delete previous* command code results in two ***Delete* command objects**
+- All of the data is displayed on screen, using a *Canvas* element, that supports *pan* and *zoom*
+- If the user decides, he can execute the current **Command objects** which will update the state and will prompt the **main parser** to execute all command parsers again
+- **State updates** are perforemed using ***Immer***'s `produceWithPatches` function, so an undo and redo functionality is available
+
 
 ## Sample data
 
-1 4790817.978 697606.616 147.022 ter
+Feel free to use this data, to play around with the Web App and try out it's features.
+
+> 1 4790817.978 697606.616 147.022 ter
 2 4790805.915 697630.287 145.992 ter1  
 3 4790806.999 697627.288 145.977 ter1  
 4 4790808.349 697622.282 145.966 ter1  
