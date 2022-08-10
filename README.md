@@ -56,7 +56,7 @@ The Language **Interpreter** works in the following manner:
 ## Sample data
 
 Feel free to use this data, to play around with the Web App and try out it's features.
-Just copy and paste it in the input textarea.
+Just copy and paste it in the input textarea and start clicking buttons.
 
 > 1 4790817.978 697606.616 147.022 ter  
 > 2 4790805.915 697630.287 145.992 ter1  
